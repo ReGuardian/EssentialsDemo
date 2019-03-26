@@ -5,6 +5,7 @@ namespace EssentialsDemo
 {
     public class HomePage : MasterDetailPage
     {
+        // test 1118
         AccelerometerDemo f1;
         AppInfoDemo f2;
         BarometerDemo f3;
