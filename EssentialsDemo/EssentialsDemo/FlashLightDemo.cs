@@ -13,6 +13,8 @@ namespace EssentialsDemo
 
         public FlashLightDemo()
         {
+            Title = "Flashlight";
+
             header = new Label
             {
                 Text = "FlashLight",

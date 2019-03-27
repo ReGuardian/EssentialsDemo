@@ -15,6 +15,8 @@ namespace EssentialsDemo
         private Button button_vibrarte;
         public VibrationDemo()
         {
+            Title = "Vibrate";
+
             title = new Label { Text = "This is a vibration demo" };
             result = new Label();
             entry = new Entry { Placeholder = "Enter how many seconds you want to vibrate" };

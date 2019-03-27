@@ -166,6 +166,8 @@ namespace EssentialsDemo
 
         public PreferencesDemo()
         {
+            Title = "Preferences";
+
             header = new Label
             {
                 Text = "Preferences",

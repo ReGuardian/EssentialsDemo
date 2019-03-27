@@ -14,6 +14,8 @@ namespace EssentialsDemo
 
         public MagnetometerDemo()
         {
+            Title = "Magnetometer";
+
             Label header = new Label
             {
                 Text = "Magnetometer",

@@ -12,6 +12,8 @@ namespace EssentialsDemo
 
         public AppInfoDemo()
         {
+            Title = "App Information";
+           
             Label header = new Label
             {
                 Text = "AppInfo",

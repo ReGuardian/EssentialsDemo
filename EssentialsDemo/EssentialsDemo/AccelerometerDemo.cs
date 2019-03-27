@@ -14,6 +14,8 @@ namespace EssentialsDemo
 
         public AccelerometerDemo()
         {
+            Title = "Accelerometer";
+
             Label header = new Label
             {
                 Text = "Accelerometer",

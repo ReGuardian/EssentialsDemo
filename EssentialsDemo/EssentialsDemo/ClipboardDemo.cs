@@ -13,6 +13,8 @@ namespace EssentialsDemo
 
         public ClipboardDemo()
         {
+            Title = "Clipboard";
+
             Label header = new Label
             {
                 Text = "Clipboard",

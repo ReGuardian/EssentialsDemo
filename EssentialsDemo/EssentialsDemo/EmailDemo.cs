@@ -17,6 +17,8 @@ namespace EssentialsDemo
 
         public EmailDemo()
         {
+            Title = "Email";
+
             Label header = new Label
             {
                 Text = "Email",

@@ -12,6 +12,8 @@ namespace EssentialsDemo
 
         public MapDemo()
         {
+            Title = "Map";
+
             header = new Label
             {
                 Text = "Map",

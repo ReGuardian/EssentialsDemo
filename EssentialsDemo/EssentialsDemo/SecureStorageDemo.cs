@@ -24,6 +24,8 @@ namespace EssentialsDemo
         private Label result;
         public SecureStorageDemo()
         {
+            Title = "Secure Storage";
+
             entry_content = new EntryCell { Label = "Content you want to save:", Placeholder = "Enter value here" };
             entry_key = new EntryCell { Label = "Key", Placeholder = "not neccessarily needed" };
 

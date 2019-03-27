@@ -13,6 +13,8 @@ namespace EssentialsDemo
 
         public BrowserDemo()
         {
+            Title = "Open Browser";
+
             Label header = new Label
             {
                 Text = "Browser",
