@@ -15,6 +15,8 @@ namespace EssentialsDemo
 
         public GeocodingDemo()
         {
+            Title = "Geocoding";
+
             Label header = new Label
             {
                 Text = "Geocoding",

@@ -14,6 +14,8 @@ namespace EssentialsDemo
 
         public BarometerDemo()
         {
+            Title = "Barometer";
+
             Label header = new Label
             {
                 Text = "Barometer",

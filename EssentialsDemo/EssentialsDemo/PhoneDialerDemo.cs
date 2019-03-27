@@ -14,6 +14,8 @@ namespace EssentialsDemo
 
         public PhoneDialerDemo()
         {
+            Title = "Phone Dialer";
+
             Label header = new Label
             {
                 Text = "PhoneDialer",

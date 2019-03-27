@@ -12,6 +12,8 @@ namespace EssentialsDemo
 
         public ConnectivityDemo()
         {
+            Title = "Connectivity";
+
             Label header = new Label
             {
                 Text = "Connectivity",

@@ -13,6 +13,8 @@ namespace EssentialsDemo
 
         public ShareDemo()
         {
+            Title = "Share";
+
             Label header = new Label
             {
                 Text = "Share",

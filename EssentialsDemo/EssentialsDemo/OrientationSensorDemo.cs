@@ -14,6 +14,8 @@ namespace EssentialsDemo
 
         public OrientationSensorDemo()
         {
+            Title = "Orientation Sensor";
+
             Label header = new Label
             {
                 Text = "OrientationSensor",

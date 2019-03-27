@@ -13,6 +13,8 @@ namespace EssentialsDemo
 
         public FileSysHelperDemo()
         {
+            Title = "File System Helpers";
+
             header = new Label
             {
                 Text = "File System Helper",

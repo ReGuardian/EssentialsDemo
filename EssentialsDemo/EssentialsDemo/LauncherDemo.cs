@@ -12,6 +12,8 @@ namespace EssentialsDemo
 
         public LauncherDemo()
         {
+            Title = "Launcher";
+
             Label header = new Label
             {
                 Text = "Launcher",

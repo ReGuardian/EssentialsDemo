@@ -12,6 +12,8 @@ namespace EssentialsDemo
 
         public DeviceInfoDemo()
         {
+            Title = "Device Information";
+
             Label header = new Label
             {
                 Text = "DeviceInfo",

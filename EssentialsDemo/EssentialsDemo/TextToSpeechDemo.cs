@@ -23,6 +23,8 @@ namespace EssentialsDemo
 
         public TextToSpeechDemo()
         {
+            Title = "Text-to-Speech";
+
             title = new Label { Text = "This is a text to speech demo." };
             entry = new Entry { Placeholder = "input here text to speech" };
             entry.Completed += Button_speak_Clicked;

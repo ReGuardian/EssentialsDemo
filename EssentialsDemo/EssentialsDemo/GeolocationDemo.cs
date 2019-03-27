@@ -12,6 +12,8 @@ namespace EssentialsDemo
 
         public GeolocationDemo()
         {
+            Title = "Geolocation";
+
             Label header = new Label
             {
                 Text = "Geolocation",

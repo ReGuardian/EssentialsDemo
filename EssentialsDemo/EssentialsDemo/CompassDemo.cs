@@ -15,6 +15,8 @@ namespace EssentialsDemo
 
         public CompassDemo()
         {
+            Title = "Compass";
+
             Label header = new Label
             {
                 Text = "Compass",

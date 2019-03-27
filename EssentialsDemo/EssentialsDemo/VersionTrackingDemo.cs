@@ -11,6 +11,8 @@ namespace EssentialsDemo
         ScrollView scrollView;
         public VersionTrackingDemo()
         {
+            Title = "Version Tracking";
+
             Label header = new Label
             {
                 Text = "VersionTracking",

@@ -11,6 +11,8 @@ namespace EssentialsDemo
 
         public BatteryDemo()
         {
+            Title = "Battery";
+
             Label header = new Label
             {
                 Text = "Battery",

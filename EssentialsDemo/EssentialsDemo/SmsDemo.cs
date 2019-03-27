@@ -14,6 +14,8 @@ namespace EssentialsDemo
 
         public SmsDemo()
         {
+            Title = "Sms";
+
             Label header = new Label
             {
                 Text = "Sms",

@@ -13,6 +13,8 @@ namespace EssentialsDemo
 
         public GyroscopeDemo()
         {
+            Title = "Geolocation";
+
             Label header = new Label
             {
                 Text = "Gyroscope",
