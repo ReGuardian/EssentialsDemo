@@ -10,6 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="compass.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="compass.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
     <PackageReference Include="Xamarin.Forms" Version="3.6.0.264807" />
   </ItemGroup>

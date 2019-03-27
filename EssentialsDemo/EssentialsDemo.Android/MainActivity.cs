@@ -20,8 +20,7 @@ namespace EssentialsDemo.Droid
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
-
-            base.OnCreate(savedInstanceState);
+            
             Xamarin.Essentials.Platform.Init(this, savedInstanceState); // add this line to your code, it may also be called: bundle
         }
 

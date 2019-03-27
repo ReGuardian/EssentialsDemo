@@ -19,7 +19,7 @@ namespace EssentialsDemo
         {
             Label header = new Label
             {
-                Text = "Sms",
+                Text = "Email",
                 FontSize = 50,
                 FontAttributes = FontAttributes.Bold,
                 HorizontalOptions = LayoutOptions.Center

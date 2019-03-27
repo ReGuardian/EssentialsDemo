@@ -11,6 +11,7 @@ namespace EssentialsDemo
         Button button;
         Label label;
         Label exception;
+        Image image;
 
         public CompassDemo()
         {
@@ -30,6 +31,13 @@ namespace EssentialsDemo
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 CornerRadius = 10
+            };
+
+            image = new Image
+            {
+                Source = ImageSource.FromResource("EssentialsDemo.compass.png"),
+                //https://www.flaticon.com/free-icon/compass_1553376#term=compass north&page=1&position=30
+                Scale = 1
             };
 
             button.Clicked += OnButtonClicked;
@@ -56,7 +64,7 @@ namespace EssentialsDemo
             {
                 Children =
                 {
-                    header, button, label, exception
+                    header, button, image, label, exception
                 }
             };
         }
@@ -73,6 +81,7 @@ namespace EssentialsDemo
             // Process Heading Magnetic North
             Console.WriteLine($"Reading: {data.HeadingMagneticNorth} degrees");
             label.Text = String.Format("HeadingMagneticNorth:\n{0,0:F1} degrees", data.HeadingMagneticNorth);
+            image.Rotation = data.HeadingMagneticNorth;
         }
 
         public void ToggleCompass()
