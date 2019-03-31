@@ -11,6 +11,7 @@ namespace EssentialsDemo
         Button button;
         Label label;
         Label exception;
+        Image image;
 
         public AccelerometerDemo()
         {
@@ -33,6 +34,8 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 CornerRadius = 10
             };
+
+            image = new Image { Source = ImageSource.FromResource("EssentialsDemo.regcSharp.jpg") };
 
             button.Clicked += OnButtonClicked;
             // Register for reading changes, be sure to unsubscribe when finished
@@ -58,7 +61,7 @@ namespace EssentialsDemo
             {
                 Children =
                 {
-                    header, button, label, exception
+                    header, button, label, image, exception
                 }
             };
         }
@@ -75,6 +78,28 @@ namespace EssentialsDemo
             Console.WriteLine($"Reading: X: {data.Acceleration.X}, Y: {data.Acceleration.Y}, Z: {data.Acceleration.Z}");
             label.Text = String.Format("X: {0,0:F4} G\nY: {1,0:F4} G\nZ: {2,0:F4} G", data.Acceleration.X, data.Acceleration.Y, data.Acceleration.Z);
             // Process Acceleration X, Y, and Z
+
+            var norm = Math.Sqrt(data.Acceleration.X * data.Acceleration.X + data.Acceleration.Y * data.Acceleration.Y + data.Acceleration.Z * data.Acceleration.Z);
+            var x = data.Acceleration.X / norm;
+            var y = data.Acceleration.Y / norm;
+            var z = data.Acceleration.Z / norm;
+            if (y >= 0)
+            {
+                image.RotationX = Math.Acos(z / Math.Sqrt(y * y + z * z));
+            }
+            else
+            {
+                image.RotationX = 360 - Math.Acos(z / Math.Sqrt(y * y + z * z));
+            }
+            if (x >= 0)
+            {
+                image.RotationY = Math.Acos(z / Math.Sqrt(x * x + z * z));
+            }
+            else
+            {
+                image.RotationY = 360 - Math.Acos(z / Math.Sqrt(x * x + z * z));
+            }
+            image.Scale = norm;
         }
 
         public void ToggleAccelerometer()

@@ -11,10 +11,12 @@
 
   <ItemGroup>
     <None Remove="compass.png" />
+    <None Remove="regcSharp.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="compass.png" />
+    <EmbeddedResource Include="regcSharp.jpg" />
   </ItemGroup>
 
   <ItemGroup>
