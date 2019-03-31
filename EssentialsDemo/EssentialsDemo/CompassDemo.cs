@@ -7,9 +7,10 @@ namespace EssentialsDemo
     class CompassDemo : ContentPage
     {
         // Set speed delay for monitoring changes.
-        SensorSpeed speed = SensorSpeed.UI;
+        SensorSpeed speed = SensorSpeed.Game;
         Button button;
         Label label;
+        Label label2;
         Label exception;
         Image image;
 
@@ -48,6 +49,14 @@ namespace EssentialsDemo
 
             label = new Label
             {
+                Text = "HeadingMagneticNorth:",
+                FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            label2 = new Label
+            {
                 Text = "",
                 FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
                 HorizontalOptions = LayoutOptions.Center,
@@ -66,7 +75,7 @@ namespace EssentialsDemo
             {
                 Children =
                 {
-                    header, button, image, label, exception
+                    header, button, image, label, label2, exception
                 }
             };
         }
@@ -79,11 +88,15 @@ namespace EssentialsDemo
 
         void Compass_ReadingChanged(object sender, CompassChangedEventArgs e)
         {
-            var data = e.Reading;
-            // Process Heading Magnetic North
-            Console.WriteLine($"Reading: {data.HeadingMagneticNorth} degrees");
-            label.Text = String.Format("HeadingMagneticNorth:\n{0,0:F1} degrees", data.HeadingMagneticNorth);
-            image.Rotation = data.HeadingMagneticNorth;
+            //To avoid not able to return on UI thread
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                var data = e.Reading;
+                // Process Heading Magnetic North
+                //Console.WriteLine($"Reading: {data.HeadingMagneticNorth} degrees");
+                label2.Text = String.Format("{0,0:000} °", data.HeadingMagneticNorth);
+                image.Rotation = data.HeadingMagneticNorth;
+            });
         }
 
         public void ToggleCompass()

@@ -75,7 +75,7 @@ namespace EssentialsDemo
         void Accelerometer_ReadingChanged(object sender, AccelerometerChangedEventArgs e)
         {
             var data = e.Reading;
-            Console.WriteLine($"Reading: X: {data.Acceleration.X}, Y: {data.Acceleration.Y}, Z: {data.Acceleration.Z}");
+            //Console.WriteLine($"Reading: X: {data.Acceleration.X}, Y: {data.Acceleration.Y}, Z: {data.Acceleration.Z}");
             label.Text = String.Format("X: {0,0:F4} G\nY: {1,0:F4} G\nZ: {2,0:F4} G", data.Acceleration.X, data.Acceleration.Y, data.Acceleration.Z);
             // Process Acceleration X, Y, and Z
 
@@ -85,19 +85,20 @@ namespace EssentialsDemo
             var z = data.Acceleration.Z / norm;
             if (y >= 0)
             {
-                image.RotationX = Math.Acos(z / Math.Sqrt(y * y + z * z));
+                image.RotationX = Math.Acos(z / Math.Sqrt(y * y + z * z)) * 180 / Math.PI;
+                //Console.WriteLine(Math.Acos(z / Math.Sqrt(y * y + z * z)) * 180 / Math.PI);
             }
             else
             {
-                image.RotationX = 360 - Math.Acos(z / Math.Sqrt(y * y + z * z));
+                image.RotationX = 360 - Math.Acos(z / Math.Sqrt(y * y + z * z)) * 180 / Math.PI;
             }
             if (x >= 0)
             {
-                image.RotationY = Math.Acos(z / Math.Sqrt(x * x + z * z));
+                image.RotationY = Math.Acos(z / Math.Sqrt(x * x + z * z)) * 180 / Math.PI;
             }
             else
             {
-                image.RotationY = 360 - Math.Acos(z / Math.Sqrt(x * x + z * z));
+                image.RotationY = 360 - Math.Acos(z / Math.Sqrt(x * x + z * z)) * 180 / Math.PI;
             }
             image.Scale = norm;
         }
