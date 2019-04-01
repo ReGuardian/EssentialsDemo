@@ -17,6 +17,7 @@ namespace EssentialsDemo
         private Slider slider_pitch;
         private Button button_speak;
         private Entry entry;
+        private Label result;
 
         // dont know how this works
         //private CancellationTokenSource cts;
@@ -36,11 +37,12 @@ namespace EssentialsDemo
             slider_volume.Value = 0.75;
             instructer1 = new Label { Text = "volume" };
             instructer2 = new Label { Text = "pitch" };
+            result = new Label();
 
             Content = new StackLayout
             {
                 Children = {
-                    title,instructer1,slider_volume,instructer2,slider_pitch,entry,button_speak
+                    title,instructer1,slider_volume,instructer2,slider_pitch,entry,button_speak,result
                 }
             };
         }
@@ -68,17 +70,29 @@ namespace EssentialsDemo
         public async Task SpeakNow(float volume, float pitch, string text)
         {
             var locales = await TextToSpeech.GetLocalesAsync();
-            Console.WriteLine(locales.ToString());
+            string s = "";
+            foreach (Locale value in locales)
+            {
+                Console.WriteLine("locale: " + value.ToString());
+                s += value.Language.ToString() + "; ";
+            }
+
+            Console.WriteLine("Triggered.");
+
 
             // Grab the first locale
             var locale = locales.FirstOrDefault();
+            s += "FirstOrDefault: " + locale.Language.ToString();
 
             var settings = new SpeechOptions()
             {
                 Volume = volume,
                 Pitch = pitch,
                 //   Locale = locale ********************************************* dont know how locale works.
+                Locale = locale
             };
+
+            result.Text = s;
 
             await TextToSpeech.SpeakAsync(text, settings);
         }
