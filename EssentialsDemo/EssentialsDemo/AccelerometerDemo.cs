@@ -7,7 +7,7 @@ namespace EssentialsDemo
     class AccelerometerDemo : ContentPage
     {
         // Set speed delay for monitoring changes.
-        SensorSpeed speed = SensorSpeed.UI;
+        SensorSpeed speed = SensorSpeed.Game;
         Button button;
         Label label;
         Label exception;
@@ -75,14 +75,17 @@ namespace EssentialsDemo
         void Accelerometer_ReadingChanged(object sender, AccelerometerChangedEventArgs e)
         {
             var data = e.Reading;
+            var data_X = data.Acceleration.X;
+            var data_Y = data.Acceleration.Y;
+            var data_Z = data.Acceleration.Z;
             //Console.WriteLine($"Reading: X: {data.Acceleration.X}, Y: {data.Acceleration.Y}, Z: {data.Acceleration.Z}");
-            label.Text = String.Format("X: {0,0:F4} G\nY: {1,0:F4} G\nZ: {2,0:F4} G", data.Acceleration.X, data.Acceleration.Y, data.Acceleration.Z);
+            label.Text = String.Format("X: {0,0:F4} G\nY: {1,0:F4} G\nZ: {2,0:F4} G", data_X, data_Y, data_Z);
             // Process Acceleration X, Y, and Z
 
-            var norm = Math.Sqrt(data.Acceleration.X * data.Acceleration.X + data.Acceleration.Y * data.Acceleration.Y + data.Acceleration.Z * data.Acceleration.Z);
-            var x = data.Acceleration.X / norm;
-            var y = data.Acceleration.Y / norm;
-            var z = data.Acceleration.Z / norm;
+            var norm = Math.Sqrt(data_X * data_X + data_Y * data_Y + data_Z * data_Z);
+            var x = data_X / norm;
+            var y = data_Y / norm;
+            var z = data_Z / norm;
             if (y >= 0)
             {
                 image.RotationX = Math.Acos(z / Math.Sqrt(y * y + z * z)) * 180 / Math.PI;
