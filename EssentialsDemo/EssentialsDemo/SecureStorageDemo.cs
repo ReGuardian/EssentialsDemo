@@ -15,6 +15,8 @@ namespace EssentialsDemo
         private string key;
         private EntryCell entry_content;
         private EntryCell entry_key;
+        private EntryCell entry_length;
+        private Button saveLongString;
         private Button saveWithKey;
         private Button saveWithoutKey;
         private Button retrieveWithKey;
@@ -28,6 +30,10 @@ namespace EssentialsDemo
 
             entry_content = new EntryCell { Label = "Content you want to save:", Placeholder = "Enter value here" };
             entry_key = new EntryCell { Label = "Key", Placeholder = "not neccessarily needed" };
+            entry_length = new EntryCell { Label = "size of string", Placeholder = "in kb" };
+
+            saveLongString = new Button { Text = "Save long string" };
+            saveLongString.Clicked += SaveLongString_ClickedAsync;
 
             saveWithKey = new Button { Text = "Save with key" };
             saveWithKey.Clicked += SaveWithKey_ClickedAsync;
@@ -55,7 +61,7 @@ namespace EssentialsDemo
                 {
                     new TableSection
                     {
-                        entry_content, entry_key
+                        entry_content, entry_key, entry_length
                     }
                 }
             };
@@ -63,9 +69,35 @@ namespace EssentialsDemo
             Content = new StackLayout
             {
                 Children = {
-                    new Label { Text = "This is a Secure Stroage Demo." },tableView,saveWithKey,saveWithoutKey,retrieveWithKey,retrieveWithoutKey,removeKey,removeAllKeys,result
+                    new Label { Text = "This is a Secure Stroage Demo." }, tableView, saveLongString, saveWithKey, saveWithoutKey, retrieveWithKey, retrieveWithoutKey, removeKey, removeAllKeys,
+                    result
                 }
             };
+        }
+
+        private async void SaveLongString_ClickedAsync(object sender, EventArgs e)
+        {
+            var length_text = entry_length.Text;
+            if (!string.IsNullOrWhiteSpace(length_text))
+            {
+                // in kb
+                long length;
+                length = long.Parse(length_text);
+                // one char = 16 bit, 100kb = 100 * 1024 * 8 bit.
+                length = length * 512; // now in number of char.
+                string longString = GenerateRandomString(length);
+                content = longString;
+                // save
+                try
+                {
+                    await SecureStorage.SetAsync(this.entry_key.Text, longString);
+                    result.Text = "Saving succeeded!";
+                }
+                catch (Exception ex)
+                {
+                    result.Text = ex.ToString();
+                }
+            }
         }
 
         private void RemoveAllKeys_Clicked(object sender, EventArgs e)
@@ -110,7 +142,11 @@ namespace EssentialsDemo
                 try
                 {
                     var oauthToken = await SecureStorage.GetAsync(key);
-                    result.Text = oauthToken;
+                    // result.Text = oauthToken;
+                    if (oauthToken.Equals(content))
+                    {
+                        result.Text = "succeeded";
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -161,6 +197,27 @@ namespace EssentialsDemo
                 this.content = content;
                 this.key = key;
             }
+        }
+
+        private static readonly Random Random = new Random();
+
+        private static int RandomChar => Random.Next(char.MinValue, char.MaxValue);
+
+        private static string GenerateRandomString(long length)
+        {
+            var stringBuilder = new StringBuilder();
+
+            while (stringBuilder.Length + 1 <= length)
+            {
+                var character = Convert.ToChar(RandomChar);
+                if (!char.IsControl(character))
+                {
+                    // stringBuilder.Append(character);
+                    stringBuilder.Append("*");
+                }
+            }
+
+            return stringBuilder.ToString();
         }
     }
 }
