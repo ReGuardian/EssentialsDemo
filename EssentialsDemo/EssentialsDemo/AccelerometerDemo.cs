@@ -167,11 +167,11 @@ namespace EssentialsDemo
                 exception.Text = "Other error has occurred";
             }
         }
-        /**
-         * to filter values with their average
-         * @para list
-         * @return filtered value
-        */
+        /// <summary>
+        /// Filter values to look smooth
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns>average of values</returns>
         private float filter(List<float> list)
         {
             float sum = 0;
