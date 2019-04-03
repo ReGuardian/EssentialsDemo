@@ -10,6 +10,7 @@ namespace EssentialsDemo
         BarometerDemo f3;
         BatteryDemo f4;
         ClipboardDemo f5;
+        ColorConvertersDemo f31;
         CompassDemo f6;
         ConnectivityDemo f7;
         DetectShakeDemo f30;
@@ -47,7 +48,7 @@ namespace EssentialsDemo
 
             string[] pages =
             {
-                "Accelerometer", "App Information", "Barometer", "Battery",
+                "Accelerometer", "App Information", "Barometer", "Battery", "Color Converters",
                 "Clipboard", "Compass", "Connectivity","Detect Shake", "Device Display Information",
                 "Device Information", "Email", "File System Helpers", "Flashlight",
                 "Geocoding", "Geolocation", "Gyroscope", "Launcher", "Magnetometer",
@@ -126,6 +127,10 @@ namespace EssentialsDemo
                 case "Clipboard":
                     if (f5 == null) { f5 = new ClipboardDemo(); }
                     this.Detail = new NavigationPage(f5);
+                    break;
+                case "Color Converters":
+                    if (f31 == null) { f31 = new ColorConvertersDemo(); }
+                    this.Detail = new NavigationPage(f31);
                     break;
                 case "Compass":
                     if (f6 == null) { f6 = new CompassDemo(); }
