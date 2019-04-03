@@ -12,6 +12,7 @@ namespace EssentialsDemo
         ClipboardDemo f5;
         CompassDemo f6;
         ConnectivityDemo f7;
+        DetectShakeDemo f30;
         DeviceDisplayDemo f8;
         DeviceInfoDemo f9;
         EmailDemo f10;
@@ -47,7 +48,7 @@ namespace EssentialsDemo
             string[] pages =
             {
                 "Accelerometer", "App Information", "Barometer", "Battery",
-                "Clipboard", "Compass", "Connectivity", "Device Display Information",
+                "Clipboard", "Compass", "Connectivity","Detect Shake", "Device Display Information",
                 "Device Information", "Email", "File System Helpers", "Flashlight",
                 "Geocoding", "Geolocation", "Gyroscope", "Launcher", "Magnetometer",
                 "Main Thread", "Maps", "Open Browser", "Orientation Sensor", "Phone Dialer",
@@ -133,6 +134,10 @@ namespace EssentialsDemo
                 case "Connectivity":
                     if (f7 == null) { f7 = new ConnectivityDemo(); }
                     this.Detail = new NavigationPage(f7);
+                    break;
+                case "Detect Shake":
+                    if (f30 == null) { f30 = new DetectShakeDemo(); }
+                    this.Detail = new NavigationPage(f30);
                     break;
                 case "Device Display Information":
                     if (f8 == null) { f8 = new DeviceDisplayDemo(); }
