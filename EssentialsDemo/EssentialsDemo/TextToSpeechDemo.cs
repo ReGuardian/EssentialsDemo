@@ -17,9 +17,10 @@ namespace EssentialsDemo
         private Slider slider_pitch;
         private Button button_speak;
         private Entry entry;
-
-        // dont know how this works
-        //private CancellationTokenSource cts;
+        private Label result;
+        private Picker picker_locale;
+        private Locale locale;
+        private IEnumerable<Locale> locales;
 
         public TextToSpeechDemo()
         {
@@ -36,13 +37,48 @@ namespace EssentialsDemo
             slider_volume.Value = 0.75;
             instructer1 = new Label { Text = "volume" };
             instructer2 = new Label { Text = "pitch" };
+            result = new Label();
+            picker_locale = new Picker();
+            // equal to: IEnumerable<Locale> locales = await TextToSpeech.GetLocalesAsync(); 
+            GetLocaleAsync();
+            string s = "";
+            foreach (Locale value in locales)
+            {
+                Console.WriteLine("locale: " + value.ToString());
+                s += value.Language.ToString() + "; ";
+            }
+
+            Console.WriteLine("Triggered.");
+
+            // Grab the first locale
+            locale = locales.FirstOrDefault();
+            picker_locale.SelectedIndex = 0;
+            s += "FirstOrDefault: " + locales.FirstOrDefault().Language.ToString();
+            result.Text = s;
+
+            foreach (Locale localeValue in locales)
+            {
+                picker_locale.Items.Add(localeValue.Language);
+            }
+            picker_locale.SelectedIndexChanged += Picker_locale_SelectedIndexChanged;
+
+            StackLayout stloPic = new StackLayout
+            {
+                Orientation = StackOrientation.Horizontal,
+                Children = { picker_locale }
+            };
 
             Content = new StackLayout
             {
                 Children = {
-                    title,instructer1,slider_volume,instructer2,slider_pitch,entry,button_speak
+                    title, instructer1, slider_volume, instructer2, slider_pitch, stloPic, entry, button_speak, result
                 }
             };
+        }
+
+        private void Picker_locale_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            locale = locales.ElementAt(picker_locale.SelectedIndex);
         }
 
         private void Button_speak_Clicked(object sender, EventArgs e)
@@ -50,11 +86,11 @@ namespace EssentialsDemo
             //SpeakNow();
             if (!string.IsNullOrWhiteSpace(entry.Text))
             {
-                SpeakNow((float)slider_volume.Value, (float)slider_pitch.Value, entry.Text);
+                SpeakNow((float)slider_volume.Value, (float)slider_pitch.Value, locale, entry.Text);
             }
             else
             {
-                SpeakNow((float)slider_volume.Value, (float)slider_pitch.Value, "Please enter something.");
+                SpeakNow((float)slider_volume.Value, (float)slider_pitch.Value, locale, "Please enter something.");
             }
         }
 
@@ -65,22 +101,24 @@ namespace EssentialsDemo
         /// <param name="pitch"></param>
         /// <param name="text"></param>
         /// <returns></returns>
-        public async Task SpeakNow(float volume, float pitch, string text)
+        public async Task SpeakNow(float volume, float pitch, Locale locale, string text)
         {
-            var locales = await TextToSpeech.GetLocalesAsync();
-            Console.WriteLine(locales.ToString());
 
-            // Grab the first locale
-            var locale = locales.FirstOrDefault();
 
             var settings = new SpeechOptions()
             {
                 Volume = volume,
                 Pitch = pitch,
                 //   Locale = locale ********************************************* dont know how locale works.
+                Locale = locale
             };
 
             await TextToSpeech.SpeakAsync(text, settings);
+        }
+
+        public async void GetLocaleAsync()
+        {
+            locales = await TextToSpeech.GetLocalesAsync();
         }
 
         //public async Task SpeakNow()
