@@ -1,17 +1,23 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Essentials;
+using System.Collections.Generic;
 
 namespace EssentialsDemo
 {
     class AccelerometerDemo : ContentPage
     {
         // Set speed delay for monitoring changes.
-        SensorSpeed speed = SensorSpeed.UI;
+        SensorSpeed speed = SensorSpeed.Game;
         Button button;
         Label label;
         Label exception;
         Image image;
+
+        List<float> list_X = new List<float>();
+        List<float> list_Y = new List<float>();
+        List<float> list_Z = new List<float>();
+        int N = 10;
 
         public AccelerometerDemo()
         {
@@ -31,11 +37,16 @@ namespace EssentialsDemo
                 Font = Font.SystemFontOfSize(NamedSize.Large),
                 BorderWidth = 1,
                 HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.Center,
                 CornerRadius = 10
             };
 
-            image = new Image { Source = ImageSource.FromResource("EssentialsDemo.regcSharp.jpg") };
+            image = new Image
+            {
+                Source = ImageSource.FromResource("EssentialsDemo.regcSharp.jpg"),
+                VerticalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Center
+            };
 
             button.Clicked += OnButtonClicked;
             // Register for reading changes, be sure to unsubscribe when finished
@@ -43,7 +54,7 @@ namespace EssentialsDemo
 
             label = new Label
             {
-                Text = "",
+                Text = "X:   0.00 G\nY:   0.00 G\nZ:   0.00 G\n",
                 FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
@@ -53,7 +64,8 @@ namespace EssentialsDemo
             {
                 Text = "",
                 TextColor = Color.Red,
-                HorizontalOptions = LayoutOptions.End
+                HorizontalOptions = LayoutOptions.End,
+                VerticalOptions = LayoutOptions.End
             };
 
             // Build the page.
@@ -74,33 +86,63 @@ namespace EssentialsDemo
 
         void Accelerometer_ReadingChanged(object sender, AccelerometerChangedEventArgs e)
         {
-            var data = e.Reading;
-            //Console.WriteLine($"Reading: X: {data.Acceleration.X}, Y: {data.Acceleration.Y}, Z: {data.Acceleration.Z}");
-            label.Text = String.Format("X: {0,0:F4} G\nY: {1,0:F4} G\nZ: {2,0:F4} G", data.Acceleration.X, data.Acceleration.Y, data.Acceleration.Z);
-            // Process Acceleration X, Y, and Z
+            // To avoid not able to return on UI thread
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                var data = e.Reading;
+                var data_X = data.Acceleration.X;
+                var data_Y = data.Acceleration.Y;
+                var data_Z = data.Acceleration.Z;
 
-            var norm = Math.Sqrt(data.Acceleration.X * data.Acceleration.X + data.Acceleration.Y * data.Acceleration.Y + data.Acceleration.Z * data.Acceleration.Z);
-            var x = data.Acceleration.X / norm;
-            var y = data.Acceleration.Y / norm;
-            var z = data.Acceleration.Z / norm;
-            if (y >= 0)
-            {
-                image.RotationX = Math.Acos(z / Math.Sqrt(y * y + z * z)) * 180 / Math.PI;
-                //Console.WriteLine(Math.Acos(z / Math.Sqrt(y * y + z * z)) * 180 / Math.PI);
-            }
-            else
-            {
-                image.RotationX = 360 - Math.Acos(z / Math.Sqrt(y * y + z * z)) * 180 / Math.PI;
-            }
-            if (x >= 0)
-            {
-                image.RotationY = Math.Acos(z / Math.Sqrt(x * x + z * z)) * 180 / Math.PI;
-            }
-            else
-            {
-                image.RotationY = 360 - Math.Acos(z / Math.Sqrt(x * x + z * z)) * 180 / Math.PI;
-            }
-            image.Scale = norm;
+                // Control the amount of values in the list to prepare for filtering
+                if (list_X.Count > N - 1)
+                {
+                    list_X.RemoveAt(0);
+                }
+                list_X.Add(data_X);
+
+                if (list_Y.Count > N - 1)
+                {
+                    list_Y.RemoveAt(0);
+                }
+                list_Y.Add(data_Y);
+
+                if (list_Z.Count > N - 1)
+                {
+                    list_Z.RemoveAt(0);
+                }
+                list_Z.Add(data_Z);
+
+                data_X = filter(list_X);
+                data_Y = filter(list_Y);
+                data_Z = filter(list_Z);
+
+                label.Text = String.Format("X: {0,0:+#0.00;- #0.00} G\nY: {1,0:+#0.00;- #0.00} G\nZ: {2,0:+#0.00;- #0.00} G", data_X, data_Y, data_Z);
+
+                var norm = Math.Sqrt(data_X * data_X + data_Y * data_Y + data_Z * data_Z);
+                // Calculate the normalized vector
+                var x = data.Acceleration.X / norm;
+                var y = data.Acceleration.Y / norm;
+                var z = data.Acceleration.Z / norm;
+
+                if (y >= 0)
+                {
+                    image.RotationX = Math.Acos(z / Math.Sqrt(y * y + z * z)) * 180 / Math.PI;
+                }
+                else
+                {
+                    image.RotationX = 360 - Math.Acos(z / Math.Sqrt(y * y + z * z)) * 180 / Math.PI;
+                }
+                if (x >= 0)
+                {
+                    image.RotationY = Math.Acos(z / Math.Sqrt(x * x + z * z)) * 180 / Math.PI;
+                }
+                else
+                {
+                    image.RotationY = 360 - Math.Acos(z / Math.Sqrt(x * x + z * z)) * 180 / Math.PI;
+                }
+                image.Scale = norm;
+            });
         }
 
         public void ToggleAccelerometer()
@@ -124,6 +166,20 @@ namespace EssentialsDemo
                 Console.WriteLine(ex);
                 exception.Text = "Other error has occurred";
             }
+        }
+        /**
+         * to filter values with their average
+         * @para list
+         * @return filtered value
+        */
+        private float filter(List<float> list)
+        {
+            float sum = 0;
+            foreach (float element in list)
+            {
+                sum += element;
+            }
+            return sum / list.Count;
         }
     }
 }
