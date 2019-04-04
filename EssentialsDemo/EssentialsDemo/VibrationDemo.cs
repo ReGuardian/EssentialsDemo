@@ -9,59 +9,126 @@ namespace EssentialsDemo
 {
     public class VibrationDemo : ContentPage
     {
-        private Label title;
-        private Label result;
-        private Entry entry;
-        private Button button_vibrarte;
+        Label header;
+        Entry entry;
+        Button button1;
+        Button button2;
+        Button button3;
         public VibrationDemo()
         {
             Title = "Vibrate";
 
-            title = new Label { Text = "This is a vibration demo" };
-            result = new Label();
-            entry = new Entry { Placeholder = "Enter how many seconds to vibrate" };
-            entry.Completed += Button_vibrarte_Clicked;
-
-            button_vibrarte = new Button
+            header = new Label
             {
-                Text = "Vibrate once"
+                Text = "Vibration",
+                FontSize = 50,
+                FontAttributes = FontAttributes.Bold,
+                HorizontalOptions = LayoutOptions.Center
             };
-            button_vibrarte.Clicked += Button_vibrarte_Clicked;
+
+            entry = new Entry
+            {
+                Keyboard = Keyboard.Text,
+                Placeholder = "Enter seconds to vibrate",
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            button1 = new Button
+            {
+                Text = "Vibrate with default",
+                Font = Font.SystemFontOfSize(NamedSize.Large),
+                BorderWidth = 1,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                CornerRadius = 10
+            };
+            button1.Clicked += OnButtonClicked1;
+
+            button2 = new Button
+            {
+                Text = "Vibrate with seconds",
+                Font = Font.SystemFontOfSize(NamedSize.Large),
+                BorderWidth = 1,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                CornerRadius = 10
+            };
+            button2.Clicked += OnButtonClicked2;
+
+            button3 = new Button
+            {
+                Text = "Cancel",
+                Font = Font.SystemFontOfSize(NamedSize.Large),
+                BorderWidth = 1,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                CornerRadius = 10
+            };
+            button3.Clicked += OnButtonClicked3;
 
             Content = new StackLayout
             {
-                Children = { title, entry, button_vibrarte, result }
+                Children = { header, button1, entry, button2, button3}
             };
         }
-        private void Button_vibrarte_Clicked(object sender, EventArgs e)
+
+        void OnButtonClicked1(object sender, EventArgs e)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(entry.Text))
-                {
-                    // Use default vibration length
-                    Vibration.Vibrate();
-                    Console.WriteLine("Use default vibration length");
-                }
-                else
-                {
-                    // Or use specified time
-                    double second = 0;
-                    Double.TryParse(entry.Text, out second);
-                    var duration = TimeSpan.FromSeconds(second);
-                    Vibration.Vibrate(duration);
-                    Console.WriteLine("Use specified time: " + duration);
-                }
+                // Use default vibration length
+                Vibration.Vibrate();
             }
             catch (FeatureNotSupportedException ex)
             {
-                result.Text = ex.ToString();
+                // Feature not supported on device
                 Console.WriteLine(ex);
                 DisplayAlert("Error", "Feature not supported on device.", "OK");
             }
             catch (Exception ex)
             {
-                result.Text = ex.ToString();
+                // Other error has occurred.
+                Console.WriteLine(ex);
+                DisplayAlert("Error", "Other error has occurred.", "OK");
+            }
+        }
+        void OnButtonClicked2(object sender, EventArgs e)
+        {
+            try
+            {
+                // Use specified vibration time
+                var duration = TimeSpan.FromSeconds(Convert.ToDouble(entry.Text));
+                Vibration.Vibrate(duration);
+            }
+            catch (FeatureNotSupportedException ex)
+            {
+                // Feature not supported on device
+                Console.WriteLine(ex);
+                DisplayAlert("Error", "Feature not supported on device.", "OK");
+            }
+            catch (Exception ex)
+            {
+                // Other error has occurred.
+                Console.WriteLine(ex);
+                DisplayAlert("Error", "Other error has occurred.", "OK");
+            }
+        }
+
+        void OnButtonClicked3(object sender, EventArgs e)
+        {
+            try
+            {
+                Vibration.Cancel();
+            }
+            catch (FeatureNotSupportedException ex)
+            {
+                // Feature not supported on device
+                Console.WriteLine(ex);
+                DisplayAlert("Error", "Feature not supported on device.", "OK");
+            }
+            catch (Exception ex)
+            {
+                // Other error has occurred.
                 Console.WriteLine(ex);
                 DisplayAlert("Error", "Other error has occurred.", "OK");
             }
