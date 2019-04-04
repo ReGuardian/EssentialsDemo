@@ -19,7 +19,7 @@ namespace EssentialsDemo
         EmailDemo f10;
         FileSysHelperDemo f11;
         FlashLightDemo f12;
-        //GeocodingDemo f13;
+        GeocodingDemo f13;
         GeolocationDemo f14;
         GyroscopeDemo f15;
         LauncherDemo f16;
@@ -58,7 +58,7 @@ namespace EssentialsDemo
             };
 
             var masterPageItems = new List<TextCell> ();
-            for (int i = 0; i < 29; i++)
+            for (int i = 0; i < 31; i++)
             {
                 masterPageItems.Add(new TextCell
                 {
@@ -164,10 +164,10 @@ namespace EssentialsDemo
                     if (f12 == null) { f12 = new FlashLightDemo(); }
                     this.Detail = new NavigationPage(f12);
                     break;
-                //case "Geocoding":
-                //    if (f13 == null) { f13 = new GeocodingTest(); }
-                //    this.Detail = new NavigationPage(f13);
-                //    break;
+                case "Geocoding":
+                    if (f13 == null) { f13 = new GeocodingDemo(); }
+                    this.Detail = new NavigationPage(f13);
+                    break;
                 case "Geolocation":
                     if (f14 == null) { f14 = new GeolocationDemo(); }
                     this.Detail = new NavigationPage(f14);
