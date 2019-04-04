@@ -82,11 +82,13 @@ namespace EssentialsDemo
             {
                 // Feature not supported on device
                 Console.WriteLine(fnsEx);
+                DisplayAlert("Error", "Feature not supported on device.", "OK");
             }
             catch (Exception ex)
             {
                 // Other error has occurred.
                 Console.WriteLine(ex);
+                DisplayAlert("Error", "Other error has occurred.", "OK");
             }
         }
     }

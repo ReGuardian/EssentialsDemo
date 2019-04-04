@@ -9,7 +9,6 @@ namespace EssentialsDemo
     {
         SensorSpeed speed = SensorSpeed.Game;
         Label label;
-        Label exception;
         Button button;
 
         public DetectShakeDemo()
@@ -46,20 +45,12 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-            exception = new Label
-            {
-                Text = "",
-                TextColor = Color.Red,
-                HorizontalOptions = LayoutOptions.End,
-                VerticalOptions = LayoutOptions.End
-            };
-
             // Build the page.
             this.Content = new StackLayout
             {
                 Children =
                 {
-                    header, button, label, exception
+                    header, button, label
                 }
             };
         }
@@ -93,13 +84,13 @@ namespace EssentialsDemo
             {
                 // Feature not supported on device
                 Console.WriteLine(fnsEx);
-                exception.Text = "Feature not supported on device";
+                DisplayAlert("Error", "Feature not supported on device.", "OK");
             }
             catch (Exception ex)
             {
                 // Other error has occurred.
                 Console.WriteLine(ex);
-                exception.Text = "Other error has occurred";
+                DisplayAlert("Error", "Other error has occurred.", "OK");
             }
         }
     }

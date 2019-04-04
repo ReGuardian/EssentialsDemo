@@ -10,7 +10,6 @@ namespace EssentialsDemo
         Button button1;
         Label label;
         Entry text;
-        Label exception;
 
         public PhoneDialerDemo()
         {
@@ -50,19 +49,12 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-            exception = new Label
-            {
-                Text = "",
-                TextColor = Color.Red,
-                HorizontalOptions = LayoutOptions.End
-            };
-
             // Build the page.
             this.Content = new StackLayout
             {
                 Children =
                 {
-                    header, text, button1, label, exception
+                    header, text, button1, label
                 }
             };
         }
@@ -82,19 +74,19 @@ namespace EssentialsDemo
             {
                 // Number was null or white space.
                 Console.WriteLine(anEx);
-                exception.Text = "Number cannot be null or white space";
+                DisplayAlert("Error", "Number cannot be null or white space.", "OK");
             }
             catch (FeatureNotSupportedException ex)
             {
                 // Phone Dialer is not supported on this device.
                 Console.WriteLine(ex);
-                exception.Text = "Phone Dialer is not supported on this device";
+                DisplayAlert("Error", "Feature not supported on device.", "OK");
             }
             catch (Exception ex)
             {
                 // Other error has occurred.
                 Console.WriteLine(ex);
-                exception.Text = "Other error has occurred.";
+                DisplayAlert("Error", "Other error has occurred.", "OK");
             }
         }
     }

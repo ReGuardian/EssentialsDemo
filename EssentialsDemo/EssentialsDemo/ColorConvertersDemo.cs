@@ -8,7 +8,6 @@ namespace EssentialsDemo
     class ColorConvertersDemo : ContentPage
     {
         Label header;
-        Label exception;
         Entry entry;
         Entry entry2;
         Button button;
@@ -31,8 +30,7 @@ namespace EssentialsDemo
                     new RowDefinition { Height = new GridLength (1, GridUnitType.Star)},
                     new RowDefinition { Height = new GridLength (1, GridUnitType.Star)},
                     new RowDefinition { Height = new GridLength (1, GridUnitType.Star)},
-                    new RowDefinition { Height = new GridLength (100, GridUnitType.Absolute)},
-                    new RowDefinition { Height = new GridLength (20, GridUnitType.Absolute)},
+                    new RowDefinition { Height = new GridLength (100, GridUnitType.Absolute)}
                 },
                 ColumnDefinitions = {
                     new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star)},
@@ -46,13 +44,6 @@ namespace EssentialsDemo
                 FontSize = 40,
                 FontAttributes = FontAttributes.Bold,
                 HorizontalOptions = LayoutOptions.Center
-            };
-
-            exception = new Label
-            {
-                Text = "",
-                TextColor = Color.Red,
-                HorizontalOptions = LayoutOptions.End
             };
 
             entry = new Entry
@@ -152,7 +143,6 @@ namespace EssentialsDemo
             grid.Children.Add(sl3, 0, 2, 5, 6);
             grid.Children.Add(sl4, 0, 2, 6, 7);
             grid.Children.Add(box, 0, 2, 7, 8);
-            grid.Children.Add(exception, 0, 2, 8, 9);
 
             // Build the page.
             this.Content = grid;
@@ -167,12 +157,12 @@ namespace EssentialsDemo
             catch (ArgumentException)
             {
                 Console.WriteLine("ArgumentException caught!");
-                exception.Text = "Hex format is nonstandard";
+                DisplayAlert("Error", "Hex format is nonstandard.", "OK");
             }
             catch (NullReferenceException)
             {
                 Console.WriteLine("NullReferenceException caught!");
-                exception.Text = "Hex should not be null";
+                DisplayAlert("Error", "Hex should not be null.", "OK");
             }
             sl1.Value = box.BackgroundColor.Hue;
             sl2.Value = box.BackgroundColor.Saturation;
@@ -188,17 +178,17 @@ namespace EssentialsDemo
             catch (FormatException)
             {
                 Console.WriteLine("FormatException caught!");
-                exception.Text = "UInt is not in right format";
+                DisplayAlert("Error", "UInt is not in right format.", "OK");
             }
             catch (NullReferenceException)
             {
                 Console.WriteLine("NullReferenceException caught!");
-                exception.Text = "UInt should not be null";
+                DisplayAlert("Error", "UInt should not be null.", "OK");
             }
             catch (ArgumentNullException)
             {
                 Console.WriteLine("ArgumentNullException caught!");
-                exception.Text = "UInt should not be null";
+                DisplayAlert("Error", "UInt should not be null.", "OK");
             }
             sl1.Value = box.BackgroundColor.Hue;
             sl2.Value = box.BackgroundColor.Saturation;

@@ -13,7 +13,6 @@ namespace EssentialsDemo
         Entry text1;
         Entry text2;
         Entry text3;
-        Label exception;
 
         public EmailDemo()
         {
@@ -67,19 +66,12 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-            exception = new Label
-            {
-                Text = "",
-                TextColor = Color.Red,
-                HorizontalOptions = LayoutOptions.End
-            };
-
             // Build the page.
             this.Content = new StackLayout
             {
                 Children =
                 {
-                    header, text1, text2, text3, button1, label, exception
+                    header, text1, text2, text3, button1, label
                 }
             };
         }
@@ -109,13 +101,13 @@ namespace EssentialsDemo
             {
                 // Email is not supported on this device
                 Console.WriteLine(fnsEx);
-                exception.Text = "Email not supported on device";
+                await DisplayAlert("Error", "Feature not supported on device.", "OK");
             }
             catch (Exception ex)
             {
                 // Some other exception occurred
                 Console.WriteLine(ex);
-                exception.Text = "Other error has occurred";
+                await DisplayAlert("Error", "Other error has occurred.", "OK");
             }
         }
     }

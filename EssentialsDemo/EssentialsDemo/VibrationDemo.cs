@@ -19,7 +19,7 @@ namespace EssentialsDemo
 
             title = new Label { Text = "This is a vibration demo" };
             result = new Label();
-            entry = new Entry { Placeholder = "Enter how many seconds you want to vibrate" };
+            entry = new Entry { Placeholder = "Enter how many seconds to vibrate" };
             entry.Completed += Button_vibrarte_Clicked;
 
             button_vibrarte = new Button
@@ -57,11 +57,13 @@ namespace EssentialsDemo
             {
                 result.Text = ex.ToString();
                 Console.WriteLine(ex);
+                DisplayAlert("Error", "Feature not supported on device.", "OK");
             }
             catch (Exception ex)
             {
                 result.Text = ex.ToString();
                 Console.WriteLine(ex);
+                DisplayAlert("Error", "Other error has occurred.", "OK");
             }
         }
     }

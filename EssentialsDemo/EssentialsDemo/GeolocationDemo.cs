@@ -80,21 +80,25 @@ namespace EssentialsDemo
             {
                 // Handle not supported on device exception
                 Console.WriteLine(fnsEx);
+                await DisplayAlert("Error", "Feature not supported on device.", "OK");
             }
             catch (FeatureNotEnabledException fneEx)
             {
                 // Handle not enabled on device exception
                 Console.WriteLine(fneEx);
+                await DisplayAlert("Error", "Handle not enabled on device.", "OK");
             }
             catch (PermissionException pEx)
             {
                 // Handle permission exception
                 Console.WriteLine(pEx);
+                await DisplayAlert("Error", "Handle permission not given.", "OK");
             }
             catch (Exception ex)
             {
                 // Unable to get location
                 Console.WriteLine(ex);
+                await DisplayAlert("Error", "Unable to get location.", "OK");
             }
         }
 
@@ -117,21 +121,25 @@ namespace EssentialsDemo
             {
                 // Handle not supported on device exception
                 Console.WriteLine(fnsEx);
+                await DisplayAlert("Error", "Feature not supported on device.", "OK");
             }
             catch (FeatureNotEnabledException fneEx)
             {
                 // Handle not enabled on device exception
                 Console.WriteLine(fneEx);
+                await DisplayAlert("Error", "Handle not enabled on device.", "OK");
             }
             catch (PermissionException pEx)
             {
                 // Handle permission exception
                 Console.WriteLine(pEx);
+                await DisplayAlert("Error", "Handle permission not given.", "OK");
             }
             catch (Exception ex)
             {
                 // Unable to get location
                 Console.WriteLine(ex);
+                await DisplayAlert("Error", "Unable to get location.", "OK");
             }
         }
     }

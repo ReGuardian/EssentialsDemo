@@ -118,13 +118,13 @@ namespace EssentialsDemo
             {
                 // Feature not supported on device
                 Console.WriteLine(fnsEx);
-                await DisplayAlert("Error", "Feature not supported on device", "OK");
+                await DisplayAlert("Error", "Feature not supported on device.", "OK");
             }
             catch (Exception ex)
             {
                 // Handle exception that may have occurred in geocoding
                 Console.WriteLine(ex);
-                await DisplayAlert("Error", "Other error has occurred", "OK");
+                await DisplayAlert("Error", "Other error has occurred.", "OK");
             }
         }
 
@@ -164,13 +164,13 @@ namespace EssentialsDemo
             {
                 // Feature not supported on device
                 Console.WriteLine(fnsEx);
-                await DisplayAlert("Error", "Feature not supported on device", "OK");
+                await DisplayAlert("Error", "Feature not supported on device.", "OK");
             }
             catch (Exception ex)
             {
                 // Handle exception that may have occurred in geocoding
                 Console.WriteLine(ex);
-                await DisplayAlert("Error", "Other error has occurred", "OK"); ;
+                await DisplayAlert("Error", "Other error has occurred.", "OK"); ;
             }
         }        
     }
