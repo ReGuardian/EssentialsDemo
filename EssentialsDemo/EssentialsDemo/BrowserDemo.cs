@@ -53,10 +53,23 @@ namespace EssentialsDemo
 
         void OnButtonClicked1(object sender, EventArgs e)
         {
-            uriAddress = new Uri(text.Text, UriKind.RelativeOrAbsolute);
-            //System.InvalidOperationException: This operation is not supported for a relative URI.
-            //System.UriFormatException: Invalid URI: The format of the URI could not be determine
-            OpenBrowser(uriAddress);
+            try
+            {
+                uriAddress = new Uri(text.Text, UriKind.RelativeOrAbsolute);
+                OpenBrowser(uriAddress);
+            }
+            catch (InvalidOperationException)
+            {
+                DisplayAlert("Alert", "This operation is not supported for a relative URI.", "OK");
+            }
+            catch (UriFormatException)
+            {
+                DisplayAlert("Alert", "The format of the URI could not be determine.", "OK");
+            }
+            catch (Exception)
+            {
+                DisplayAlert("Alert", "Error has occured.", "OK");
+            }
         }
 
         public async void OpenBrowser(Uri uri)

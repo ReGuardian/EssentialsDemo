@@ -52,15 +52,19 @@ namespace EssentialsDemo
 
         async void OnButtonClicked1(object sender, EventArgs e)
         {
-            Uri uri = new Uri(text.Text);
             try
             {
+                Uri uri = new Uri(text.Text);
                 //var supportsUri = await Launcher.CanOpenAsync(uri);
                 await Launcher.OpenAsync(uri);
             }
             catch (UriFormatException)
             {
                 await DisplayAlert("Alert", "The entered uri is not supported.", "OK");
+            }
+            catch (Exception)
+            {
+                await DisplayAlert("Alert", "Error has occured.", "OK");
             }
         }
     }
