@@ -7,8 +7,7 @@ namespace EssentialsDemo
 {
     class DetectShakeDemo : ContentPage
     {
-        SensorSpeed speed = SensorSpeed.Game;
-        Label label;
+        SensorSpeed speed = SensorSpeed.UI;
         Button button;
 
         public DetectShakeDemo()
@@ -37,20 +36,12 @@ namespace EssentialsDemo
             // Register for reading changes, be sure to unsubscribe when finished
             Accelerometer.ShakeDetected += Accelerometer_ShakeDetected;
 
-            label = new Label
-            {
-                Text = "No shake detected.",
-                FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand
-            };
-
             // Build the page.
             this.Content = new StackLayout
             {
                 Children =
                 {
-                    header, button, label
+                    header, button
                 }
             };
         }
@@ -59,16 +50,12 @@ namespace EssentialsDemo
         {
             ToggleAccelerometer();
             button.Text = String.Format("{0}", Accelerometer.IsMonitoring == true ? "Stop" : "Start");
-            if (button.Text == "Start")
-            {
-                label.Text = "No shake detected.";
-            }
         }
 
         void Accelerometer_ShakeDetected(object sender, EventArgs e)
         {
             // Process shake event
-            label.Text = "Shake detected";
+            DisplayAlert("Alert", "Shake detected.", "OK");
         }
 
         public void ToggleAccelerometer()
