@@ -35,6 +35,7 @@ namespace EssentialsDemo
         TextToSpeechDemo f27;
         VersionTrackingDemo f28;
         VibrationDemo f29;
+        ImagePickerDemo f32;
         public HomePage()
         {
             Label header = new Label
@@ -54,11 +55,11 @@ namespace EssentialsDemo
                 "Geocoding", "Geolocation", "Gyroscope", "Launcher", "Magnetometer",
                 "Main Thread", "Maps", "Open Browser", "Orientation Sensor", "Phone Dialer",
                 "Preferences", "Secure Storage", "Share", "SMS", "Text-to-Speech",
-                "Version Tracking", "Vibrate"
+                "Version Tracking", "Vibrate", "Image Picker"
             };
 
             var masterPageItems = new List<TextCell> ();
-            for (int i = 0; i < 31; i++)
+            for (int i = 0; i < 32; i++)
             {
                 masterPageItems.Add(new TextCell
                 {
@@ -227,6 +228,10 @@ namespace EssentialsDemo
                 case "Vibrate":
                     if (f29 == null) { f29 = new VibrationDemo(); }
                     this.Detail = new NavigationPage(f29);
+                    break;
+                case "Image Picker":
+                    if (f32 == null) { f32 = new ImagePickerDemo(); }
+                    this.Detail = new NavigationPage(f32);
                     break;
             }
             this.IsPresented = false;
