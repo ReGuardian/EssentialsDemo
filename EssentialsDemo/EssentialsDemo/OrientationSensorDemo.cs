@@ -49,7 +49,12 @@ namespace EssentialsDemo
             // Register for reading changes, be sure to unsubscribe when finished
             OrientationSensor.ReadingChanged += OrientationSensor_ReadingChanged;
 
-            image = new Image { Source = ImageSource.FromResource("EssentialsDemo.compass.png") };
+            image = new Image
+            {
+                Source = ImageSource.FromResource("EssentialsDemo.compass.png"),
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center,
+            };
 
             label = new Label
             {
