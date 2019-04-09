@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Essentials;
+using System.Numerics;
 
 namespace EssentialsDemo
 {
@@ -69,25 +70,35 @@ namespace EssentialsDemo
             var data = e.Reading;
             // Process Orientation quaternion (X, Y, Z, and W)
             //Console.WriteLine($"Reading: X: {data.Orientation.X}, Y: {data.Orientation.Y}, Z: {data.Orientation.Z}, W: {data.Orientation.W}");
-            label.Text = String.Format("X: {0,0:F4} \nY: {1,0:F4} \nZ: {2,0:F4} \nW: {3,0:F4}", 
+            label.Text = String.Format("X: {0,0:F4} \nY: {1,0:F4} \nZ: {2,0:F4} \nW: {3,0:F4}",
                 data.Orientation.X, data.Orientation.Y, data.Orientation.Z, data.Orientation.W);
 
-            var θ = 2 * Math.Acos(data.Orientation.W);
-            Console.WriteLine(θ * 180 / Math.PI);
-            var x = data.Orientation.X / Math.Sin(θ / 2);
-            var y = data.Orientation.Y / Math.Sin(θ / 2);
-            var z = data.Orientation.Z / Math.Sin(θ / 2);
 
-            if (z >= 0)
-            {
-                image.Rotation = Math.Acos(Math.Abs(x) / Math.Sqrt(x * x + y * y)) * 180 / Math.PI;
-                Console.WriteLine("rot: " + image.Rotation);
-            }
-            else
-            {
-                image.Rotation = 360 - Math.Acos(Math.Abs(x) / Math.Sqrt(x * x + y * y)) * 180 / Math.PI;
-                Console.WriteLine("rot: " + image.Rotation);
-            }
+            //var θ = 2 * Math.Acos(data.Orientation.W);
+            // Console.WriteLine(θ * 180 / Math.PI);
+            var x = data.Orientation.X;
+            var y = data.Orientation.Y;
+            var z = data.Orientation.Z;
+            var w = data.Orientation.W;
+
+            var θ_x = Math.Atan2(2 * (x * y + z * w), 1 - 2 * (y * y + z * z)) * 180 / Math.PI;
+            var θ_y = Math.Asin(2 * (x * z - y * w)) * 180 / Math.PI;
+            var θ_z = Math.Atan2(2 * (x * w + y * z), 1 - 2 * (z * z + w * w)) * 180 / Math.PI;
+
+            image.Rotation = -θ_x;
+            image.RotationY = -θ_y;
+            image.RotationX = -θ_z;
+
+            //if (z >= 0)
+            //{
+            //    image.Rotation = Math.Acos(Math.Abs(x) / Math.Sqrt(x * x + y * y)) * 180 / Math.PI;
+            //    Console.WriteLine("rot: " + image.Rotation);
+            //}
+            //else
+            //{
+            //    image.Rotation = 360 - Math.Acos(Math.Abs(x) / Math.Sqrt(x * x + y * y)) * 180 / Math.PI;
+            //    Console.WriteLine("rot: " + image.Rotation);
+            //}
             //if (y >= 0)
             //{
             //    image.RotationX = Math.Acos(y / Math.Sqrt(y * y + z * z)) * 180 / Math.PI;
