@@ -12,6 +12,9 @@ namespace EssentialsDemo
         Button button;
         Image image;
         Label label;
+        Label label2;
+        Label label3;
+        Label label4;
 
         public OrientationSensorDemo()
         {
@@ -24,6 +27,9 @@ namespace EssentialsDemo
                 FontAttributes = FontAttributes.Bold,
                 HorizontalOptions = LayoutOptions.Center
             };
+            label2 = new Label();
+            label3 = new Label();
+            label4 = new Label();
 
             button = new Button
             {
@@ -54,7 +60,7 @@ namespace EssentialsDemo
             {
                 Children =
                 {
-                    header, button, image, label
+                    header, button, image, label2, label3, label4
                 }
             };
         }
@@ -84,10 +90,17 @@ namespace EssentialsDemo
             var θ_x = Math.Atan2(2 * (x * y + z * w), 1 - 2 * (y * y + z * z)) * 180 / Math.PI;
             var θ_y = Math.Asin(2 * (x * z - y * w)) * 180 / Math.PI;
             var θ_z = Math.Atan2(2 * (x * w + y * z), 1 - 2 * (z * z + w * w)) * 180 / Math.PI;
+            //https://www.cnblogs.com/21207-iHome/p/6894128.html
 
-            image.Rotation = -θ_x;
-            image.RotationY = -θ_y;
-            image.RotationX = -θ_z;
+            image.RotationX = -θ_z-180;
+            image.RotationY =  θ_y;
+            image.Rotation = θ_x;
+            //image.RotationY = -θ_y;
+            //image.RotationX = -θ_z;
+
+            label2.Text = "R: " + image.Rotation.ToString();
+            label3.Text = "Rx: " + image.RotationX.ToString();
+            label4.Text = "Ry: " + image.RotationY.ToString();
 
             //if (z >= 0)
             //{
