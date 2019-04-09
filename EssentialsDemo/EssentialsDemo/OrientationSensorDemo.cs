@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Essentials;
+using System.Numerics;
 
 namespace EssentialsDemo
 {
@@ -67,35 +68,26 @@ namespace EssentialsDemo
         void OrientationSensor_ReadingChanged(object sender, OrientationSensorChangedEventArgs e)
         {
             var data = e.Reading;
-            float Data_X = data.Orientation.X;
-            float Data_Y = data.Orientation.Y;
-            float Data_Z = data.Orientation.Z;
-            float Data_W = data.Orientation.W;
-            var θ = 2 * Math.Acos(Data_W);
-            Console.WriteLine(θ * 180 / Math.PI);
-            // 旋转轴
-            var ax = Data_X / Math.Sin(θ / 2);
-            var ay = Data_Y / Math.Sin(θ / 2);
-            var az = Data_Z / Math.Sin(θ / 2);
-            // 手机平面的单位法向量，初始值为（a，b，c）=（0，0，1）
-            var a = 0;
-            var b = 0;
-            var c = 1;
-            var x = a * (Math.Cos(θ) + ax * ax * (1 - Math.Cos(θ)))
-                + b * (ax * ay * (1 - Math.Cos(θ)) - az * Math.Sin(θ))
-                + c * (ax * az * (1 - Math.Cos(θ)) + ay * Math.Sin(θ));
-            var y = a * (ax * ay * (1 - Math.Cos(θ)) + az * Math.Sin(θ))
-                + b * (Math.Cos(θ) + ay * ay * (1 - Math.Cos(θ)))
-                + c * (ay * az * (1 - Math.Cos(θ)) - ax * Math.Sin(θ));
-            var z = a * (ax * az * (1 - Math.Cos(θ)) - ay * Math.Sin(θ))
-                + b * (ay * az * (1 - Math.Cos(θ)) + ax * Math.Sin(θ))
-                + c * (Math.Cos(θ) + az * az * (1 - Math.Cos(θ)));
-
             // Process Orientation quaternion (X, Y, Z, and W)
             //Console.WriteLine($"Reading: X: {data.Orientation.X}, Y: {data.Orientation.Y}, Z: {data.Orientation.Z}, W: {data.Orientation.W}");
             label.Text = String.Format("X: {0,0:F4} \nY: {1,0:F4} \nZ: {2,0:F4} \nW: {3,0:F4}",
-                Data_X, Data_Y, Data_Z, Data_W);
+                data.Orientation.X, data.Orientation.Y, data.Orientation.Z, data.Orientation.W);
 
+
+            //var θ = 2 * Math.Acos(data.Orientation.W);
+            // Console.WriteLine(θ * 180 / Math.PI);
+            var x = data.Orientation.X;
+            var y = data.Orientation.Y;
+            var z = data.Orientation.Z;
+            var w = data.Orientation.W;
+
+            var θ_x = Math.Atan2(2 * (x * y + z * w), 1 - 2 * (y * y + z * z)) * 180 / Math.PI;
+            var θ_y = Math.Asin(2 * (x * z - y * w)) * 180 / Math.PI;
+            var θ_z = Math.Atan2(2 * (x * w + y * z), 1 - 2 * (z * z + w * w)) * 180 / Math.PI;
+
+            image.Rotation = -θ_x;
+            image.RotationY = -θ_y;
+            image.RotationX = -θ_z;
 
             //if (z >= 0)
             //{
@@ -107,25 +99,25 @@ namespace EssentialsDemo
             //    image.Rotation = 360 - Math.Acos(Math.Abs(x) / Math.Sqrt(x * x + y * y)) * 180 / Math.PI;
             //    Console.WriteLine("rot: " + image.Rotation);
             //}
-            if (y >= 0)
-            {
-                image.RotationX = Math.Acos(y / Math.Sqrt(y * y + z * z)) * 180 / Math.PI;
-                //Console.WriteLine(Math.Acos(y / Math.Sqrt(y * y + z * z)) * 180 / Math.PI);
-            }
-            else
-            {
-                image.RotationX = 360 - Math.Acos(y / Math.Sqrt(y * y + z * z)) * 180 / Math.PI;
-            }
-            if (x >= 0)
-            {
-                image.RotationY = Math.Acos(x / Math.Sqrt(x * x + z * z)) * 180 / Math.PI;
-                Console.WriteLine(image.RotationY);
-            }
-            else
-            {
-                image.RotationY = 360 - Math.Acos(x / Math.Sqrt(x * x + z * z)) * 180 / Math.PI;
-                Console.WriteLine(image.RotationY);
-            }
+            //if (y >= 0)
+            //{
+            //    image.RotationX = Math.Acos(y / Math.Sqrt(y * y + z * z)) * 180 / Math.PI;
+            //    //Console.WriteLine(Math.Acos(y / Math.Sqrt(y * y + z * z)) * 180 / Math.PI);
+            //}
+            //else
+            //{
+            //    image.RotationX = 360 - Math.Acos(y / Math.Sqrt(y * y + z * z)) * 180 / Math.PI;
+            //}
+            //if (x >= 0)
+            //{
+            //    image.RotationY = Math.Acos(x / Math.Sqrt(x * x + z * z)) * 180 / Math.PI;
+            //    Console.WriteLine(image.RotationY);
+            //}
+            //else
+            //{
+            //    image.RotationY = 360 - Math.Acos(x / Math.Sqrt(x * x + z * z)) * 180 / Math.PI;
+            //    Console.WriteLine(image.RotationY);
+            //}
         }
 
         public void ToggleOrientationSensor()
