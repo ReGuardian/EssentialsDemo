@@ -39,6 +39,10 @@ namespace EssentialsDemo
             instructer2 = new Label { Text = "pitch" };
             result = new Label();
             picker_locale = new Picker();
+            if (Device.RuntimePlatform == "IOS")
+            {
+                //
+            } 
             // equal to: IEnumerable<Locale> locales = await TextToSpeech.GetLocalesAsync(); 
             GetLocaleAsync();
             string s = "";

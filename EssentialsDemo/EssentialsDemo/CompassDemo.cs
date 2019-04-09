@@ -86,7 +86,7 @@ namespace EssentialsDemo
                 // Process Heading Magnetic North
                 //Console.WriteLine($"Reading: {data.HeadingMagneticNorth} degrees");
                 label2.Text = String.Format("{0,0:000} °", data.HeadingMagneticNorth);
-                image.Rotation = data.HeadingMagneticNorth;
+                image.Rotation = - data.HeadingMagneticNorth;
             });
         }
 

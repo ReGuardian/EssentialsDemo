@@ -8,7 +8,7 @@ namespace EssentialsDemo
     class AccelerometerDemo : ContentPage
     {
         // Set speed delay for monitoring changes.
-        SensorSpeed speed = SensorSpeed.Game;
+        SensorSpeed speed = SensorSpeed.UI;
         Button button;
         Label label;
         Label exception;
@@ -17,7 +17,7 @@ namespace EssentialsDemo
         List<float> list_X = new List<float>();
         List<float> list_Y = new List<float>();
         List<float> list_Z = new List<float>();
-        int N = 10;
+        int N = 1;
 
         public AccelerometerDemo()
         {
