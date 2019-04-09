@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <None Remove="compass.png" />
+    <None Remove="compass2.png" />
     <None Remove="regcSharp.jpg" />
     <None Remove="regcSharp.png" />
   </ItemGroup>
