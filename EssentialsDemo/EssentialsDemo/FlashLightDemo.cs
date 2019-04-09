@@ -9,7 +9,6 @@ namespace EssentialsDemo
         Label header;
         Button button1;
         Button button2;
-        Label exception;
 
         public FlashLightDemo()
         {
@@ -45,19 +44,12 @@ namespace EssentialsDemo
             };
             button2.Clicked += OnButtonClicked2Async;
 
-            exception = new Label
-            {
-                Text = "",
-                TextColor = Color.Red,
-                HorizontalOptions = LayoutOptions.End
-            };
-
             // Build the page.
             this.Content = new StackLayout
             {
                 Children =
                 {
-                    header, button1, button2, exception
+                    header, button1, button2
                 }
             };
         }
@@ -73,19 +65,19 @@ namespace EssentialsDemo
             {
                 // Handle not supported on device exception
                 Console.WriteLine(fnsEx);
-                exception.Text = "Handle not supported on device";
+                await DisplayAlert("Error", "Handle not supported on device.", "OK");
             }
             catch (PermissionException pEx)
             {
                 // Handle permission exception
                 Console.WriteLine(pEx);
-                exception.Text = "Handle permission not given";
+                await DisplayAlert("Error", "Handle permission not given.", "OK");
             }
             catch (Exception ex)
             {
                 // Unable to turn on/off flashlight
                 Console.WriteLine(ex);
-                exception.Text = "Unable to turn on flashlight";
+                await DisplayAlert("Error", "Unable to turn on flashlight.", "OK");
             }
         }
 
@@ -100,19 +92,19 @@ namespace EssentialsDemo
             {
                 // Handle not supported on device exception
                 Console.WriteLine(fnsEx);
-                exception.Text = "Handle not supported on device";
+                await DisplayAlert("Error", "Handle not supported on device.", "OK");
             }
             catch (PermissionException pEx)
             {
                 // Handle permission exception
                 Console.WriteLine(pEx);
-                exception.Text = "Handle permission not given";
+                await DisplayAlert("Error", "Handle permission not given.", "OK");
             }
             catch (Exception ex)
             {
                 // Unable to turn on/off flashlight
                 Console.WriteLine(ex);
-                exception.Text = "Unable to turn off flashlight";
+                await DisplayAlert("Error", "Unable to turn off flashlight.", "OK");
             }
         }
     }

@@ -11,7 +11,6 @@ namespace EssentialsDemo
         Button button;
         Label label;
         Label label2;
-        Label exception;
         Image image;
 
         public CompassDemo()
@@ -39,7 +38,6 @@ namespace EssentialsDemo
             image = new Image
             {
                 Source = ImageSource.FromResource("EssentialsDemo.compass.png"),
-                //https://www.flaticon.com/free-icon/compass_1553376#term=compass north&page=1&position=30
                 Scale = 1
             };
 
@@ -63,19 +61,12 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-            exception = new Label
-            {
-                Text = "",
-                TextColor = Color.Red,
-                HorizontalOptions = LayoutOptions.End
-            };
-
             // Build the page.
             this.Content = new StackLayout
             {
                 Children =
                 {
-                    header, button, image, label, label2, exception
+                    header, button, image, label, label2
                 }
             };
         }
@@ -112,13 +103,13 @@ namespace EssentialsDemo
             {
                 // Feature not supported on device
                 Console.WriteLine(fnsEx);
-                exception.Text = "Feature not supported on device";
+                DisplayAlert("Error", "Feature not supported on device.", "OK");
             }
             catch (Exception ex)
             {
                 // Other error has occurred.
                 Console.WriteLine(ex);
-                exception.Text = "Other error has occurred";
+                DisplayAlert("Error", "Other error has occurred.", "OK");
             }
         }
     }

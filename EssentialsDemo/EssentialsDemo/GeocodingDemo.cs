@@ -10,8 +10,10 @@ namespace EssentialsDemo
         Button button1;
         Button button2;
         Label label;
-        Entry text1;
-        Entry text2;
+        Entry entry;
+        Entry entry2;
+        Entry entry3;
+        ScrollView scrollView;
 
         public GeocodingDemo()
         {
@@ -25,6 +27,13 @@ namespace EssentialsDemo
                 HorizontalOptions = LayoutOptions.Center
             };
 
+            entry = new Entry
+            {
+                Keyboard = Keyboard.Text,
+                Placeholder = "Enter address",
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
             button1 = new Button
             {
                 Text = "Show Address Location",
@@ -36,9 +45,23 @@ namespace EssentialsDemo
             };
             button1.Clicked += OnButtonClicked1;
 
+            entry2 = new Entry
+            {
+                Keyboard = Keyboard.Text,
+                Placeholder = "Enter latitude",
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            entry3 = new Entry
+            {
+                Keyboard = Keyboard.Text,
+                Placeholder = "Enter longitude",
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
             button2 = new Button
             {
-                Text = "Show App Setting Info",
+                Text = "Show Detail Address",
                 Font = Font.SystemFontOfSize(NamedSize.Large),
                 BorderWidth = 1,
                 HorizontalOptions = LayoutOptions.Center,
@@ -55,30 +78,69 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            scrollView = new ScrollView
+            {
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                Content = label
+            };
+
             // Build the page.
             this.Content = new StackLayout
             {
                 Children =
                 {
-                    header, button1, button2, label
+                    header, entry, button1, entry2, entry3, button2, scrollView
                 }
             };
         }
 
-        void OnButtonClicked1(object sender, EventArgs e)
+        /// <summary>
+        /// Use GetLocationAsync() to show latitude, longitude and altitude
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        async void OnButtonClicked1(object sender, EventArgs e)
         {
-            ShowAddrLoc();//no use???
+            try
+            {
+                var address = entry.Text.ToString();
+                var locations = await Geocoding.GetLocationsAsync(address);
+                Console.WriteLine(locations.ToString());
+
+                var location = locations?.FirstOrDefault();
+                if (location != null)
+                {
+                    Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
+                    label.Text = "Latitude: " + location.Latitude + "\nLongitude: " + location.Longitude + "\nAltitude: " + location.Altitude;
+                }
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                // Feature not supported on device
+                Console.WriteLine(fnsEx);
+                await DisplayAlert("Error", "Feature not supported on device.", "OK");
+            }
+            catch (Exception ex)
+            {
+                // Handle exception that may have occurred in geocoding
+                Console.WriteLine(ex);
+                await DisplayAlert("Error", "Other error has occurred.", "OK");
+            }
         }
 
+        /// <summary>
+        /// Use latitude & longitude to create a placemark and give detail
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         async void OnButtonClicked2(object sender, EventArgs e)
         {
             try
             {
-                var lat = 47.673988;
-                var lon = -122.121513;
+                var lat = Convert.ToDouble(entry2.Text);
+                var lon = Convert.ToDouble(entry3.Text);
 
                 var placemarks = await Geocoding.GetPlacemarksAsync(lat, lon);
-
                 var placemark = placemarks?.FirstOrDefault();
                 if (placemark != null)
                 {
@@ -96,43 +158,20 @@ namespace EssentialsDemo
 
                     Console.WriteLine(geocodeAddress);
                     label.Text = geocodeAddress;
-
-                }
-            }
-            catch (FeatureNotSupportedException fnsEx)
-            {
-                // Feature not supported on device
-            }
-            catch (Exception ex)
-            {
-                // Handle exception that may have occurred in geocoding
-            }
-        }
-
-        async void ShowAddrLoc()
-        {
-            try
-            {
-                var address = "Microsoft Building 25 Redmond WA USA";
-                var locations = await Geocoding.GetLocationsAsync(address);
-
-                var location = locations?.FirstOrDefault();
-                if (location != null)
-                {
-                    Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
-                    //label.Text = "Latitude: " + location.Latitude + "\nLongitude: " + location.Longitude + "\nAltitude: " + location.Altitude;
                 }
             }
             catch (FeatureNotSupportedException fnsEx)
             {
                 // Feature not supported on device
                 Console.WriteLine(fnsEx);
+                await DisplayAlert("Error", "Feature not supported on device.", "OK");
             }
             catch (Exception ex)
             {
                 // Handle exception that may have occurred in geocoding
                 Console.WriteLine(ex);
+                await DisplayAlert("Error", "Other error has occurred.", "OK"); ;
             }
-        }
+        }        
     }
 }

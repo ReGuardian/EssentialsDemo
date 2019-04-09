@@ -1,15 +1,26 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Essentials;
+using Microcharts;
+using Microcharts.Forms;
+using Entry = Microcharts.Entry;
+using System.Collections.Generic;
+using SkiaSharp;
 
 namespace EssentialsDemo
 {
     class GyroscopeDemo : ContentPage
     {
         // Set speed delay for monitoring changes.
-        SensorSpeed speed = SensorSpeed.UI;
+        SensorSpeed speed = SensorSpeed.Game;
         Button button;
         Label label;
+        ChartView chartView;
+
+        List<float> list_X = new List<float>();
+        List<float> list_Y = new List<float>();
+        List<float> list_Z = new List<float>();
+        int N = 20;
 
         public GyroscopeDemo()
         {
@@ -42,7 +53,12 @@ namespace EssentialsDemo
                 Text = "",
                 FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
                 HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand
+                VerticalOptions = LayoutOptions.Center
+            };
+
+            chartView = new ChartView()
+            {
+                VerticalOptions = LayoutOptions.FillAndExpand
             };
 
             // Build the page.
@@ -50,7 +66,7 @@ namespace EssentialsDemo
             {
                 Children =
                 {
-                    header, button, label
+                    header, button, label, chartView
                 }
             };
         }
@@ -63,10 +79,74 @@ namespace EssentialsDemo
 
         void Gyroscope_ReadingChanged(object sender, GyroscopeChangedEventArgs e)
         {
-            var data = e.Reading;
-            // Process Angular Velocity X, Y, and Z reported in rad/s
-            Console.WriteLine($"Reading: X: {data.AngularVelocity.X}, Y: {data.AngularVelocity.Y}, Z: {data.AngularVelocity.Z}");
-            label.Text = String.Format("X: {0,0:F4} rad/s\nY: {1,0:F4} rad/s\nZ: {2,0:F4} rad/s", data.AngularVelocity.X, data.AngularVelocity.Y, data.AngularVelocity.Z);
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                // Reading data
+                var data = e.Reading;
+                var data_X = data.AngularVelocity.X;
+                var data_Y = data.AngularVelocity.Y;
+                var data_Z = data.AngularVelocity.Z;
+
+                // Control the amount of values in the list to prepare for filtering
+                if (list_X.Count > N - 1)
+                {
+                    list_X.RemoveAt(0);
+                }
+                list_X.Add(data_X);
+
+                if (list_Y.Count > N - 1)
+                {
+                    list_Y.RemoveAt(0);
+                }
+                list_Y.Add(data_Y);
+
+                if (list_Z.Count > N - 1)
+                {
+                    list_Z.RemoveAt(0);
+                }
+                list_Z.Add(data_Z);
+
+                // Filtered data
+                data_X = filter(list_X);
+                data_Y = filter(list_Y);
+                data_Z = filter(list_Z);
+
+                // Process Angular Velocity X, Y, and Z reported in rad/s
+                Console.WriteLine($"Reading: X: {data_X}, Y: {data_Y}, Z: {data_Z}");
+                label.Text = String.Format("X: {0,0:+#0.00;- #0.00} rad/s\nY: {1,0:+#0.00;- #0.00} rad/s\nZ: {2,0:+#0.00;- #0.00} rad/s",
+                    data_X, data_Y, data_Z);
+                var entries = new[]
+                {
+                     new Entry((float)Math.Abs(Math.Round(data_X, 2)) * 10)
+                     {
+                         Label = "X",
+                         ValueLabel = Math.Round(data_X, 2).ToString(),
+                         Color = SKColor.Parse("#2c3e50")
+                     },
+                     new Entry((float)Math.Abs(Math.Round(data_Y, 2)) * 10)
+                     {
+                         Label = "Y",
+                         ValueLabel = Math.Round(data_Y, 2).ToString(),
+                         Color = SKColor.Parse("#77d065")
+                     },
+                     new Entry((float)Math.Abs(Math.Round(data_Z, 2)) * 10)
+                     {
+                         Label = "Z",
+                         ValueLabel = Math.Round(data_Z, 2).ToString(),
+                         Color = SKColor.Parse("#b455b6")
+                     }
+                };
+                chartView.Chart = new RadarChart()
+                {
+                    Entries = entries,
+                    LabelTextSize = 35,
+                    LineSize = 3,
+                    BorderLineSize = 3,
+                    PointSize = 10,
+                    MaxValue = 30,
+                    MinValue = 0
+                };
+            });
         }
 
         public void ToggleGyroscope()
@@ -82,12 +162,29 @@ namespace EssentialsDemo
             {
                 // Feature not supported on device
                 Console.WriteLine(fnsEx);
+                DisplayAlert("Error", "Feature not supported on device.", "OK");
             }
             catch (Exception ex)
             {
                 // Other error has occurred.
                 Console.WriteLine(ex);
+                DisplayAlert("Error", "Other error has occurred.", "OK");
             }
+        }
+
+        /// <summary>
+        /// Filter values to look smooth
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns>average of values</returns>
+        private float filter(List<float> list)
+        {
+            float sum = 0;
+            foreach (float element in list)
+            {
+                sum += element;
+            }
+            return sum / list.Count;
         }
     }
 }

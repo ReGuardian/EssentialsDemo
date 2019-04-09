@@ -1,23 +1,22 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Essentials;
+using System.Collections.Generic;
 
 namespace EssentialsDemo
 {
-    class BarometerDemo : ContentPage
+    class DetectShakeDemo : ContentPage
     {
-        // Set speed delay for monitoring changes.
         SensorSpeed speed = SensorSpeed.UI;
         Button button;
-        Label label;
 
-        public BarometerDemo()
+        public DetectShakeDemo()
         {
-            Title = "Barometer";
+            Title = "Detect Shake";
 
             Label header = new Label
             {
-                Text = "Barometer",
+                Text = "Detect Shake",
                 FontSize = 50,
                 FontAttributes = FontAttributes.Bold,
                 HorizontalOptions = LayoutOptions.Center
@@ -35,48 +34,38 @@ namespace EssentialsDemo
 
             button.Clicked += OnButtonClicked;
             // Register for reading changes, be sure to unsubscribe when finished
-            Barometer.ReadingChanged += Barometer_ReadingChanged;
-
-            label = new Label
-            {
-                Text = "",
-                FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand
-            };
+            Accelerometer.ShakeDetected += Accelerometer_ShakeDetected;
 
             // Build the page.
             this.Content = new StackLayout
             {
                 Children =
                 {
-                    header, button, label
+                    header, button
                 }
             };
         }
 
         void OnButtonClicked(object sender, EventArgs e)
         {
-            ToggleBarometer();
-            button.Text = String.Format("{0}", Barometer.IsMonitoring == true ? "Stop" : "Start");
+            ToggleAccelerometer();
+            button.Text = String.Format("{0}", Accelerometer.IsMonitoring == true ? "Stop" : "Start");
         }
 
-        void Barometer_ReadingChanged(object sender, BarometerChangedEventArgs e)
+        void Accelerometer_ShakeDetected(object sender, EventArgs e)
         {
-            var data = e.Reading;
-            // Process Pressure
-            Console.WriteLine($"Reading: Pressure: {data.PressureInHectopascals} hectopascals");
-            label.Text = String.Format("Pressure: {0,0:F4}", data.PressureInHectopascals);
+            // Process shake event
+            DisplayAlert("Alert", "Shake detected.", "OK");
         }
 
-        public void ToggleBarometer()
+        public void ToggleAccelerometer()
         {
             try
             {
-                if (Barometer.IsMonitoring)
-                    Barometer.Stop();
+                if (Accelerometer.IsMonitoring)
+                    Accelerometer.Stop();
                 else
-                    Barometer.Start(speed);
+                    Accelerometer.Start(speed);
             }
             catch (FeatureNotSupportedException fnsEx)
             {
