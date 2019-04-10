@@ -42,7 +42,6 @@ namespace EssentialsDemo.Droid
 
         public TaskCompletionSource<Stream> PickImageTaskCompletionSource { set; get; }
 
-
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent intent)
         {
             base.OnActivityResult(requestCode, resultCode, intent);
