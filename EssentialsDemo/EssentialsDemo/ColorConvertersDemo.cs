@@ -8,6 +8,10 @@ namespace EssentialsDemo
     class ColorConvertersDemo : ContentPage
     {
         Label header;
+        Label hue;
+        Label saturation;
+        Label luminosity;
+        Label alpha;
         Entry entry;
         Entry entry2;
         Button button;
@@ -17,7 +21,7 @@ namespace EssentialsDemo
 
         public ColorConvertersDemo()
         {
-            Title = "Color Converter";
+            Title = "Color Converters";
 
             Grid grid = new Grid
             {
@@ -40,7 +44,7 @@ namespace EssentialsDemo
 
             header = new Label
             {
-                Text = "Color Converter",
+                Text = "Color Converters",
                 FontSize = 40,
                 FontAttributes = FontAttributes.Bold,
                 HorizontalOptions = LayoutOptions.Center
@@ -84,7 +88,7 @@ namespace EssentialsDemo
             sl1 = new Slider
             {
                 Maximum = 360,
-                HorizontalOptions = LayoutOptions.Fill,
+                HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 MinimumTrackColor = Color.Pink,
                 MaximumTrackColor = Color.LightGray
@@ -128,9 +132,40 @@ namespace EssentialsDemo
             box = new BoxView
             {
                 VerticalOptions = LayoutOptions.FillAndExpand,
-                //Aspect = Aspect.AspectFit,
                 HorizontalOptions = LayoutOptions.Fill,
-                BackgroundColor = Color.Gray,
+                Color = Color.Gray
+            };
+
+            hue = new Label
+            {
+                Text = "Hue",
+                FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            saturation = new Label
+            {
+                Text = "Saturation",
+                FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            luminosity = new Label
+            {
+                Text = "Luminosity",
+                FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            alpha = new Label
+            {
+                Text = "Alpha",
+                FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
             grid.Children.Add(header, 0, 2, 0, 1);
@@ -138,42 +173,54 @@ namespace EssentialsDemo
             grid.Children.Add(entry2, 0, 2);
             grid.Children.Add(button, 1, 1);
             grid.Children.Add(button2, 1, 2);
-            grid.Children.Add(sl1, 0, 2, 3, 4);
-            grid.Children.Add(sl2, 0, 2, 4, 5);
-            grid.Children.Add(sl3, 0, 2, 5, 6);
-            grid.Children.Add(sl4, 0, 2, 6, 7);
+            grid.Children.Add(sl1, 0, 1, 3, 4);
+            grid.Children.Add(hue, 1, 2, 3, 4);
+            grid.Children.Add(sl2, 0, 1, 4, 5);
+            grid.Children.Add(saturation, 1, 2, 4, 5);
+            grid.Children.Add(sl3, 0, 1, 5, 6);
+            grid.Children.Add(luminosity, 1, 2, 5, 6);
+            grid.Children.Add(sl4, 0, 1, 6, 7);
+            grid.Children.Add(alpha, 1, 2, 6, 7);
             grid.Children.Add(box, 0, 2, 7, 8);
 
             // Build the page.
             this.Content = grid;
         }
 
-        void OnButtonClicked(object sender, EventArgs e)
+        async void OnButtonClicked(object sender, EventArgs e)
         {
             try
             {
-                box.BackgroundColor = ColorConverters.FromHex(entry.Text);
+                box.Color = ColorConverters.FromHex(entry.Text.ToString());
+                Console.WriteLine("H: " + box.Color.Hue);
+                Console.WriteLine("S: " + box.Color.Saturation);
+                Console.WriteLine("L: " + box.Color.Luminosity);
+                sl1.Value = box.Color.Hue * 360;
+                sl2.Value = box.Color.Saturation * 100;
+                sl3.Value = box.Color.Luminosity * 100;
+                sl4.Value = box.Color.A * 255;
             }
             catch (ArgumentException)
             {
                 Console.WriteLine("ArgumentException caught!");
-                DisplayAlert("Error", "Hex format is nonstandard.", "OK");
+                await DisplayAlert("Error", "Hex format is nonstandard.", "OK");
             }
             catch (NullReferenceException)
             {
                 Console.WriteLine("NullReferenceException caught!");
-                DisplayAlert("Error", "Hex should not be null.", "OK");
+                await DisplayAlert("Error", "Hex should not be null.", "OK");
             }
-            sl1.Value = box.BackgroundColor.Hue;
-            sl2.Value = box.BackgroundColor.Saturation;
-            sl3.Value = box.BackgroundColor.Luminosity;
         }
 
         void OnButton2Clicked(object sender, EventArgs e)
         {
             try
             {
-                box.BackgroundColor = ColorConverters.FromUInt(uint.Parse(entry2.Text));
+                box.Color = ColorConverters.FromUInt(uint.Parse(entry2.Text));
+                sl1.Value = box.Color.Hue * 360;
+                sl2.Value = box.Color.Saturation * 100;
+                sl3.Value = box.Color.Luminosity * 100;
+                sl4.Value = box.Color.A * 255;
             }
             catch (FormatException)
             {
@@ -190,32 +237,29 @@ namespace EssentialsDemo
                 Console.WriteLine("ArgumentNullException caught!");
                 DisplayAlert("Error", "UInt should not be null.", "OK");
             }
-            sl1.Value = box.BackgroundColor.Hue;
-            sl2.Value = box.BackgroundColor.Saturation;
-            sl3.Value = box.BackgroundColor.Luminosity;
         }
 
         void Sl1_ValueChanged(object sender, ValueChangedEventArgs e)
         {
-            box.BackgroundColor = ColorExtensions.WithHue(box.BackgroundColor, (float)sl1.Value);
-            entry2.Text = ColorExtensions.ToUInt(box.BackgroundColor).ToString();
+            box.Color = ColorExtensions.WithHue(box.Color, (float)sl1.Value);
+            entry2.Text = ColorExtensions.ToUInt(box.Color).ToString();
         }
 
         void Sl2_ValueChanged(object sender, ValueChangedEventArgs e)
         {
-            box.BackgroundColor = ColorExtensions.WithSaturation(box.BackgroundColor, (float)sl2.Value);
-            entry2.Text = ColorExtensions.ToUInt(box.BackgroundColor).ToString();
+            box.Color = ColorExtensions.WithSaturation(box.Color, (float)sl2.Value);
+            entry2.Text = ColorExtensions.ToUInt(box.Color).ToString();
         }
 
         void Sl3_ValueChanged(object sender, ValueChangedEventArgs e)
         {
-            box.BackgroundColor = ColorExtensions.WithLuminosity(box.BackgroundColor, (float)sl3.Value);
-            entry2.Text = ColorExtensions.ToUInt(box.BackgroundColor).ToString();
+            box.Color = ColorExtensions.WithLuminosity(box.Color, (float)sl3.Value);
+            entry2.Text = ColorExtensions.ToUInt(box.Color).ToString();
         }
         void Sl4_ValueChanged(object sender, ValueChangedEventArgs e)
         {
-            box.BackgroundColor = ColorExtensions.WithAlpha(box.BackgroundColor, (int)sl4.Value);
-            entry2.Text = ColorExtensions.ToUInt(box.BackgroundColor).ToString();
+            box.Color = ColorExtensions.WithAlpha(box.Color, (int)sl4.Value);
+            entry2.Text = ColorExtensions.ToUInt(box.Color).ToString();
         }
     }
 }
