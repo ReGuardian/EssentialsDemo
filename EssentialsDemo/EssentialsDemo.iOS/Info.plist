@@ -32,5 +32,7 @@
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
 	<string>EssentialsDemo</string>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>Picture Picker uses photo library</string>
 </dict>
 </plist>

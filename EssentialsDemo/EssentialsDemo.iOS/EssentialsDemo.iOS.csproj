@@ -93,7 +93,10 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <None Include="Entitlements.plist" />
-    <None Include="Info.plist" />
+    <None Include="Info.plist">
+      <SubType>Designer</SubType>
+    </None>
+    <Compile Include="PicturePickerImplementation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +156,9 @@
     </PackageReference>
     <PackageReference Include="Microcharts.Forms">
       <Version>0.7.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugin.Media">
+      <Version>4.0.1.5</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Essentials">
       <Version>1.1.0</Version>

@@ -8,10 +8,11 @@ namespace EssentialsDemo
     class OrientationSensorDemo : ContentPage
     {
         // Set speed delay for monitoring changes.
-        SensorSpeed speed = SensorSpeed.UI;
+        SensorSpeed speed = SensorSpeed.Game;
         Button button;
         Image image;
         Label label;
+        Label label2;
 
         public OrientationSensorDemo()
         {
@@ -19,10 +20,19 @@ namespace EssentialsDemo
 
             Label header = new Label
             {
-                Text = "OrientationSensor",
-                FontSize = 50,
+                Text = "Orientation Sensor",
+                FontSize = 40,
                 FontAttributes = FontAttributes.Bold,
                 HorizontalOptions = LayoutOptions.Center
+            };
+
+            label2 = new Label
+            {
+                Text = "",
+                FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                TextColor = Color.Blue
             };
 
             button = new Button
@@ -39,7 +49,12 @@ namespace EssentialsDemo
             // Register for reading changes, be sure to unsubscribe when finished
             OrientationSensor.ReadingChanged += OrientationSensor_ReadingChanged;
 
-            image = new Image { Source = ImageSource.FromResource("EssentialsDemo.regcSharp.jpg") };
+            image = new Image
+            {
+                Source = ImageSource.FromResource("EssentialsDemo.compass.png"),
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center,
+            };
 
             label = new Label
             {
@@ -54,7 +69,7 @@ namespace EssentialsDemo
             {
                 Children =
                 {
-                    header, button, image, label
+                    header, button, label2, image, label
                 }
             };
         }
@@ -67,57 +82,32 @@ namespace EssentialsDemo
 
         void OrientationSensor_ReadingChanged(object sender, OrientationSensorChangedEventArgs e)
         {
-            var data = e.Reading;
-            // Process Orientation quaternion (X, Y, Z, and W)
-            //Console.WriteLine($"Reading: X: {data.Orientation.X}, Y: {data.Orientation.Y}, Z: {data.Orientation.Z}, W: {data.Orientation.W}");
-            label.Text = String.Format("X: {0,0:F4} \nY: {1,0:F4} \nZ: {2,0:F4} \nW: {3,0:F4}",
-                data.Orientation.X, data.Orientation.Y, data.Orientation.Z, data.Orientation.W);
+            //To avoid not able to return on UI thread
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                var data = e.Reading;
+                var θ = 2 * Math.Acos(data.Orientation.W) * 180 / Math.PI;
+                label2.Text = String.Format("{0, 0:#0°}", θ);
+                // Process Orientation quaternion (X, Y, Z, and W)
+                //Console.WriteLine($"Reading: X: {data.Orientation.X}, Y: {data.Orientation.Y}, Z: {data.Orientation.Z}, W: {data.Orientation.W}");
+                label.Text = String.Format("X: {0,0:+#0.00;- #0.00} G  Y: {1,0:+#0.00;- #0.00} G\n" +
+                    "Z: {2,0:+#0.00;- #0.00} G W: {3,0:+#0.00;- #0.00} G",
+                    data.Orientation.X, data.Orientation.Y, data.Orientation.Z, data.Orientation.W);
+                
+                var x = data.Orientation.X;
+                var y = data.Orientation.Y;
+                var z = data.Orientation.Z;
+                var w = data.Orientation.W;
 
+                // https://www.cnblogs.com/21207-iHome/p/6894128.html
+                var α = Math.Atan2(2 * (x * y + z * w), 1 - 2 * (y * y + z * z)) * 180 / Math.PI;
+                var β = Math.Asin(2 * (x * z - y * w)) * 180 / Math.PI;
+                var γ = Math.Atan2(2 * (x * w + y * z), 1 - 2 * (z * z + w * w)) * 180 / Math.PI;
 
-            //var θ = 2 * Math.Acos(data.Orientation.W);
-            // Console.WriteLine(θ * 180 / Math.PI);
-            var x = data.Orientation.X;
-            var y = data.Orientation.Y;
-            var z = data.Orientation.Z;
-            var w = data.Orientation.W;
-
-            var θ_x = Math.Atan2(2 * (x * y + z * w), 1 - 2 * (y * y + z * z)) * 180 / Math.PI;
-            var θ_y = Math.Asin(2 * (x * z - y * w)) * 180 / Math.PI;
-            var θ_z = Math.Atan2(2 * (x * w + y * z), 1 - 2 * (z * z + w * w)) * 180 / Math.PI;
-
-            image.Rotation = -θ_x;
-            image.RotationY = -θ_y;
-            image.RotationX = -θ_z;
-
-            //if (z >= 0)
-            //{
-            //    image.Rotation = Math.Acos(Math.Abs(x) / Math.Sqrt(x * x + y * y)) * 180 / Math.PI;
-            //    Console.WriteLine("rot: " + image.Rotation);
-            //}
-            //else
-            //{
-            //    image.Rotation = 360 - Math.Acos(Math.Abs(x) / Math.Sqrt(x * x + y * y)) * 180 / Math.PI;
-            //    Console.WriteLine("rot: " + image.Rotation);
-            //}
-            //if (y >= 0)
-            //{
-            //    image.RotationX = Math.Acos(y / Math.Sqrt(y * y + z * z)) * 180 / Math.PI;
-            //    //Console.WriteLine(Math.Acos(y / Math.Sqrt(y * y + z * z)) * 180 / Math.PI);
-            //}
-            //else
-            //{
-            //    image.RotationX = 360 - Math.Acos(y / Math.Sqrt(y * y + z * z)) * 180 / Math.PI;
-            //}
-            //if (x >= 0)
-            //{
-            //    image.RotationY = Math.Acos(x / Math.Sqrt(x * x + z * z)) * 180 / Math.PI;
-            //    Console.WriteLine(image.RotationY);
-            //}
-            //else
-            //{
-            //    image.RotationY = 360 - Math.Acos(x / Math.Sqrt(x * x + z * z)) * 180 / Math.PI;
-            //    Console.WriteLine(image.RotationY);
-            //}
+                image.Rotation = α;
+                image.RotationY = β;
+                image.RotationX = -γ - 180;
+            });
         }
 
         public void ToggleOrientationSensor()

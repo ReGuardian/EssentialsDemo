@@ -55,6 +55,12 @@
     <PackageReference Include="Microcharts.Forms">
       <Version>0.7.1</Version>
     </PackageReference>
+    <PackageReference Include="Plugin.CurrentActivity">
+      <Version>2.1.0.4</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugin.Media">
+      <Version>4.0.1.5</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="3.6.0.264807" />
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.1" />
@@ -63,6 +69,7 @@
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="28.0.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainApplication.cs" />
     <Compile Include="PicturePickerImplementation.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -103,6 +110,9 @@
       <Project>{018300D1-C13A-4880-BFA7-65FF2A8ABF5D}</Project>
       <Name>EssentialsDemo</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\xml\file_paths.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

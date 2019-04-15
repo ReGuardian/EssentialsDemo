@@ -12,6 +12,7 @@ namespace EssentialsDemo
         Button button;
         Label label;
         Label exception;
+        Entry entry;
         Image image;
 
         List<float> list_X = new List<float>();
@@ -29,6 +30,13 @@ namespace EssentialsDemo
                 FontSize = 50,
                 FontAttributes = FontAttributes.Bold,
                 HorizontalOptions = LayoutOptions.Center
+            };
+
+            entry = new Entry
+            {
+                Keyboard = Keyboard.Text,
+                Placeholder = "Enter filter coefficent",
+                VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
             button = new Button
@@ -49,8 +57,6 @@ namespace EssentialsDemo
             };
 
             button.Clicked += OnButtonClicked;
-            // Register for reading changes, be sure to unsubscribe when finished
-            Accelerometer.ReadingChanged += Accelerometer_ReadingChanged;
 
             label = new Label
             {
@@ -73,7 +79,7 @@ namespace EssentialsDemo
             {
                 Children =
                 {
-                    header, button, label, image, exception
+                    header, entry, button, label, image, exception
                 }
             };
         }
@@ -81,6 +87,17 @@ namespace EssentialsDemo
         void OnButtonClicked(object sender, EventArgs e)
         {
             ToggleAccelerometer();
+            if (Accelerometer.IsMonitoring == true)
+            {
+                // Register for reading changes, be sure to unsubscribe when finished
+                Accelerometer.ReadingChanged += Accelerometer_ReadingChanged;
+                Console.WriteLine("Register");
+            }
+            else
+            {
+                Accelerometer.ReadingChanged -= Accelerometer_ReadingChanged;
+                Console.WriteLine("Over");
+            }
             button.Text = String.Format("{0}", Accelerometer.IsMonitoring == true ? "Stop" : "Start");
         }
 
@@ -94,20 +111,26 @@ namespace EssentialsDemo
                 var data_Y = data.Acceleration.Y;
                 var data_Z = data.Acceleration.Z;
 
+                if (entry.Text != "" && entry.Text != null)
+                {
+                    N = int.Parse(entry.Text);
+                }
+
                 // Control the amount of values in the list to prepare for filtering
-                if (list_X.Count > N - 1)
+                while (list_X.Count > N - 1)
                 {
                     list_X.RemoveAt(0);
                 }
                 list_X.Add(data_X);
+                Console.WriteLine(list_X.Count);
 
-                if (list_Y.Count > N - 1)
+                while (list_Y.Count > N - 1)
                 {
                     list_Y.RemoveAt(0);
                 }
                 list_Y.Add(data_Y);
 
-                if (list_Z.Count > N - 1)
+                while (list_Z.Count > N - 1)
                 {
                     list_Z.RemoveAt(0);
                 }
@@ -121,9 +144,9 @@ namespace EssentialsDemo
 
                 var norm = Math.Sqrt(data_X * data_X + data_Y * data_Y + data_Z * data_Z);
                 // Calculate the normalized vector
-                var x = data.Acceleration.X / norm;
-                var y = data.Acceleration.Y / norm;
-                var z = data.Acceleration.Z / norm;
+                var x = Math.Round(data.Acceleration.X / norm, 3);
+                var y = Math.Round(data.Acceleration.Y / norm, 3);
+                var z = Math.Round(data.Acceleration.Z / norm, 3);
 
                 if (y >= 0)
                 {
