@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace EssentialsDemo
 {
@@ -14,6 +15,8 @@ namespace EssentialsDemo
         Label exception;
         Entry entry;
         Image image;
+        Stopwatch stopWatch;
+        long count = 0;
 
         List<float> list_X = new List<float>();
         List<float> list_Y = new List<float>();
@@ -82,6 +85,7 @@ namespace EssentialsDemo
                     header, entry, button, label, image, exception
                 }
             };
+
         }
 
         void OnButtonClicked(object sender, EventArgs e)
@@ -103,6 +107,8 @@ namespace EssentialsDemo
 
         void Accelerometer_ReadingChanged(object sender, AccelerometerChangedEventArgs e)
         {
+            count++;
+
             // To avoid not able to return on UI thread
             MainThread.BeginInvokeOnMainThread(() =>
             {
@@ -173,9 +179,18 @@ namespace EssentialsDemo
             try
             {
                 if (Accelerometer.IsMonitoring)
+                {
                     Accelerometer.Stop();
+                    stopWatch.Stop();
+                    TimeSpan timeSpan = stopWatch.Elapsed;
+                    label.Text = timeSpan.ToString() + "  " + count.ToString();
+                    count = 0;
+                }
                 else
+                {
                     Accelerometer.Start(speed);
+                    stopWatch.Start();
+                }
             }
             catch (FeatureNotSupportedException fnsEx)
             {
