@@ -9,7 +9,7 @@ namespace EssentialsDemo
     class AccelerometerDemo : ContentPage
     {
         // Set speed delay for monitoring changes.
-        SensorSpeed speed = SensorSpeed.UI;
+        SensorSpeed speed = SensorSpeed.Fastest;
         Button button;
         Label label;
         Label exception;
@@ -26,6 +26,7 @@ namespace EssentialsDemo
         public AccelerometerDemo()
         {
             Title = "Accelerometer";
+            stopWatch = new Stopwatch();
 
             Label header = new Label
             {
@@ -183,7 +184,9 @@ namespace EssentialsDemo
                     Accelerometer.Stop();
                     stopWatch.Stop();
                     TimeSpan timeSpan = stopWatch.Elapsed;
-                    label.Text = timeSpan.ToString() + "  " + count.ToString();
+                    long ms = stopWatch.ElapsedMilliseconds;
+                    label.Text = timeSpan.ToString() + "; " + count.ToString() + "; " + (count / (ms / 1000)).ToString();
+                    stopWatch = new Stopwatch();
                     count = 0;
                 }
                 else
