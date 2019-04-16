@@ -83,8 +83,8 @@ namespace EssentialsDemo
                 // in kb
                 long length;
                 length = long.Parse(length_text);
-                // one char = 16 bit, 100kb = 100 * 1024 * 8 bit.
-                length = length * 512; // now in number of char.
+                // one char = 8 bit, 100kb = 100 * 1024 * 8 bit.
+                length = length * 1024; // now in number of char.
                 string longString = GenerateRandomString(length);
                 content = longString;
                 // save

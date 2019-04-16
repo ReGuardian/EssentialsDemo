@@ -2,27 +2,31 @@
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace EssentialsDemo
 {
     class AccelerometerDemo : ContentPage
     {
         // Set speed delay for monitoring changes.
-        SensorSpeed speed = SensorSpeed.Game;
+        SensorSpeed speed = SensorSpeed.Fastest;
         Button button;
         Label label;
         Label exception;
         Entry entry;
         Image image;
+        Stopwatch stopWatch;
+        long count = 0;
 
         List<float> list_X = new List<float>();
         List<float> list_Y = new List<float>();
         List<float> list_Z = new List<float>();
-        int N = 10;
+        int N = 1;
 
         public AccelerometerDemo()
         {
             Title = "Accelerometer";
+            stopWatch = new Stopwatch();
 
             Label header = new Label
             {
@@ -82,6 +86,7 @@ namespace EssentialsDemo
                     header, entry, button, label, image, exception
                 }
             };
+
         }
 
         void OnButtonClicked(object sender, EventArgs e)
@@ -103,6 +108,8 @@ namespace EssentialsDemo
 
         void Accelerometer_ReadingChanged(object sender, AccelerometerChangedEventArgs e)
         {
+            count++;
+
             // To avoid not able to return on UI thread
             MainThread.BeginInvokeOnMainThread(() =>
             {
@@ -173,9 +180,20 @@ namespace EssentialsDemo
             try
             {
                 if (Accelerometer.IsMonitoring)
+                {
                     Accelerometer.Stop();
+                    stopWatch.Stop();
+                    TimeSpan timeSpan = stopWatch.Elapsed;
+                    long ms = stopWatch.ElapsedMilliseconds;
+                    label.Text = timeSpan.ToString() + "; " + count.ToString() + "; " + (count / (ms / 1000)).ToString();
+                    stopWatch = new Stopwatch();
+                    count = 0;
+                }
                 else
+                {
                     Accelerometer.Start(speed);
+                    stopWatch.Start();
+                }
             }
             catch (FeatureNotSupportedException fnsEx)
             {
