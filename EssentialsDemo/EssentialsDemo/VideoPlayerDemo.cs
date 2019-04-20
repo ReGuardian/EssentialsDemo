@@ -17,6 +17,8 @@ namespace EssentialsDemo
         public VideoPlayerDemo()
         {
             videoPlayer = new VideoPlayer();
+            videoPlayer.Source = VideoSource.FromUri("https://archive.org/download/BigBuckBunny_328/BigBuckBunny_512kb.mp4");
+
             button_selectSource = new Button { Text = "Select Source" };
             button_selectSource.Clicked += Button_selectSource_ClickedAsync;
 
@@ -30,16 +32,16 @@ namespace EssentialsDemo
 
         private async void Button_selectSource_ClickedAsync(object sender, EventArgs e)
         {
-            //string filename = await DependencyService.Get<IVideoPicker>().GetVideoFileAsync();
+            string filename = await DependencyService.Get<IVideoPicker>().GetVideoFileAsync();
 
-            //if (!String.IsNullOrWhiteSpace(filename))
-            //{
-            //    videoPlayer.Source = new FileVideoSource
-            //    {
-            //        File = filename
-            //    };
-            //}
-            videoPlayer.Source = VideoSource.FromUri("https://archive.org/download/BigBuckBunny_328/BigBuckBunny_512kb.mp4");
+            if (!String.IsNullOrWhiteSpace(filename))
+            {
+                videoPlayer.Source = new FileVideoSource
+                {
+                    File = filename
+                };
+            }
+            //videoPlayer.Source = VideoSource.FromUri("https://archive.org/download/BigBuckBunny_328/BigBuckBunny_512kb.mp4");
         }
     }
 }
