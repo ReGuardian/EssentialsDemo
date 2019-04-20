@@ -37,6 +37,7 @@ namespace EssentialsDemo
         VibrationDemo f29;
         ImagePickerDemo f32;
         UnitConvertersDemo f33;
+        VideoPlayerDemo f34;
         public HomePage()
         {
             Title = "Demo";
@@ -57,7 +58,7 @@ namespace EssentialsDemo
                 "Geocoding", "Geolocation", "Gyroscope", "Launcher", "Magnetometer",
                 "Main Thread", "Maps", "Open Browser", "Orientation Sensor", "Phone Dialer",
                 "Preferences", "Secure Storage", "Share", "SMS", "Text-to-Speech",
-                "Version Tracking", "Vibrate", "Image Picker", "Unit converters"
+                "Version Tracking", "Vibrate", "Image Picker", "Unit converters", "Video Player"
             };
 
             var masterPageItems = new List<TextCell>();
@@ -245,6 +246,10 @@ namespace EssentialsDemo
                 case "Unit converters":
                     if (f33 == null) { f33 = new UnitConvertersDemo(); }
                     this.Detail = f33;
+                    break;
+                case "Video Player":
+                    if (f33 == null) { f34 = new VideoPlayerDemo(); }
+                    this.Detail = f34;
                     break;
             }
             this.IsPresented = false;
