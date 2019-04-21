@@ -38,6 +38,7 @@ namespace EssentialsDemo
         ImagePickerDemo f32;
         UnitConvertersDemo f33;
         VideoPlayerDemo f34;
+        PlatformExtensionsDemo f35;
         public HomePage()
         {
             Label header = new Label
@@ -55,7 +56,7 @@ namespace EssentialsDemo
                 "Clipboard", "Compass", "Connectivity","Detect Shake", "Device Display Information",
                 "Device Information", "Email", "File System Helpers", "Flashlight",
                 "Geocoding", "Geolocation", "Gyroscope", "Launcher", "Magnetometer",
-                "Main Thread", "Maps", "Open Browser", "Orientation Sensor", "Phone Dialer",
+                "Main Thread", "Maps", "Open Browser", "Orientation Sensor", "Phone Dialer", "Platform Extensions",
                 "Preferences", "Secure Storage", "Share", "SMS", "Text-to-Speech", "Unit converters",
                 "Version Tracking", "Vibrate", "Image Picker", "Video Player"
             };
@@ -242,6 +243,10 @@ namespace EssentialsDemo
                 case "Video Player":
                     if (f34 == null) { f34 = new VideoPlayerDemo(); }
                     this.Detail = new NavigationPage(f34);
+                    break;
+                case "Platform Extensions":
+                    if (f35 == null) { f35 = new PlatformExtensionsDemo(); }
+                    this.Detail = new NavigationPage(f35);
                     break;
             }
             this.IsPresented = false;
