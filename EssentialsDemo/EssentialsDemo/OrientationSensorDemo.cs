@@ -13,6 +13,7 @@ namespace EssentialsDemo
         Image image;
         Label label;
         Label label2;
+        ScrollView scrollView;
 
         public OrientationSensorDemo()
         {
@@ -64,14 +65,16 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-            // Build the page.
-            this.Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children =
+                Content = new StackLayout
                 {
-                    header, button, label2, image, label
+                    Children = { header, button, label2, image, label }
                 }
             };
+
+            // Build the page.
+            this.Content = scrollView;
         }
 
         void OnButtonClicked(object sender, EventArgs e)
@@ -93,7 +96,7 @@ namespace EssentialsDemo
                 label.Text = String.Format("X: {0,0:+#0.00;- #0.00} G  Y: {1,0:+#0.00;- #0.00} G\n" +
                     "Z: {2,0:+#0.00;- #0.00} G W: {3,0:+#0.00;- #0.00} G",
                     data.Orientation.X, data.Orientation.Y, data.Orientation.Z, data.Orientation.W);
-                
+
                 var x = data.Orientation.X;
                 var y = data.Orientation.Y;
                 var z = data.Orientation.Z;

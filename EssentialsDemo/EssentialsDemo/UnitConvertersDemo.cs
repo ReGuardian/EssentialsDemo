@@ -15,6 +15,7 @@ namespace EssentialsDemo
         private Entry entry_4;
         private Label label_result;
         private Picker picker_converters;
+        private ScrollView scrollView;
 
         public UnitConvertersDemo()
         {
@@ -61,6 +62,14 @@ namespace EssentialsDemo
             picker_converters.SelectedIndex = 0;
 
             picker_converters.SelectedIndexChanged += Picker_converters_SelectedIndexChanged;
+
+            scrollView = new ScrollView
+            {
+                Content = new StackLayout
+                {
+                    Children = { new Label { Text = "This is a unit converters demo." }, entry_1, entry_2, entry_3, entry_4, picker_converters, label_result }
+                }
+            };
 
             Content = new StackLayout
             {

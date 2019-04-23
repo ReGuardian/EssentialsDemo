@@ -14,6 +14,7 @@ namespace EssentialsDemo
         Button button1;
         Button button2;
         Button button3;
+        ScrollView scrollView;
         public VibrationDemo()
         {
             Title = "Vibrate";
@@ -66,10 +67,15 @@ namespace EssentialsDemo
             };
             button3.Clicked += OnButtonClicked3;
 
-            Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children = { header, button1, entry, button2, button3}
+                Content = new StackLayout
+                {
+                    Children = { header, button1, entry, button2, button3 }
+                }
             };
+
+            Content = scrollView;
         }
 
         void OnButtonClicked1(object sender, EventArgs e)

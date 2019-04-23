@@ -9,6 +9,7 @@ namespace EssentialsDemo
         Button button1;
         Button button2;
         Label label;
+        ScrollView scrollView;
 
         public GeolocationDemo()
         {
@@ -52,14 +53,16 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-            // Build the page.
-            this.Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children =
+                Content = new StackLayout
                 {
-                    header, button1, button2, label
+                    Children = { header, button1, button2, label }
                 }
             };
+
+            // Build the page.
+            this.Content = scrollView;
         }
 
         async void OnButtonClicked1(object sender, EventArgs e)
@@ -71,8 +74,8 @@ namespace EssentialsDemo
                 if (location != null)
                 {
                     Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
-                    label.Text = $"Latitude:  {location.Latitude}\n" + 
-                                 $"Longitude: {location.Longitude}\n" + 
+                    label.Text = $"Latitude:  {location.Latitude}\n" +
+                                 $"Longitude: {location.Longitude}\n" +
                                  $"Altitude:  {location.Altitude}";
                 }
             }

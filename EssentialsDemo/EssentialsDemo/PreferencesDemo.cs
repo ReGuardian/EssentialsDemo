@@ -163,6 +163,7 @@ namespace EssentialsDemo
         Switch switcher;
         Entry text;
         DatePicker datePicker;
+        ScrollView scrollView;
 
         public PreferencesDemo()
         {
@@ -210,18 +211,16 @@ namespace EssentialsDemo
             };
             datePicker.DateSelected += DatePicker_DateSelected;
 
-            // Build the page.
-            this.Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children =
+                Content = new StackLayout
                 {
-                    header,
-                    slider,
-                    switcher,
-                    text,
-                    datePicker
+                    Children = { header, slider, switcher, text, datePicker }
                 }
             };
+
+            // Build the page.
+            this.Content = scrollView;
         }
 
         void OnSwitcherToggled(object sender, ToggledEventArgs e)

@@ -10,6 +10,7 @@ namespace EssentialsDemo
         Button button1;
         Button button2;
         Entry text;
+        ScrollView scrollView;
 
         public ShareDemo()
         {
@@ -52,14 +53,16 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-            // Build the page.
-            this.Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children =
+                Content = new StackLayout
                 {
-                    header, text, button1, button2
+                    Children = { header, text, button1, button2 }
                 }
             };
+
+            // Build the page.
+            this.Content = scrollView;
         }
 
         async void OnButtonClicked1(object sender, EventArgs e)

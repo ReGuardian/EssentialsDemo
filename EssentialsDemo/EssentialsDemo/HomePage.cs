@@ -248,7 +248,7 @@ namespace EssentialsDemo
                     this.Detail = f33;
                     break;
                 case "Video Player":
-                    if (f33 == null) { f34 = new VideoPlayerDemo(); }
+                    if (f34 == null) { f34 = new VideoPlayerDemo(); }
                     this.Detail = f34;
                     break;
             }

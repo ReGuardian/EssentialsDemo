@@ -16,6 +16,7 @@ namespace EssentialsDemo
         Button button;
         Label label;
         ChartView chartView;
+        ScrollView scrollView;
 
         List<float> list_X = new List<float>();
         List<float> list_Y = new List<float>();
@@ -61,14 +62,16 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.FillAndExpand
             };
 
-            // Build the page.
-            this.Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children =
+                Content = new StackLayout
                 {
-                    header, button, label, chartView
+                    Children = { header, button, label, chartView }
                 }
             };
+
+            // Build the page.
+            this.Content = scrollView;
         }
 
         void OnButtonClicked(object sender, EventArgs e)

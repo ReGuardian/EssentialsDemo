@@ -11,6 +11,7 @@ namespace EssentialsDemo
         Label label;
         Entry text1;
         Entry text2;
+        ScrollView scrollView;
 
         public SmsDemo()
         {
@@ -56,14 +57,16 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-            // Build the page.
-            this.Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children =
+                Content = new StackLayout
                 {
-                    header, text1, text2, button1, label
+                    Children = { header, text1, text2, button1, label }
                 }
             };
+
+            // Build the page.
+            this.Content = scrollView;
         }
 
         async void OnButtonClicked1(object sender, EventArgs e)

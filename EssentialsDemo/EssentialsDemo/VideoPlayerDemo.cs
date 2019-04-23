@@ -14,6 +14,7 @@ namespace EssentialsDemo
     {
         VideoPlayer videoPlayer;
         Button button_selectSource;
+        ScrollView scrollView;
         public VideoPlayerDemo()
         {
             videoPlayer = new VideoPlayer();
@@ -22,12 +23,15 @@ namespace EssentialsDemo
             button_selectSource = new Button { Text = "Select Source" };
             button_selectSource.Clicked += Button_selectSource_ClickedAsync;
 
-            Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children = {
-                    new Label { Text = "This is a Video Player." }, button_selectSource, videoPlayer
+                Content = new StackLayout
+                {
+                    Children = { new Label { Text = "This is a Video Player." }, button_selectSource, videoPlayer }
                 }
             };
+
+            Content = scrollView;
         }
 
         private async void Button_selectSource_ClickedAsync(object sender, EventArgs e)

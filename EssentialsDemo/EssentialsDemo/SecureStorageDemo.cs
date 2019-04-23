@@ -24,6 +24,8 @@ namespace EssentialsDemo
         private Button removeKey;
         private Button removeAllKeys;
         private Label result;
+        private ScrollView scrollView;
+
         public SecureStorageDemo()
         {
             Title = "Secure Storage";
@@ -66,13 +68,16 @@ namespace EssentialsDemo
                 }
             };
 
-            Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children = {
-                    new Label { Text = "This is a Secure Stroage Demo." }, tableView, saveLongString, saveWithKey, saveWithoutKey, retrieveWithKey, retrieveWithoutKey, removeKey, removeAllKeys,
-                    result
+                Content = new StackLayout
+                {
+                    Children = {    new Label { Text = "This is a Secure Stroage Demo." }, tableView, saveLongString, saveWithKey, saveWithoutKey, retrieveWithKey, retrieveWithoutKey, removeKey, removeAllKeys,
+                    result                }
                 }
             };
+
+            Content = scrollView;
         }
 
         private async void SaveLongString_ClickedAsync(object sender, EventArgs e)

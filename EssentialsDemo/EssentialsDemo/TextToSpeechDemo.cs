@@ -22,6 +22,7 @@ namespace EssentialsDemo
         private Locale locale;
         private IEnumerable<Locale> locales;
         private Button button_getLocale;
+        private ScrollView scrollView;
 
         public TextToSpeechDemo()
         {
@@ -54,10 +55,15 @@ namespace EssentialsDemo
                     Children = { picker_locale }
                 };
 
-                Content = new StackLayout
+                scrollView = new ScrollView
                 {
-                    Children = { title, instructer1, slider_volume, instructer2, slider_pitch, button_getLocale, stloPic, entry, button_speak, result }
+                    Content = new StackLayout
+                    {
+                        Children = { title, instructer1, slider_volume, instructer2, slider_pitch, button_getLocale, stloPic, entry, button_speak, result }
+                    }
                 };
+
+                Content = scrollView;
             }
             else // other platforms
             {
