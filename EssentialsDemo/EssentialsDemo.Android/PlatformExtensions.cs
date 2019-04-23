@@ -21,8 +21,8 @@ namespace EssentialsDemo.Droid
         {
             // Convert to CoreGraphics.CGSize, Android.Util.Size, and Windows.Foundation.Size
             var platform = size.ToPlatformSize();
-            // Back to System.Drawing.Point
-            //var point2 = platform.ToSystemPoint();
+            // Back to System.Drawing.Size
+            //var point2 = platform.ToSystemSize();
             return platform.ToString();
         }
 
@@ -30,8 +30,8 @@ namespace EssentialsDemo.Droid
         {
             // Convert to CoreGraphics.CGRect, Android.Graphics.Rect, and Windows.Foundation.Rect
             var platform = rect.ToPlatformRectangle();
-            // Back to System.Drawing.Point
-            //var point2 = platform.ToSystemPoint();
+            // Back to System.Drawing.Rectangle
+            //var point2 = platform.ToSystemRectangle();
             return platform.ToString();
         }
     }
