@@ -98,6 +98,8 @@
     </Compile>
     <Compile Include="PlatformExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VideoPicker.cs" />
+    <Compile Include="VideoPlayerRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

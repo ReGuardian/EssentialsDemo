@@ -49,11 +49,11 @@ namespace EssentialsDemo.Droid
 
                     // Use the RelativeLayout as the native control
                     SetNativeControl(relativeLayout);
-
-                    SetAreTransportControlsEnabled();
-
-                    SetSource();
                 }
+
+                SetAreTransportControlsEnabled();
+
+                SetSource();
             }
         }
 
