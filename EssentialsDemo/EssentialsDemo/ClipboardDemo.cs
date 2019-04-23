@@ -10,6 +10,7 @@ namespace EssentialsDemo
         Button button2;
         Label label;
         Entry text;
+        ScrollView scrollView;
 
         public ClipboardDemo()
         {
@@ -60,14 +61,15 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-            // Build the page.
-            this.Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children =
+                Content = new StackLayout
                 {
-                    header, text, button1, button2, label
+                    Children = { header, text, button1, button2, label }
                 }
             };
+            // Build the page.
+            this.Content = scrollView;
         }
 
         private void Clipboard_EnergySaverStatusChanged(object sender, EnergySaverStatusChangedEventArgs e)

@@ -10,6 +10,7 @@ namespace EssentialsDemo
         Button button1;
         Entry text;
         Uri uriAddress;
+        ScrollView scrollView;
 
         public BrowserDemo()
         {
@@ -41,14 +42,15 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-            // Build the page.
-            this.Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children =
+                Content = new StackLayout
                 {
-                    header, text, button1
+                    Children = { header, text, button1 }
                 }
             };
+            // Build the page.
+            this.Content = scrollView;
         }
 
         void OnButtonClicked1(object sender, EventArgs e)

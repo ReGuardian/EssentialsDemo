@@ -10,6 +10,7 @@ namespace EssentialsDemo
     {
         // Set speed delay for monitoring changes.
         SensorSpeed speed = SensorSpeed.Fastest;
+        ScrollView scrollView;
         Button button;
         Label label;
         Label exception;
@@ -78,14 +79,15 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.End
             };
 
-            // Build the page.
-            this.Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children =
+                Content = new StackLayout
                 {
-                    header, entry, button, label, image, exception
+                    Children = { header, entry, button, label, image, exception }
                 }
             };
+            // Build the page.
+            this.Content = scrollView;
 
         }
 

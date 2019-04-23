@@ -18,6 +18,7 @@ namespace EssentialsDemo
         Button button2;
         Slider sl1, sl2, sl3, sl4;
         BoxView box;
+        ScrollView scrollView;
 
         public ColorConvertersDemo()
         {
@@ -183,8 +184,12 @@ namespace EssentialsDemo
             grid.Children.Add(alpha, 1, 2, 6, 7);
             grid.Children.Add(box, 0, 2, 7, 8);
 
+            scrollView = new ScrollView
+            {
+                Content = grid
+            };
             // Build the page.
-            this.Content = grid;
+            this.Content = scrollView;
         }
 
         async void OnButtonClicked(object sender, EventArgs e)

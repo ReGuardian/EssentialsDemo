@@ -13,6 +13,7 @@ namespace EssentialsDemo
         Entry text1;
         Entry text2;
         Entry text3;
+        ScrollView scrollView;
 
         public EmailDemo()
         {
@@ -66,14 +67,15 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-            // Build the page.
-            this.Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children =
+                Content = new StackLayout
                 {
-                    header, text1, text2, text3, button1, label
+                    Children = { header, text1, text2, text3, button1, label }
                 }
             };
+            // Build the page.
+            this.Content = scrollView;
         }
 
         async void OnButtonClicked1(object sender, EventArgs e)

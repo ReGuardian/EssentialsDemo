@@ -15,6 +15,7 @@ namespace EssentialsDemo
         Button button4;
         Entry entry;
         Entry entry2;
+        ScrollView scrollView;
 
         public FileSysHelperDemo()
         {
@@ -94,14 +95,15 @@ namespace EssentialsDemo
             };
             button4.Clicked += OnButtonClicked4;
 
-            // Build the page.
-            this.Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children =
+                Content = new StackLayout
                 {
-                    header, button1, button2, label, entry, entry2, button3, button4
+                    Children = { header, button1, button2, label, entry, entry2, button3, button4 }
                 }
             };
+            // Build the page.
+            this.Content = scrollView;
         }
 
         void OnButtonClicked1(object sender, EventArgs e)

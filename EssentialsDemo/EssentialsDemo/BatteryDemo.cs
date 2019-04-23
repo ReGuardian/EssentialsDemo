@@ -8,6 +8,7 @@ namespace EssentialsDemo
     {
         Button button;
         Label label;
+        ScrollView scrollView;
 
         public BatteryDemo()
         {
@@ -45,14 +46,15 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-            // Build the page.
-            this.Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children =
+                Content = new StackLayout
                 {
-                    header, button, label
+                    Children = { header, button, label }
                 }
             };
+            // Build the page.
+            this.Content = scrollView;
         }
 
         private void Battery_EnergySaverStatusChanged(object sender, EnergySaverStatusChangedEventArgs e)
