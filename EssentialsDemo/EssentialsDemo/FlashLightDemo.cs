@@ -9,6 +9,7 @@ namespace EssentialsDemo
         Label header;
         Button button1;
         Button button2;
+        ScrollView scrollView;
 
         public FlashLightDemo()
         {
@@ -44,14 +45,16 @@ namespace EssentialsDemo
             };
             button2.Clicked += OnButtonClicked2Async;
 
-            // Build the page.
-            this.Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children =
+                Content = new StackLayout
                 {
-                    header, button1, button2
+                    Children = { header, button1, button2 }
                 }
             };
+
+            // Build the page.
+            this.Content = scrollView;
         }
 
         async void OnButtonClicked1Async(object sender, EventArgs e)

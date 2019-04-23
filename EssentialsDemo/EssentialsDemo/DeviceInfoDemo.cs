@@ -43,18 +43,14 @@ namespace EssentialsDemo
 
             scrollView = new ScrollView
             {
-                VerticalOptions = LayoutOptions.FillAndExpand,
-                Content = label
+                Content = new StackLayout
+                {
+                    Children = { header, button1, label }
+                }
             };
 
             // Build the page.
-            this.Content = new StackLayout
-            {
-                Children =
-                {
-                    header, button1, scrollView
-                }
-            };
+            this.Content = scrollView;
         }
 
         void OnButtonClicked1(object sender, EventArgs e)

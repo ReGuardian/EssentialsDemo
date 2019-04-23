@@ -9,6 +9,7 @@ namespace EssentialsDemo
     {
         SensorSpeed speed = SensorSpeed.UI;
         Button button;
+        ScrollView scrollView;
 
         public DetectShakeDemo()
         {
@@ -36,14 +37,15 @@ namespace EssentialsDemo
             // Register for reading changes, be sure to unsubscribe when finished
             Accelerometer.ShakeDetected += Accelerometer_ShakeDetected;
 
-            // Build the page.
-            this.Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children =
+                Content = new StackLayout
                 {
-                    header, button
+                    Children = {header, button}
                 }
             };
+            // Build the page.
+            this.Content = scrollView;
         }
 
         void OnButtonClicked(object sender, EventArgs e)

@@ -10,6 +10,7 @@ namespace EssentialsDemo
         SensorSpeed speed = SensorSpeed.UI;
         Button button;
         Label label;
+        ScrollView scrollView;
 
         public BarometerDemo()
         {
@@ -45,14 +46,15 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-            // Build the page.
-            this.Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children =
+                Content = new StackLayout
                 {
-                    header, button, label
+                    Children = { header, button, label }
                 }
             };
+            // Build the page.
+            this.Content = scrollView;
         }
 
         void OnButtonClicked(object sender, EventArgs e)

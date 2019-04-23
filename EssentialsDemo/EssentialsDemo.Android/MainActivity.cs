@@ -46,11 +46,15 @@ namespace EssentialsDemo.Droid
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
-        // Field, property, and method for Picture Picker
+        // Field, property for Picture Picker
         public static readonly int PickImageId = 1000;
-
         public TaskCompletionSource<Stream> PickImageTaskCompletionSource { set; get; }
 
+        // Field, properties for Video Picker
+        public static readonly int PickVideoId = 1001;
+        public TaskCompletionSource<string> PickVideoTaskCompletionSource { set; get; }
+
+        // Method for Picture Picker & Video Picker
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent intent)
         {
             base.OnActivityResult(requestCode, resultCode, intent);
@@ -62,12 +66,25 @@ namespace EssentialsDemo.Droid
                     Android.Net.Uri uri = intent.Data;
                     Stream stream = ContentResolver.OpenInputStream(uri);
 
-                    // Set the Stream as the completion of the Task
+                    // Set the Stream as the completion of the Task(Picture Picker)
                     PickImageTaskCompletionSource.SetResult(stream);
+                    // Set the filename as the completion of the Task(Video Picker)
                 }
                 else
                 {
-                    PickImageTaskCompletionSource.SetResult(null);
+                    PickImageTaskCompletionSource.SetResult(null);// Picture Picker
+                }
+            }
+            else if (requestCode == PickVideoId)
+            {
+                if ((resultCode == Result.Ok) && (intent != null))
+                {
+                    // Set the filename as the completion of the Task
+                    PickVideoTaskCompletionSource.SetResult(intent.DataString);
+                }
+                else
+                {
+                    PickVideoTaskCompletionSource.SetResult(null);
                 }
             }
         }

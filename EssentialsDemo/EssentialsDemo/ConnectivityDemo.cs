@@ -10,6 +10,7 @@ namespace EssentialsDemo
         Button button;
         Label label;
         Label label2;
+        ScrollView scrollView;
 
         public ConnectivityDemo()
         {
@@ -54,14 +55,15 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.Center
             };
 
-            // Build the page.
-            this.Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children =
+                Content = new StackLayout
                 {
-                    header, button, label, label2
+                    Children = { header, button, label, label2 }
                 }
             };
+            // Build the page.
+            this.Content = scrollView;
         }
 
         void OnButtonClicked(object sender, EventArgs e)

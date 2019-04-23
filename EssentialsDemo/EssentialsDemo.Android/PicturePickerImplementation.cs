@@ -20,7 +20,7 @@ namespace EssentialsDemo.Droid
             // Start the picture-picker activity (resumes in MainActivity.cs)
             MainActivity.Instance.StartActivityForResult(
                 Intent.CreateChooser(intent, "Select Picture"),
-                MainActivity.PickImageId);
+                1000);// 1000 is the MainActivity.PickImageId
 
             // Save the TaskCompletionSource object as a MainActivity property
             MainActivity.Instance.PickImageTaskCompletionSource = new TaskCompletionSource<Stream>();

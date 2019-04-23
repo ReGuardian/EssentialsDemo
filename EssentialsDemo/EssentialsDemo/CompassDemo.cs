@@ -12,6 +12,7 @@ namespace EssentialsDemo
         Label label;
         Label label2;
         Image image;
+        ScrollView scrollView;
 
         public CompassDemo()
         {
@@ -61,14 +62,15 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-            // Build the page.
-            this.Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children =
+                Content = new StackLayout
                 {
-                    header, button, image, label, label2
+                    Children = { header, button, image, label, label2 }
                 }
             };
+            // Build the page.
+            this.Content = scrollView;
         }
 
         void OnButtonClicked(object sender, EventArgs e)
@@ -86,7 +88,7 @@ namespace EssentialsDemo
                 // Process Heading Magnetic North
                 //Console.WriteLine($"Reading: {data.HeadingMagneticNorth} degrees");
                 label2.Text = String.Format("{0,0:000} °", data.HeadingMagneticNorth);
-                image.Rotation = - data.HeadingMagneticNorth;
+                image.Rotation = -data.HeadingMagneticNorth;
             });
         }
 
