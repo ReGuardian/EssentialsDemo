@@ -44,18 +44,14 @@ namespace EssentialsDemo
 
             scrollView = new ScrollView
             {
-                VerticalOptions = LayoutOptions.FillAndExpand,
-                Content = label
+                Content = new StackLayout
+                {
+                    Children = { header, button1, label }
+                }
             };
 
             // Build the page.
-            this.Content = new StackLayout
-            {
-                Children =
-                {
-                    header, button1, scrollView
-                }
-            };
+            this.Content = scrollView;
         }
 
         void OnButtonClicked1(object sender, EventArgs e)
@@ -106,14 +102,14 @@ namespace EssentialsDemo
 
             String info = $"First Launch: {firstLaunch}\n" +
                           $"FirstLaunchCurrent: {firstLaunchCurrent}\n" +
-                          $"FirstLaunchBuild: {firstLaunchBuild}\n" + 
-                          $"Current Version: {currentVersion}\n" + 
+                          $"FirstLaunchBuild: {firstLaunchBuild}\n" +
+                          $"Current Version: {currentVersion}\n" +
                           $"Current Build: {currentBuild}\n" +
-                          $"Previous Version: {previousVersion}\n" + 
-                          $"PreviousBuild: {previousBuild}\n" + 
+                          $"Previous Version: {previousVersion}\n" +
+                          $"PreviousBuild: {previousBuild}\n" +
                           $"FirstVersion: {firstVersion}\n" +
-                          $"FirstBuild: {firstBuild}\n" + 
-                          $"Version History: {versionHistory}\n" + 
+                          $"FirstBuild: {firstBuild}\n" +
+                          $"Version History: {versionHistory}\n" +
                           $"Build History: {buildHistory}";
             return info;
         }

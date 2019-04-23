@@ -10,6 +10,7 @@ namespace EssentialsDemo
         Button button1;
         Label label;
         Entry text;
+        ScrollView scrollView;
 
         public PhoneDialerDemo()
         {
@@ -49,14 +50,16 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-            // Build the page.
-            this.Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children =
+                Content = new StackLayout
                 {
-                    header, text, button1, label
+                    Children = { header, text, button1, label }
                 }
             };
+
+            // Build the page.
+            this.Content = scrollView;
         }
 
         void OnButtonClicked1(object sender, EventArgs e)

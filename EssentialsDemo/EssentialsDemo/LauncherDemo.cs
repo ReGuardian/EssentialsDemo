@@ -9,6 +9,7 @@ namespace EssentialsDemo
     {
         Button button1;
         Entry text;
+        ScrollView scrollView;
 
         public LauncherDemo()
         {
@@ -40,14 +41,16 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-            // Build the page.
-            this.Content = new StackLayout
+            scrollView = new ScrollView
             {
-                Children =
+                Content = new StackLayout
                 {
-                    header, text, button1
+                    Children = { header, text, button1 }
                 }
             };
+
+            // Build the page.
+            this.Content = scrollView;
         }
 
         async void OnButtonClicked1(object sender, EventArgs e)

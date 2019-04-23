@@ -80,18 +80,15 @@ namespace EssentialsDemo
 
             scrollView = new ScrollView
             {
-                VerticalOptions = LayoutOptions.FillAndExpand,
-                Content = label
+
+                Content = new StackLayout
+                {
+                    Children = { header, entry, button1, entry2, entry3, button2, label }
+                }
             };
 
             // Build the page.
-            this.Content = new StackLayout
-            {
-                Children =
-                {
-                    header, entry, button1, entry2, entry3, button2, scrollView
-                }
-            };
+            this.Content = scrollView;
         }
 
         /// <summary>
@@ -172,6 +169,6 @@ namespace EssentialsDemo
                 Console.WriteLine(ex);
                 await DisplayAlert("Error", "Other error has occurred.", "OK"); ;
             }
-        }        
+        }
     }
 }
