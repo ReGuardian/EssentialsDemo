@@ -7,9 +7,13 @@ namespace EssentialsDemo
 {
     class BrowserDemo : ContentPage
     {
+        //Description of the page
+        public string description = "Clicking the button opens the url entered in the entry " +
+            "with default system browser. Remember to add \"http://\" before the url, or there will be an error.";
         Button button1;
         Entry text;
         Uri uriAddress;
+        Label label_description;
         ScrollView scrollView;
 
         public BrowserDemo()
@@ -42,11 +46,18 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, text, button1 }
+                    Children = { header, text, button1, label_description }
                 }
             };
             // Build the page.

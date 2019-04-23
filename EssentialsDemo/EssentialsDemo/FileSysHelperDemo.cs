@@ -7,6 +7,11 @@ namespace EssentialsDemo
 {
     class FileSysHelperDemo : ContentPage
     {
+        // Description of the page
+        public string description = "Clicking first two buttons show the cache or appdata directory of the application. " +
+            "Clicking the create button creates file of the file name in the first entry with content in the second entry. " +
+            "It will be saved in appdata directory. It may not be found by file management app on Android " +
+            "because they are hidden unless the Android device is rooted.  ";
         Label header;
         Label label;
         Button button1;
@@ -15,6 +20,7 @@ namespace EssentialsDemo
         Button button4;
         Entry entry;
         Entry entry2;
+        Label label_description;
         ScrollView scrollView;
 
         public FileSysHelperDemo()
@@ -95,11 +101,18 @@ namespace EssentialsDemo
             };
             button4.Clicked += OnButtonClicked4;
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button1, button2, label, entry, entry2, button3, button4 }
+                    Children = { header, button1, button2, label, entry, entry2, button3, button4, label_description }
                 }
             };
             // Build the page.
@@ -128,7 +141,7 @@ namespace EssentialsDemo
                 var mainDir = FileSystem.AppDataDirectory;
                 var fileName = Path.Combine(mainDir, entry.Text);
                 File.WriteAllText(fileName, entry2.Text);
-                DisplayAlert("Success", "File create successfully.", "OK");
+                DisplayAlert("Success", "File created successfully.", "OK");
             }
             catch (Exception)
             {

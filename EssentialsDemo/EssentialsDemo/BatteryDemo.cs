@@ -6,8 +6,15 @@ namespace EssentialsDemo
 {
     class BatteryDemo : ContentPage
     {
+        // Description of the page
+        public string description = "Clicking the button shows the information on battery. " +
+            "Level is a double value between 0 and 1. " +
+            "State has values of charging, discharging, not charging, full, not present and unknown." +
+            "Source value can be battery, AC, usb, wireless and unknown." +
+            "Status is status of energy saver, the value can be on or off or unknown.";
         Button button;
         Label label;
+        Label label_description;
         ScrollView scrollView;
 
         public BatteryDemo()
@@ -45,12 +52,19 @@ namespace EssentialsDemo
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
+            
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
 
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button, label }
+                    Children = { header, button, label, label_description }
                 }
             };
             // Build the page.
@@ -75,6 +89,7 @@ namespace EssentialsDemo
             var state = e.State;
             var source = e.PowerSource;
             Console.WriteLine($"Reading: Level: {level}, State: {state}, Source: {source}");
+            label.Text = ShowBatteryInfo();
         }
 
         public String ShowBatteryInfo()

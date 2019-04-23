@@ -6,12 +6,16 @@ namespace EssentialsDemo
 {
     class CompassDemo : ContentPage
     {
+        //Description of the page
+        public string description = "Compass measures the angle heading magnetic north. " +
+            "The picture shows the north of the earth.";
         // Set speed delay for monitoring changes.
         SensorSpeed speed = SensorSpeed.Game;
         Button button;
         Label label;
         Label label2;
         Image image;
+        Label label_description;
         ScrollView scrollView;
 
         public CompassDemo()
@@ -62,11 +66,18 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button, image, label, label2 }
+                    Children = { header, button, image, label, label2, label_description }
                 }
             };
             // Build the page.

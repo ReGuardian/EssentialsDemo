@@ -6,9 +6,13 @@ namespace EssentialsDemo
 {
     class FlashLightDemo : ContentPage
     {
+        // Description of the page
+        public string description = "Clicking the on/off button switches on/off the flashlight of the device. " +
+            "Permissions maybe asked when clicking the buttons. ";
         Label header;
         Button button1;
         Button button2;
+        Label label_description;
         ScrollView scrollView;
 
         public FlashLightDemo()
@@ -45,11 +49,18 @@ namespace EssentialsDemo
             };
             button2.Clicked += OnButtonClicked2Async;
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button1, button2 }
+                    Children = { header, button1, button2, label_description }
                 }
             };
 

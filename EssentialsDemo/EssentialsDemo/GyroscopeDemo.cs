@@ -11,17 +11,24 @@ namespace EssentialsDemo
 {
     class GyroscopeDemo : ContentPage
     {
+        // Description of the page
+        public string description = "Clicking the button starts/stops measuring rotation rate in rad/s around X,Y,Z axis. " +
+            "X-axis points horizontally to the right of the device. " +
+            "Y-axis points vertically to the top of the device." +
+            "Z-axis points vertically outside off the device. " +
+            "Their absolute values composes the radar chart. ";
         // Set speed delay for monitoring changes.
         SensorSpeed speed = SensorSpeed.Game;
         Button button;
         Label label;
         ChartView chartView;
+        Label label_description;
         ScrollView scrollView;
 
         List<float> list_X = new List<float>();
         List<float> list_Y = new List<float>();
         List<float> list_Z = new List<float>();
-        int N = 20;
+        int N = 10;
 
         public GyroscopeDemo()
         {
@@ -62,11 +69,18 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.FillAndExpand
             };
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.End
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button, label, chartView }
+                    Children = { header, button, label, chartView, label_description }
                 }
             };
 

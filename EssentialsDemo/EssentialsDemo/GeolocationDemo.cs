@@ -6,9 +6,16 @@ namespace EssentialsDemo
 {
     class GeolocationDemo : ContentPage
     {
+        // Description of the page
+        public string description = "Clicking the first button shows the last known location of the device latitude, longitude and altitude. " +
+            "Clicking the other button shows the current location of the device in latitude, longitude and altitude. " +
+            "The altitude might not be available. Both functions cannot work without access of network or gps. " +
+            "Showing current location request might be slow to process, the request will be cancel after ten seconds. " +
+            "So, another click is needed if there is no answer after ten seconds. ";
         Button button1;
         Button button2;
         Label label;
+        Label label_description;
         ScrollView scrollView;
 
         public GeolocationDemo()
@@ -53,11 +60,18 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button1, button2, label }
+                    Children = { header, button1, button2, label, label_description }
                 }
             };
 

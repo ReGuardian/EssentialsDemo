@@ -6,8 +6,11 @@ namespace EssentialsDemo
 {
     class DeviceInfoDemo : ContentPage
     {
+        // Description of the page
+        public string description = "Clicking the button shows the detailed information about the device. ";
         Button button1;
         Label label;
+        Label label_description;
         ScrollView scrollView;
 
         public DeviceInfoDemo()
@@ -41,11 +44,18 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button1, label }
+                    Children = { header, button1, label, label_description }
                 }
             };
 

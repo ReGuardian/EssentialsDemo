@@ -7,9 +7,14 @@ namespace EssentialsDemo
 {
     class ConnectivityDemo : ContentPage
     {
+        //Description of the page
+        public string description = "This page shows connectivity information. " +
+            "Network access has values of internet, constrained internet, local, none and unknown. " +
+            "Connection profile has values of bluetooth, cellular, ethernet, wifi and unknown. ";
         Button button;
         Label label;
         Label label2;
+        Label label_description;
         ScrollView scrollView;
 
         public ConnectivityDemo()
@@ -55,11 +60,18 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.Center
             };
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button, label, label2 }
+                    Children = { header, button, label, label2, label_description }
                 }
             };
             // Build the page.
