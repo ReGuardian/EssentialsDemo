@@ -88,7 +88,7 @@ namespace EssentialsDemo
             sl1 = new Slider
             {
                 Maximum = 360,
-                HorizontalOptions = LayoutOptions.Start,
+                HorizontalOptions = LayoutOptions.Fill,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 MinimumTrackColor = Color.Pink,
                 MaximumTrackColor = Color.LightGray

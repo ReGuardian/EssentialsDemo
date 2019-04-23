@@ -40,7 +40,7 @@ namespace EssentialsDemo
                 Font = Font.SystemFontOfSize(NamedSize.Large),
                 BorderWidth = 1,
                 HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.Center,
                 CornerRadius = 10
             };
 
@@ -112,7 +112,7 @@ namespace EssentialsDemo
                 data_Z = filter(list_Z);
 
                 // Process Angular Velocity X, Y, and Z reported in rad/s
-                Console.WriteLine($"Reading: X: {data_X}, Y: {data_Y}, Z: {data_Z}");
+                //Console.WriteLine($"Reading: X: {data_X}, Y: {data_Y}, Z: {data_Z}");
                 label.Text = String.Format("X: {0,0:+#0.00;- #0.00} rad/s\nY: {1,0:+#0.00;- #0.00} rad/s\nZ: {2,0:+#0.00;- #0.00} rad/s",
                     data_X, data_Y, data_Z);
                 var entries = new[]
