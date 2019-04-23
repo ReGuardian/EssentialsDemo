@@ -99,7 +99,6 @@
       <SubType>Designer</SubType>
     </None>
     <Compile Include="PicturePickerImplementation.cs" />
-    <Compile Include="PlatformExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
