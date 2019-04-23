@@ -17,7 +17,7 @@ namespace EssentialsDemo
         public VideoPlayerDemo()
         {
             videoPlayer = new VideoPlayer();
-            videoPlayer.Source = VideoSource.FromUri("https://archive.org/download/BigBuckBunny_328/BigBuckBunny_512kb.mp4");
+            // videoPlayer.Source = VideoSource.FromUri("https://archive.org/download/BigBuckBunny_328/BigBuckBunny_512kb.mp4");
 
             button_selectSource = new Button { Text = "Select Source" };
             button_selectSource.Clicked += Button_selectSource_ClickedAsync;
@@ -25,7 +25,7 @@ namespace EssentialsDemo
             Content = new StackLayout
             {
                 Children = {
-                    new Label { Text = "This is a Video Player." }, videoPlayer, button_selectSource
+                    new Label { Text = "This is a Video Player." }, button_selectSource, videoPlayer
                 }
             };
         }
