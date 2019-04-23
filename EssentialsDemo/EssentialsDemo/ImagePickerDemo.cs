@@ -16,6 +16,7 @@ namespace EssentialsDemo
         Button button2;
         Image image;
         StackLayout stack;
+        ScrollView scrollView;
 
         public ImagePickerDemo()
         {
@@ -24,7 +25,7 @@ namespace EssentialsDemo
             header = new Label
             {
                 Text = "Image Picker",
-                FontSize = 50,
+                FontSize = 40,
                 FontAttributes = FontAttributes.Bold,
                 HorizontalOptions = LayoutOptions.Center
             };
@@ -52,8 +53,12 @@ namespace EssentialsDemo
             button2.Clicked += OnButton2Clicked;
 
             stack = new StackLayout { Children = { header, button, button2 } };
+            scrollView = new ScrollView
+            {
+                Content = stack
+            };
 
-            this.Content = stack;
+            this.Content = scrollView;
         }
 
         async void OnButtonClicked(object sender, EventArgs e)
@@ -80,7 +85,11 @@ namespace EssentialsDemo
                 image.GestureRecognizers.Add(recognizer);
 
                 stack = new StackLayout { Children = { header, button, button2, image } };
-                this.Content = stack;
+                scrollView = new ScrollView
+                {
+                    Content = stack
+                };
+                this.Content = scrollView;
                 button.IsEnabled = true;
             }
             else
@@ -142,7 +151,11 @@ namespace EssentialsDemo
 
                 // Recreate the content page
                 stack = new StackLayout { Children = { header, button, button2, image } };
-                this.Content = stack;
+                scrollView = new ScrollView
+                {
+                    Content = stack
+                };
+                this.Content = scrollView;
             }
             else
             {
