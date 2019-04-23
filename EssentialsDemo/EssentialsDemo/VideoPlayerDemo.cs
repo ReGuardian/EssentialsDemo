@@ -1,47 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using Xamarin.Forms;
 using Xamarin.Essentials;
+using Xamarin.Forms;
+using FormsVideoLibrary;
+
+//https://github.com/xamarin/xamarin-forms-samples/tree/master/CustomRenderers/VideoPlayerDemos
 
 namespace EssentialsDemo
 {
-    class VideoPlayerDemo : ContentPage
+    public class VideoPlayerDemo : ContentPage
     {
         VideoPlayer videoPlayer;
-        Button button;
-
+        Button button_selectSource;
+        ScrollView scrollView;
         public VideoPlayerDemo()
         {
-            Title = "Video Player";
+            videoPlayer = new VideoPlayer();
+            videoPlayer.Source = VideoSource.FromUri("https://archive.org/download/BigBuckBunny_328/BigBuckBunny_512kb.mp4");
 
-            videoPlayer = new VideoPlayer
+            button_selectSource = new Button { Text = "Select Source" };
+            button_selectSource.Clicked += Button_selectSource_ClickedAsync;
+
+            scrollView = new ScrollView
             {
-                VerticalOptions = LayoutOptions.FillAndExpand
+                Content = new StackLayout
+                {
+                    Children = { new Label { Text = "This is a Video Player." }, videoPlayer, button_selectSource }
+                }
             };
 
-            button = new Button
-            {
-                Text = "Show Video Library",
-                Font = Font.SystemFontOfSize(NamedSize.Large),
-                BorderWidth = 1,
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.Center,
-                CornerRadius = 10
-            };
-            button.Clicked += OnButtonClicked;
-
-            this.Content = new StackLayout
-            {
-                Children = {videoPlayer, button }
-            };
+            Content = scrollView;
         }
 
-        async void OnButtonClicked(object sender, EventArgs e)
+        private async void Button_selectSource_ClickedAsync(object sender, EventArgs e)
         {
-            Button btn = (Button)sender;
-            btn.IsEnabled = false;
-
             string filename = await DependencyService.Get<IVideoPicker>().GetVideoFileAsync();
 
             if (!String.IsNullOrWhiteSpace(filename))
@@ -51,8 +45,7 @@ namespace EssentialsDemo
                     File = filename
                 };
             }
-
-            btn.IsEnabled = true;
+            //videoPlayer.Source = VideoSource.FromUri("https://archive.org/download/BigBuckBunny_328/BigBuckBunny_512kb.mp4");
         }
     }
 }
