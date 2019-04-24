@@ -10,6 +10,8 @@ namespace EssentialsDemo
         Button button1;
         Entry text;
         ScrollView scrollView;
+        private Label info;
+        private string introduction;
 
         public LauncherDemo()
         {
@@ -41,11 +43,14 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            introduction = "This function allows the application to open another application using a URI. e.g. tel://555-123-1234";
+            info = new Label { Text = introduction };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, text, button1 }
+                    Children = { header, text, button1, info }
                 }
             };
 
