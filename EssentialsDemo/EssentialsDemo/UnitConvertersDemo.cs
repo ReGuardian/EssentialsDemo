@@ -16,6 +16,8 @@ namespace EssentialsDemo
         private Label label_result;
         private Picker picker_converters;
         private ScrollView scrollView;
+        private Label info;
+        private string introduction;
 
         public UnitConvertersDemo()
         {
@@ -62,6 +64,9 @@ namespace EssentialsDemo
             picker_converters.SelectedIndex = 0;
 
             picker_converters.SelectedIndexChanged += Picker_converters_SelectedIndexChanged;
+
+            introduction = "This function gives access to unit converters.";
+            info = new Label { Text = introduction };
 
             scrollView = new ScrollView
             {

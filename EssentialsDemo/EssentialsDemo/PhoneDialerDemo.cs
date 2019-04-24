@@ -11,6 +11,8 @@ namespace EssentialsDemo
         Label label;
         Entry text;
         ScrollView scrollView;
+        private Label info;
+        private string introduction;
 
         public PhoneDialerDemo()
         {
@@ -50,11 +52,14 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            introduction = "This function allows users to call a phone number by calling the default phone application in the device.";
+            info = new Label { Text = introduction };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, text, button1, label }
+                    Children = { header, text, button1, label, info }
                 }
             };
 

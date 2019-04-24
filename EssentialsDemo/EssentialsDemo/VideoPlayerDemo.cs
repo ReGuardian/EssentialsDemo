@@ -15,6 +15,8 @@ namespace EssentialsDemo
         VideoPlayer videoPlayer;
         Button button_selectSource;
         ScrollView scrollView;
+        private Label info;
+        private string introduction;
         public VideoPlayerDemo()
         {
             videoPlayer = new VideoPlayer();
@@ -23,11 +25,14 @@ namespace EssentialsDemo
             button_selectSource = new Button { Text = "Select Source" };
             button_selectSource.Clicked += Button_selectSource_ClickedAsync;
 
+            introduction = "This demo uses the default video player of the device.";
+            info = new Label { Text = introduction };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { new Label { Text = "This is a Video Player." }, button_selectSource, videoPlayer }
+                    Children = { new Label { Text = "This is a Video Player demo." }, button_selectSource, videoPlayer, info }
                 }
             };
 

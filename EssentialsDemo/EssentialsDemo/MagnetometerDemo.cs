@@ -11,6 +11,8 @@ namespace EssentialsDemo
         Button button;
         Label label;
         ScrollView scrollView;
+        private Label info;
+        private string introduction;
 
         public MagnetometerDemo()
         {
@@ -46,11 +48,14 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            introduction = "This class gives access to the magnetometer sensor of the device. ";
+            info = new Label { Text = introduction };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button, label }
+                    Children = { header, button, label, info }
                 }
             };
 

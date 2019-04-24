@@ -15,6 +15,8 @@ namespace EssentialsDemo
         Button button2;
         Button button3;
         ScrollView scrollView;
+        private Label info;
+        private string introduction;
         public VibrationDemo()
         {
             Title = "Vibrate";
@@ -67,11 +69,14 @@ namespace EssentialsDemo
             };
             button3.Clicked += OnButtonClicked3;
 
+            introduction = "User are allowed to ask for vibration for default time duration or specified time duration.";
+            info = new Label { Text = introduction };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button1, entry, button2, button3 }
+                    Children = { header, button1, entry, button2, button3, info }
                 }
             };
 

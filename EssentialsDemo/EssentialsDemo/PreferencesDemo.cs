@@ -164,6 +164,8 @@ namespace EssentialsDemo
         Entry text;
         DatePicker datePicker;
         ScrollView scrollView;
+        private Label info;
+        private string introduction;
 
         public PreferencesDemo()
         {
@@ -211,11 +213,14 @@ namespace EssentialsDemo
             };
             datePicker.DateSelected += DatePicker_DateSelected;
 
+            introduction = "This function allows the application to store preference in a kay and value pair. Once stored, next time the application is opened, the status will be set to what was stored.";
+            info = new Label { Text = introduction };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, slider, switcher, text, datePicker }
+                    Children = { header, slider, switcher, text, datePicker, info }
                 }
             };
 

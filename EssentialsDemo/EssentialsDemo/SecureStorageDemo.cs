@@ -17,6 +17,7 @@ namespace EssentialsDemo
         private EntryCell entry_key;
         private EntryCell entry_length;
         private Button saveLongString;
+        private Button checkLongString;
         private Button saveWithKey;
         private Button saveWithoutKey;
         private Button retrieveWithKey;
@@ -25,6 +26,8 @@ namespace EssentialsDemo
         private Button removeAllKeys;
         private Label result;
         private ScrollView scrollView;
+        private Label info;
+        private string introduction;
 
         public SecureStorageDemo()
         {
@@ -37,16 +40,19 @@ namespace EssentialsDemo
             saveLongString = new Button { Text = "Save long string" };
             saveLongString.Clicked += SaveLongString_ClickedAsync;
 
+            checkLongString = new Button { Text = "Check long string" };
+            checkLongString.Clicked += CheckLongString_ClickedAsync;
+
             saveWithKey = new Button { Text = "Save with key" };
             saveWithKey.Clicked += SaveWithKey_ClickedAsync;
 
-            saveWithoutKey = new Button { Text = "Save without key" };
+            saveWithoutKey = new Button { Text = "Save with random key" };
             saveWithoutKey.Clicked += SaveWithoutKey_Clicked;
 
             retrieveWithKey = new Button { Text = "Retrieve with key" };
             retrieveWithKey.Clicked += RetrieveWithKey_Clicked;
 
-            retrieveWithoutKey = new Button { Text = "Retrieve without key" };
+            retrieveWithoutKey = new Button { Text = "Retrieve with random key" };
             retrieveWithoutKey.Clicked += RetrieveWithoutKey_Clicked;
 
             removeKey = new Button { Text = "Remove key" };
@@ -65,19 +71,49 @@ namespace EssentialsDemo
                     {
                         entry_content, entry_key, entry_length
                     }
-                }
+                },
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                HeightRequest = 3
             };
+
+            introduction = "This function can be used to save simple values and key pairs. \n" +
+                "The first two buttons and the length entry is used to test the length limit for this function.\n" +
+                "User can save values with specified key or with random key";
+            info = new Label { Text = introduction };
 
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = {    new Label { Text = "This is a Secure Stroage Demo." }, tableView, saveLongString, saveWithKey, saveWithoutKey, retrieveWithKey, retrieveWithoutKey, removeKey, removeAllKeys,
-                    result                }
+                    Children =
+                    {
+                        new Label { Text = "This is a Secure Stroage Demo." }, tableView, saveLongString, checkLongString, saveWithKey, saveWithoutKey, retrieveWithKey, retrieveWithoutKey, removeKey, removeAllKeys, result, info
+                    }
                 }
             };
 
             Content = scrollView;
+        }
+
+        private async void CheckLongString_ClickedAsync(object sender, EventArgs e)
+        {
+            string key = entry_key.Text;
+            if (!string.IsNullOrWhiteSpace(key))
+            {
+                try
+                {
+                    var oauthToken = await SecureStorage.GetAsync(key);
+                    // result.Text = oauthToken;
+                    if (oauthToken.Equals(content))
+                    {
+                        result.Text = "Long string retrieve succeeded";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    result.Text = ex.ToString();
+                }
+            }
         }
 
         private async void SaveLongString_ClickedAsync(object sender, EventArgs e)
@@ -147,11 +183,7 @@ namespace EssentialsDemo
                 try
                 {
                     var oauthToken = await SecureStorage.GetAsync(key);
-                    // result.Text = oauthToken;
-                    if (oauthToken.Equals(content))
-                    {
-                        result.Text = "succeeded";
-                    }
+                    result.Text = oauthToken;
                 }
                 catch (Exception ex)
                 {

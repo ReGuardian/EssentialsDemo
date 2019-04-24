@@ -11,6 +11,8 @@ namespace EssentialsDemo
         Button button2;
         Entry text;
         ScrollView scrollView;
+        private Label info;
+        private string introduction;
 
         public ShareDemo()
         {
@@ -53,11 +55,14 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            introduction = "This function allows users to share data to other applications on the device. Usually the content is set by developers. In this demo, the content can be set by users.";
+            info = new Label { Text = introduction };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, text, button1, button2 }
+                    Children = { header, text, button1, button2, info }
                 }
             };
 

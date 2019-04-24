@@ -10,6 +10,8 @@ namespace EssentialsDemo
         Button button1;
         Button button2;
         ScrollView scrollView;
+        private Label info;
+        private string introduction;
 
         public MapDemo()
         {
@@ -45,11 +47,14 @@ namespace EssentialsDemo
             };
             button2.Clicked += OnButtonClicked2Async;
 
+            introduction = "This function allows the application to navigate using the default map application or open the default map application with a specified location.";
+            info = new Label { Text = introduction };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button1, button2 }
+                    Children = { header, button1, button2, info }
                 }
             };
 

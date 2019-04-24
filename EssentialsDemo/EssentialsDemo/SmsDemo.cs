@@ -12,6 +12,8 @@ namespace EssentialsDemo
         Entry text1;
         Entry text2;
         ScrollView scrollView;
+        private Label info;
+        private string introduction;
 
         public SmsDemo()
         {
@@ -57,11 +59,14 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            introduction = "This function allows users to send SMS by calling the origin SMS application of the device.";
+            info = new Label { Text = introduction };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, text1, text2, button1, label }
+                    Children = { header, text1, text2, button1, label, info }
                 }
             };
 

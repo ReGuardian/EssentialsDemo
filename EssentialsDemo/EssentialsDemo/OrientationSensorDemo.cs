@@ -14,6 +14,8 @@ namespace EssentialsDemo
         Label label;
         Label label2;
         ScrollView scrollView;
+        private Label info;
+        private string introduction;
 
         public OrientationSensorDemo()
         {
@@ -65,11 +67,30 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            introduction = "This class gives access to the orientation sensor of the device.\n" +
+                "The device (generally a phone or tablet) has a 3D coordinate system with the following axes:\n" +
+                "·The positive X axis points to the right of the display in portrait mode.\n" +
+                "·The positive Y axis points to the top of the device in portrait mode.\n" +
+                "·The positive Z axis points out of the screen.\n" +
+                "The 3D coordinate system of the Earth has the following axes:\n" +
+                "·The positive X axis is tangent to the surface of the Earth and points east.\n" +
+                "·The positive Y axis is also tangent to the surface of the Earth and points north.\n" +
+                "·The positive Z axis is perpendicular to the surface of the Earth and points up.\n" +
+                "(X, Y, Z, W) describes the rotation of the device's coordinate system relative to a certian coordinate system.\n" +
+                "On Android, it refers to the Earth's coordinate system; on iOS, it refers to the following coordinate system:\n" +
+                "·The positive X axis points to the right of the display in portrait mode.\n" +
+                "·The positive Y axis is also tangent to the surface of the Earth and points to the top of the display in portrait mode.\n" +
+                "·The positive Z axis is perpendicular to the surface of the Earth and points up.\n" +
+                " If an axis of rotation is the normalized vector (ax, ay, az), and the rotation angle is Θ, then the (X, Y, Z, W) components of the quaternion are:\n" +
+                "(ax·sin(Θ/2), ay·sin(Θ/2), az·sin(Θ/2), cos(Θ/2))\n" +
+                "This demo has made certian configuration to the picture so that this picture would look as if it were staying still. (On Android, it would serve as a 3-D compass)";
+            info = new Label { Text = introduction };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button, label2, image, label }
+                    Children = { header, button, label2, image, label, info }
                 }
             };
 

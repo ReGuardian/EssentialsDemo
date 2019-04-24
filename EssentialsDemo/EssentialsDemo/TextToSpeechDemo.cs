@@ -23,6 +23,8 @@ namespace EssentialsDemo
         private IEnumerable<Locale> locales;
         private Button button_getLocale;
         private ScrollView scrollView;
+        private Label info;
+        private string introduction;
 
         public TextToSpeechDemo()
         {
@@ -42,6 +44,8 @@ namespace EssentialsDemo
             result = new Label();
             picker_locale = new Picker();
 
+            introduction = "This function gives access to tect to speech, using specified settings.";
+            info = new Label { Text = introduction };
 
             if (Device.RuntimePlatform.Equals(Device.Android))
             {
@@ -59,7 +63,7 @@ namespace EssentialsDemo
                 {
                     Content = new StackLayout
                     {
-                        Children = { title, instructer1, slider_volume, instructer2, slider_pitch, button_getLocale, stloPic, entry, button_speak, result }
+                        Children = { title, instructer1, slider_volume, instructer2, slider_pitch, button_getLocale, stloPic, entry, button_speak, result, info }
                     }
                 };
 
@@ -97,10 +101,15 @@ namespace EssentialsDemo
                     Children = { picker_locale }
                 };
 
-                Content = new StackLayout
+                scrollView = new ScrollView
                 {
-                    Children = { title, instructer1, slider_volume, instructer2, slider_pitch, stloPic, entry, button_speak, result }
+                    Content = new StackLayout
+                    {
+                        Children = { title, instructer1, slider_volume, instructer2, slider_pitch, stloPic, entry, button_speak, result, info }
+                    }
                 };
+
+                Content = scrollView;
             }
 
         }
