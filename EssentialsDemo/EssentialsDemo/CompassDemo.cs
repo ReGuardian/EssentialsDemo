@@ -110,7 +110,7 @@ namespace EssentialsDemo
                 if (Compass.IsMonitoring)
                     Compass.Stop();
                 else
-                    Compass.Start(speed);
+                    Compass.Start(speed, applyLowPassFilter: true);
             }
             catch (FeatureNotSupportedException fnsEx)
             {
