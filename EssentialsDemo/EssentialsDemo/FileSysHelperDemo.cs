@@ -151,9 +151,16 @@ namespace EssentialsDemo
 
         void OnButtonClicked4(object sender, EventArgs e)
         {
-            var mainDir = FileSystem.AppDataDirectory;
-            var fileName = Path.Combine(mainDir, entry.Text);
-            label.Text = File.ReadAllText(fileName);
+            try
+            {
+                var mainDir = FileSystem.AppDataDirectory;
+                var fileName = Path.Combine(mainDir, entry.Text);
+                label.Text = File.ReadAllText(fileName);
+            }
+            catch (Exception)
+            {
+                DisplayAlert("Error", "Error has occured.", "OK");
+            }
         }
     }
 }
