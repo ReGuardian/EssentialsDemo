@@ -40,7 +40,7 @@ namespace EssentialsDemo
         VideoPlayerDemo f34;
         public HomePage()
         {
-            Title = "Demo";
+            Title = "Essentials Demo";
             Label header = new Label
             {
                 Text = "Feature List",
