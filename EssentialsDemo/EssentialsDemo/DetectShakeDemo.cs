@@ -7,8 +7,12 @@ namespace EssentialsDemo
 {
     class DetectShakeDemo : ContentPage
     {
+        // Description of the page
+        public string description = "This feature uses accelerometer. Clicking the button to start or stop detect. " +
+            "When starting detect, an alert message shows when there is a shake. ";
         SensorSpeed speed = SensorSpeed.UI;
         Button button;
+        Label label_description;
         ScrollView scrollView;
 
         public DetectShakeDemo()
@@ -37,11 +41,18 @@ namespace EssentialsDemo
             // Register for reading changes, be sure to unsubscribe when finished
             Accelerometer.ShakeDetected += Accelerometer_ShakeDetected;
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = {header, button}
+                    Children = { header, button, label_description }
                 }
             };
             // Build the page.

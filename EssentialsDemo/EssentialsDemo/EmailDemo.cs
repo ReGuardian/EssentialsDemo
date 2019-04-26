@@ -8,11 +8,15 @@ namespace EssentialsDemo
 {
     class EmailDemo : ContentPage
     {
+        // Description of the page
+        public string description = "Clicking the button opens the default email application of the device with content " +
+            "of the entries. It means the content of send, to and body will be shown in the default email app.";
         Button button1;
         Label label;
         Entry text1;
         Entry text2;
         Entry text3;
+        Label label_description;
         ScrollView scrollView;
 
         public EmailDemo()
@@ -67,11 +71,18 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, text1, text2, text3, button1, label }
+                    Children = { header, text1, text2, text3, button1, label, label_description }
                 }
             };
             // Build the page.

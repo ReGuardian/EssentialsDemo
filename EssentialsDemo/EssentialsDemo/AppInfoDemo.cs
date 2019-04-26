@@ -6,15 +6,19 @@ namespace EssentialsDemo
 {
     class AppInfoDemo : ContentPage
     {
+        // Description of the page
+        public string description = "Clicking the first button shows the information " +
+            "of the application. Clicking the other one turns to the default app setting page of the device. ";
         Button button1;
         Button button2;
         Label label;
+        Label label_description;
         ScrollView scrollView;
 
         public AppInfoDemo()
         {
             Title = "App Information";
-           
+
             Label header = new Label
             {
                 Text = "AppInfo",
@@ -53,11 +57,18 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = {header, button1, button2, label}
+                    Children = { header, button1, button2, label, label_description }
                 }
             };
             // Build the page.

@@ -6,9 +6,13 @@ namespace EssentialsDemo
 {
     class ClipboardDemo : ContentPage
     {
+        // Description of the page
+        public string description = "Clicking the set button pastes the text in the entry to the clipboard." +
+            "Clicking the get button shows the content in the clipboard.";
         Button button1;
         Button button2;
         Label label;
+        Label label_description;
         Entry text;
         ScrollView scrollView;
 
@@ -61,11 +65,18 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, text, button1, button2, label }
+                    Children = { header, text, button1, button2, label, label_description }
                 }
             };
             // Build the page.

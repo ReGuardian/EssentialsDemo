@@ -7,6 +7,12 @@ namespace EssentialsDemo
 {
     class ColorConvertersDemo : ContentPage
     {
+        // Description of the page
+        public string description = "Color converters implement methods to change color with HSL value." +
+            "Clicking the first button creates color with six or eight hexadecimal numbers. " +
+            "When there are eight numbers, first two numbers refer to alpha value. " +
+            "Clicking the other button creates color with uint numbers. " +
+            "Move the slider changes the color and corresponding uint numbers.";
         Label header;
         Label hue;
         Label saturation;
@@ -18,6 +24,7 @@ namespace EssentialsDemo
         Button button2;
         Slider sl1, sl2, sl3, sl4;
         BoxView box;
+        Label label_description;
         ScrollView scrollView;
 
         public ColorConvertersDemo()
@@ -35,7 +42,8 @@ namespace EssentialsDemo
                     new RowDefinition { Height = new GridLength (1, GridUnitType.Star)},
                     new RowDefinition { Height = new GridLength (1, GridUnitType.Star)},
                     new RowDefinition { Height = new GridLength (1, GridUnitType.Star)},
-                    new RowDefinition { Height = new GridLength (100, GridUnitType.Absolute)}
+                    new RowDefinition { Height = new GridLength (100, GridUnitType.Absolute)},
+                    new RowDefinition { Height = new GridLength (1, GridUnitType.Star)}
                 },
                 ColumnDefinitions = {
                     new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star)},
@@ -169,6 +177,18 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
+            scrollView = new ScrollView
+            {
+                Content = label_description
+            };
+
             grid.Children.Add(header, 0, 2, 0, 1);
             grid.Children.Add(entry, 0, 1);
             grid.Children.Add(entry2, 0, 2);
@@ -183,13 +203,10 @@ namespace EssentialsDemo
             grid.Children.Add(sl4, 0, 1, 6, 7);
             grid.Children.Add(alpha, 1, 2, 6, 7);
             grid.Children.Add(box, 0, 2, 7, 8);
+            grid.Children.Add(scrollView, 0, 2, 8, 9);
 
-            scrollView = new ScrollView
-            {
-                Content = grid
-            };
             // Build the page.
-            this.Content = scrollView;
+            this.Content = grid;
         }
 
         async void OnButtonClicked(object sender, EventArgs e)

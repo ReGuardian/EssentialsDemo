@@ -6,10 +6,13 @@ namespace EssentialsDemo
 {
     class BarometerDemo : ContentPage
     {
+        // Description of the page
+        public string description = "Barometer measures the air pressure around the device in hectopascals.";
         // Set speed delay for monitoring changes.
         SensorSpeed speed = SensorSpeed.UI;
         Button button;
         Label label;
+        Label label_description;
         ScrollView scrollView;
 
         public BarometerDemo()
@@ -46,11 +49,18 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button, label }
+                    Children = { header, button, label, label_description }
                 }
             };
             // Build the page.
@@ -67,8 +77,8 @@ namespace EssentialsDemo
         {
             var data = e.Reading;
             // Process Pressure
-            Console.WriteLine($"Reading: Pressure: {data.PressureInHectopascals} hectopascals");
-            label.Text = String.Format("Pressure: {0,0:F4}", data.PressureInHectopascals);
+            //Console.WriteLine($"Reading: Pressure: {data.PressureInHectopascals} hectopascals");
+            label.Text = String.Format("Pressure: {0,0:F2} ㍱", data.PressureInHectopascals);
         }
 
         public void ToggleBarometer()
@@ -76,9 +86,15 @@ namespace EssentialsDemo
             try
             {
                 if (Barometer.IsMonitoring)
+                {
                     Barometer.Stop();
+                    Barometer.ReadingChanged -= Barometer_ReadingChanged;
+                }
                 else
+                {
                     Barometer.Start(speed);
+                    Barometer.ReadingChanged += Barometer_ReadingChanged;
+                }
             }
             catch (FeatureNotSupportedException fnsEx)
             {

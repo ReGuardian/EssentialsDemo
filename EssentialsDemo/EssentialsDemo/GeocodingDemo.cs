@@ -7,12 +7,17 @@ namespace EssentialsDemo
 {
     class GeocodingDemo : ContentPage
     {
+        // Description of the page
+        public string description = "Clicking the first button shows latitude, longitude and altitude of entered address. " +
+            "The altitude might not be available. Clicking the other button shows the detailed address with " +
+            "entered latitude and longitude. These two functions do not work when these is no network.";
         Button button1;
         Button button2;
         Label label;
         Entry entry;
         Entry entry2;
         Entry entry3;
+        Label label_description;
         ScrollView scrollView;
 
         public GeocodingDemo()
@@ -78,12 +83,19 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
 
                 Content = new StackLayout
                 {
-                    Children = { header, entry, button1, entry2, entry3, button2, label }
+                    Children = { header, entry, button1, entry2, entry3, button2, label, label_description }
                 }
             };
 

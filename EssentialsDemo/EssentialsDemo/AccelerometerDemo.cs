@@ -8,12 +8,23 @@ namespace EssentialsDemo
 {
     class AccelerometerDemo : ContentPage
     {
+        // Description of the page
+        public string description = "The accelerometer measures the accerleration applied to " +
+                                    "the device against the gravity on a 3d coordinate. " +
+                                    "X-axis points horizontally to the right of the device. " +
+                                    "Y-axis points vertically to the top of the device. " +
+                                    "Z-axis points vertically to the outside of the device. " +
+                                    "The picture tries to keep horizontally to the earth to show the dircetion of gravity. " +
+                                    "The coefficient in the entry can be adjusted to eliminate the noise. " +
+                                    "The coefficient should be an integer larger than zero. " +
+                                    "With a larger coefficient, the trembling of the picture becomes smaller " +
+                                    "with a higher responding delay.";
         // Set speed delay for monitoring changes.
         SensorSpeed speed = SensorSpeed.Fastest;
         ScrollView scrollView;
         Button button;
         Label label;
-        Label exception;
+        Label label_description;
         Entry entry;
         Image image;
         Stopwatch stopWatch;
@@ -71,19 +82,18 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
-            exception = new Label
+            label_description = new Label
             {
-                Text = "",
-                TextColor = Color.Red,
-                HorizontalOptions = LayoutOptions.End,
-                VerticalOptions = LayoutOptions.End
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
             };
 
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, entry, button, label, image, exception }
+                    Children = { header, entry, button, label, image, label_description }
                 }
             };
             // Build the page.
@@ -131,7 +141,6 @@ namespace EssentialsDemo
                     list_X.RemoveAt(0);
                 }
                 list_X.Add(data_X);
-                Console.WriteLine(list_X.Count);
 
                 while (list_Y.Count > N - 1)
                 {

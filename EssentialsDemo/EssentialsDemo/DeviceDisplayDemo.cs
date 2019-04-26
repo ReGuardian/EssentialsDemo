@@ -6,9 +6,13 @@ namespace EssentialsDemo
 {
     class DeviceDisplayDemo : ContentPage
     {
+        // Description of the page
+        public string description = "Clicking the button shows the information of device display. " +
+            "Orientation has values of Landscape, Portrait, Square, Unknown";
         Button button1;
         Button button2;
         Label label;
+        Label label_description;
         ScrollView scrollView;
 
         public DeviceDisplayDemo()
@@ -56,11 +60,18 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button1, button2, label }
+                    Children = { header, button1, button2, label, label_description }
                 }
             };
             // Build the page.
@@ -106,10 +117,10 @@ namespace EssentialsDemo
 
             Console.WriteLine($"Reading: Orientation: {orientation}, Rotation: {rotation}, Width: {width}, Height: {height}, Density: {density}");
 
-            String info = $"Orientation: {orientation}\n" + 
-                          $"Rotation: {rotation}\n" + 
-                          $"Width: {width}\n" + 
-                          $"Height: {height}\n" + 
+            String info = $"Orientation: {orientation}\n" +
+                          $"Rotation: {rotation}\n" +
+                          $"Width: {width}\n" +
+                          $"Height: {height}\n" +
                           $"Density: {density}";
             return info;
         }
