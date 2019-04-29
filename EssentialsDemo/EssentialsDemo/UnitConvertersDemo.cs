@@ -9,6 +9,7 @@ namespace EssentialsDemo
 {
     public class UnitConvertersDemo : ContentPage
     {
+        public string description = "This function gives access to unit converters.";
         private Entry entry_1;
         private Entry entry_2;
         private Entry entry_3;
@@ -16,6 +17,7 @@ namespace EssentialsDemo
         private Label label_result;
         private Picker picker_converters;
         private ScrollView scrollView;
+        Label label_description;
 
         public UnitConvertersDemo()
         {
@@ -63,20 +65,21 @@ namespace EssentialsDemo
 
             picker_converters.SelectedIndexChanged += Picker_converters_SelectedIndexChanged;
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { new Label { Text = "This is a unit converters demo." }, entry_1, entry_2, entry_3, entry_4, picker_converters, label_result }
+                    Children = { new Label { Text = "This is a unit converters demo." }, entry_1, entry_2, entry_3, entry_4, picker_converters, label_result, label_description }
                 }
             };
-
-            Content = new StackLayout
-            {
-                Children = {
-                    new Label { Text = "This is a unit converters demo." }, entry_1, entry_2, entry_3, entry_4, picker_converters, label_result
-                }
-            };
+            this.Content = scrollView;
         }
 
         private void Entry_all_TextChanged(object sender, TextChangedEventArgs e)

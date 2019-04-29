@@ -6,7 +6,11 @@ namespace EssentialsDemo
 {
     class MapDemo : ContentPage
     {
+        public string description = "This function allows the application to navigate " +
+            "using the default map application or " +
+            "open the default map application with a specified location.";
         Label header;
+        Label label_description;
         Button button1;
         Button button2;
         ScrollView scrollView;
@@ -45,11 +49,18 @@ namespace EssentialsDemo
             };
             button2.Clicked += OnButtonClicked2Async;
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button1, button2 }
+                    Children = { header, button1, button2, label_description }
                 }
             };
 

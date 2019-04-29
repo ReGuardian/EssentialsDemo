@@ -7,9 +7,13 @@ namespace EssentialsDemo
 {
     class ShareDemo : ContentPage
     {
+        public string description = "This function allows users to share data " +
+            "to other applications on the device. Usually the content is set by developers. " +
+            "In this demo, the content can be set by users.";
         Button button1;
         Button button2;
         Entry text;
+        Label label_description;
         ScrollView scrollView;
 
         public ShareDemo()
@@ -53,11 +57,18 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, text, button1, button2 }
+                    Children = { header, text, button1, button2, label_description }
                 }
             };
 

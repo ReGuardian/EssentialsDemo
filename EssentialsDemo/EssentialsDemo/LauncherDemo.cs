@@ -7,9 +7,12 @@ namespace EssentialsDemo
 {
     class LauncherDemo : ContentPage
     {
+        public string description = "This function allows the application to " +
+            "open another application using a URI. e.g. tel: or smsto:";
         Button button1;
         Entry text;
         ScrollView scrollView;
+        Label label_description;
 
         public LauncherDemo()
         {
@@ -41,11 +44,18 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, text, button1 }
+                    Children = { header, text, button1, label_description }
                 }
             };
 

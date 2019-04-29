@@ -8,8 +8,10 @@ namespace EssentialsDemo
 {
     class VideoPlayerDemo : ContentPage
     {
+        public string description = "This demo uses the default video player of the device.";
         VideoPlayer videoPlayer;
         Button button;
+        Label label_description;
 
         public VideoPlayerDemo()
         {
@@ -31,9 +33,16 @@ namespace EssentialsDemo
             };
             button.Clicked += OnButtonClicked;
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             this.Content = new StackLayout
             {
-                Children = {videoPlayer, button }
+                Children = { videoPlayer, button, label_description }
             };
         }
 

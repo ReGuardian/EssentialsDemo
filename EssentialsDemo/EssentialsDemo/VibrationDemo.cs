@@ -9,11 +9,13 @@ namespace EssentialsDemo
 {
     public class VibrationDemo : ContentPage
     {
+        public string description = "User are allowed to ask for vibration for default time duration or specified time duration.";
         Label header;
         Entry entry;
         Button button1;
         Button button2;
         Button button3;
+        Label label_description;
         ScrollView scrollView;
         public VibrationDemo()
         {
@@ -67,11 +69,18 @@ namespace EssentialsDemo
             };
             button3.Clicked += OnButtonClicked3;
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button1, entry, button2, button3 }
+                    Children = { header, button1, entry, button2, button3, label_description }
                 }
             };
 

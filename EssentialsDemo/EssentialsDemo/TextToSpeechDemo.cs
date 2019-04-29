@@ -10,6 +10,7 @@ namespace EssentialsDemo
 {
     public class TextToSpeechDemo : ContentPage
     {
+        public string description = "This function gives access to tect to speech, using specified settings.";
         private Label title;
         private Label instructer1;
         private Slider slider_volume;
@@ -23,6 +24,7 @@ namespace EssentialsDemo
         private IEnumerable<Locale> locales;
         private Button button_getLocale;
         private ScrollView scrollView;
+        Label label_description;
 
         public TextToSpeechDemo()
         {
@@ -41,6 +43,7 @@ namespace EssentialsDemo
             instructer2 = new Label { Text = "pitch" };
             result = new Label();
             picker_locale = new Picker();
+            label_description = new Label();
 
 
             if (Device.RuntimePlatform.Equals(Device.Android))
@@ -55,11 +58,19 @@ namespace EssentialsDemo
                     Children = { picker_locale }
                 };
 
+                label_description = new Label
+                {
+                    Text = description,
+                    HorizontalOptions = LayoutOptions.Center,
+                    VerticalOptions = LayoutOptions.EndAndExpand
+                };
+
                 scrollView = new ScrollView
                 {
                     Content = new StackLayout
                     {
-                        Children = { title, instructer1, slider_volume, instructer2, slider_pitch, button_getLocale, stloPic, entry, button_speak, result }
+                        Children = { title, instructer1, slider_volume, instructer2,
+                            slider_pitch, button_getLocale, stloPic, entry, button_speak, result, label_description  }
                     }
                 };
 
@@ -99,7 +110,7 @@ namespace EssentialsDemo
 
                 Content = new StackLayout
                 {
-                    Children = { title, instructer1, slider_volume, instructer2, slider_pitch, stloPic, entry, button_speak, result }
+                    Children = { title, instructer1, slider_volume, instructer2, slider_pitch, stloPic, entry, button_speak, result, label_description}
                 };
             }
 

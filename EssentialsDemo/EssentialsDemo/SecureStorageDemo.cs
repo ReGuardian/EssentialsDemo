@@ -11,6 +11,9 @@ namespace EssentialsDemo
 {
     public class SecureStorageDemo : ContentPage
     {
+        public string description = "This function can be used to save simple values and key pairs. \n" +
+                "The first two buttons and the length entry is used to test the length limit for this function.\n" +
+                "User can save values with specified key or with random key";
         private string content;
         private string key;
         private EntryCell entry_content;
@@ -24,6 +27,7 @@ namespace EssentialsDemo
         private Button removeKey;
         private Button removeAllKeys;
         private Label result;
+        Label label_description;
         private ScrollView scrollView;
 
         public SecureStorageDemo()
@@ -68,12 +72,18 @@ namespace EssentialsDemo
                 }
             };
 
+            label_description = new Label
+            {
+                Text = description
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = {    new Label { Text = "This is a Secure Stroage Demo." }, tableView, saveLongString, saveWithKey, saveWithoutKey, retrieveWithKey, retrieveWithoutKey, removeKey, removeAllKeys,
-                    result                }
+                    Children = {    new Label { Text = "This is a Secure Stroage Demo." }, tableView, saveLongString,
+                        saveWithKey, saveWithoutKey, retrieveWithKey, retrieveWithoutKey, removeKey, removeAllKeys,
+                        result, label_description }
                 }
             };
 

@@ -6,10 +6,12 @@ namespace EssentialsDemo
 {
     class MagnetometerDemo : ContentPage
     {
+        public string description = "This class gives access to the magnetometer sensor of the device. ";
         // Set speed delay for monitoring changes.
         SensorSpeed speed = SensorSpeed.UI;
         Button button;
         Label label;
+        Label label_description;
         ScrollView scrollView;
 
         public MagnetometerDemo()
@@ -46,11 +48,18 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button, label }
+                    Children = { header, button, label, label_description }
                 }
             };
 

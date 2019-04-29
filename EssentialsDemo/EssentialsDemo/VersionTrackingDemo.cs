@@ -6,8 +6,10 @@ namespace EssentialsDemo
 {
     class VersionTrackingDemo : ContentPage
     {
+        public string description = "This demo gives all the information about version tracking.";
         Button button1;
         Label label;
+        Label label_description;
         ScrollView scrollView;
         public VersionTrackingDemo()
         {
@@ -42,11 +44,18 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button1, label }
+                    Children = { header, button1, label, label_description }
                 }
             };
 
@@ -90,10 +99,18 @@ namespace EssentialsDemo
             var firstBuild = VersionTracking.FirstInstalledBuild;
 
             // List of versions installed (1.0.0, 2.0.0)
-            var versionHistory = VersionTracking.VersionHistory;
+            var versionHistory = "";
+            foreach (string s in VersionTracking.VersionHistory)
+            {
+                versionHistory += (s + "; ");
+            }
 
             // List of builds installed (1, 2)
-            var buildHistory = VersionTracking.BuildHistory;
+            var buildHistory = "";
+            foreach (string s in VersionTracking.BuildHistory)
+            {
+                buildHistory += (s + "; ");
+            }
 
             Console.WriteLine($"Reading: First Launch: {firstLaunch}, FirstLaunchCurrent: {firstLaunchCurrent}, " +
                 $"FirstLaunchBuild: {firstLaunchBuild}, Current Version: {currentVersion}, Current Build: {currentBuild}" +

@@ -7,8 +7,11 @@ namespace EssentialsDemo
 {
     class PhoneDialerDemo : ContentPage
     {
+        public string description = "This function allows users to call a phone number " +
+            "by calling the default phone application in the device.";
         Button button1;
         Label label;
+        Label label_description;
         Entry text;
         ScrollView scrollView;
 
@@ -50,11 +53,18 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, text, button1, label }
+                    Children = { header, text, button1, label, label_description }
                 }
             };
 

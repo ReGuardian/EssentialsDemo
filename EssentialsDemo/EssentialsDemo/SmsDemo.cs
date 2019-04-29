@@ -7,8 +7,10 @@ namespace EssentialsDemo
 {
     class SmsDemo : ContentPage
     {
+        public string description = "This function allows users to send SMS by calling the origin SMS application of the device.";
         Button button1;
         Label label;
+        Label label_description;
         Entry text1;
         Entry text2;
         ScrollView scrollView;
@@ -57,11 +59,18 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand
             };
 
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, text1, text2, button1, label }
+                    Children = { header, text1, text2, button1, label, label_description }
                 }
             };
 
