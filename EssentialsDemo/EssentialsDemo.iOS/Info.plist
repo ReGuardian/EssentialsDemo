@@ -32,19 +32,17 @@
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
 	<string>EssentialsDemo</string>
-  <!--<key>NSPhotoLibraryUsageDescription</key>
-  <string>Picture Picker uses photo library</string>-->
-  
-  <key>NSCameraUsageDescription</key>
-  <string>This app needs access to the camera to take photos.</string>
-  <key>NSPhotoLibraryUsageDescription</key>
-  <string>This app needs access to photos.</string>
-  <key>NSMicrophoneUsageDescription</key>
-  <string>This app needs access to microphone.</string>
-  <key>NSPhotoLibraryAddUsageDescription</key>
-  <string>This app needs access to the photo gallery.</string>
-  <key>NSLocationWhenInUseUsageDescription</key>
-  <string>This app needs location access when open.</string>
-  
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs access to the camera to take photos.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs access to photos.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app needs access to microphone.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>This app needs access to the photo gallery.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs location access when open.</string>
+	<key>XSAppIconAssets</key>
+	<string>Assets.xcassets/AppIcon.appiconset</string>
 </dict>
 </plist>

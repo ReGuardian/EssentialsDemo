@@ -51,7 +51,7 @@ namespace EssentialsDemo
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button1, label }
+                    Children = { header, button1, label, info }
                 }
             };
 

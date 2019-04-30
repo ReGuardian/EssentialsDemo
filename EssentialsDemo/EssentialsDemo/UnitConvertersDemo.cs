@@ -72,16 +72,11 @@ namespace EssentialsDemo
             {
                 Content = new StackLayout
                 {
-                    Children = { new Label { Text = "This is a unit converters demo." }, entry_1, entry_2, entry_3, entry_4, picker_converters, label_result }
+                    Children = { new Label { Text = "This is a unit converters demo." }, entry_1, entry_2, entry_3, entry_4, picker_converters, label_result, info }
                 }
             };
 
-            Content = new StackLayout
-            {
-                Children = {
-                    new Label { Text = "This is a unit converters demo." }, entry_1, entry_2, entry_3, entry_4, picker_converters, label_result
-                }
-            };
+            Content = scrollView;
         }
 
         private void Entry_all_TextChanged(object sender, TextChangedEventArgs e)

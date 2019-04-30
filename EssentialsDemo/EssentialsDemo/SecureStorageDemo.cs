@@ -78,7 +78,8 @@ namespace EssentialsDemo
 
             introduction = "This function can be used to save simple values and key pairs. \n" +
                 "The first two buttons and the length entry is used to test the length limit for this function.\n" +
-                "User can save values with specified key or with random key";
+                "Users can save values with specified key or with random key." +
+                "Users can retrieve the values using the remaining buttons accordingly.";
             info = new Label { Text = introduction };
 
             scrollView = new ScrollView
@@ -132,7 +133,7 @@ namespace EssentialsDemo
                 try
                 {
                     await SecureStorage.SetAsync(this.entry_key.Text, longString);
-                    result.Text = "Saving succeeded!";
+                    result.Text = "Long string saved succeeded!";
                 }
                 catch (Exception ex)
                 {
