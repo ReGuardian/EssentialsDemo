@@ -13,9 +13,12 @@ namespace EssentialsDemo
     {
         private string content;
         private string key;
-        private EntryCell entry_content;
-        private EntryCell entry_key;
-        private EntryCell entry_length;
+        private Label label_content;
+        private Label label_key;
+        private Label label_length;
+        private Entry entry_content;
+        private Entry entry_key;
+        private Entry entry_length;
         private Button saveLongString;
         private Button checkLongString;
         private Button saveWithKey;
@@ -33,9 +36,14 @@ namespace EssentialsDemo
         {
             Title = "Secure Storage";
 
-            entry_content = new EntryCell { Label = "Content you want to save:", Placeholder = "Enter value here" };
-            entry_key = new EntryCell { Label = "Key", Placeholder = "not neccessarily needed" };
-            entry_length = new EntryCell { Label = "size of string", Placeholder = "in kb" };
+            label_content = new Label { Text = "Content you want to save:" };
+            entry_content = new Entry { Placeholder = "Enter value here" };
+
+            label_key = new Label { Text = "Key:" };
+            entry_key = new Entry { Placeholder = "not neccessarily needed" };
+
+            label_length = new Label { Text = "size of string:" };
+            entry_length = new Entry { Placeholder = "in kb" };
 
             saveLongString = new Button { Text = "Save long string" };
             saveLongString.Clicked += SaveLongString_ClickedAsync;
@@ -62,19 +70,19 @@ namespace EssentialsDemo
             removeAllKeys.Clicked += RemoveAllKeys_Clicked;
 
             result = new Label();
-            TableView tableView = new TableView
-            {
-                Intent = TableIntent.Form,
-                Root = new TableRoot
-                {
-                    new TableSection
-                    {
-                        entry_content, entry_key, entry_length
-                    }
-                },
-                VerticalOptions = LayoutOptions.FillAndExpand,
-                HeightRequest = 3
-            };
+            //TableView tableView = new TableView
+            //{
+            //    Intent = TableIntent.Form,
+            //    Root = new TableRoot
+            //    {
+            //        new TableSection
+            //        {
+            //            entry_content, entry_key, entry_length
+            //        }
+            //    },
+            //    VerticalOptions = LayoutOptions.FillAndExpand,
+            //    HeightRequest = 3
+            //};
 
             introduction = "This function can be used to save simple values and key pairs. \n" +
                 "The first two buttons and the length entry is used to test the length limit for this function.\n" +
@@ -88,7 +96,7 @@ namespace EssentialsDemo
                 {
                     Children =
                     {
-                        new Label { Text = "This is a Secure Stroage Demo." }, tableView, saveLongString, checkLongString, saveWithKey, saveWithoutKey, retrieveWithKey, retrieveWithoutKey, removeKey, removeAllKeys, result, info
+                        new Label { Text = "This is a Secure Stroage Demo." }, label_content, entry_content, label_key, entry_key, label_length, entry_length, saveLongString, checkLongString, saveWithKey, saveWithoutKey, retrieveWithKey, retrieveWithoutKey, removeKey, removeAllKeys, result, info
                     }
                 }
             };
