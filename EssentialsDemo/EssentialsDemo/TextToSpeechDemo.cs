@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -10,91 +9,161 @@ namespace EssentialsDemo
 {
     public class TextToSpeechDemo : ContentPage
     {
-        public string description = "This function gives access to tect to speech, using specified settings.";
-        private Label title;
-        private Label instructer1;
-        private Slider slider_volume;
-        private Label instructer2;
-        private Slider slider_pitch;
-        private Button button_speak;
-        private Entry entry;
-        private Label result;
-        private Picker picker_locale;
-        private Locale locale;
-        private IEnumerable<Locale> locales;
-        private Button button_getLocale;
-        private ScrollView scrollView;
+        public string description = "This function gives access to Text-to-Speech, using specified settings.";
+        Label header;
+        Label volume;
+        Label pitch;
         Label label_description;
+        Slider slider_volume;
+        Slider slider_pitch;
+        Entry entry;
+        Picker picker_locale;
+        Locale locale;
+        IEnumerable<Locale> locales;
+        Button button_speak;
+        Button button_getLocale;
+        ScrollView scrollView;
 
         public TextToSpeechDemo()
         {
             Title = "Text-to-Speech";
 
-            title = new Label { Text = "This is a text to speech demo." };
-            entry = new Entry { Placeholder = "input here text to speech" };
+            Grid grid = new Grid
+            {
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                RowDefinitions = {
+                        new RowDefinition { Height = GridLength.Auto },
+                        new RowDefinition { Height = new GridLength (1, GridUnitType.Star)},
+                        new RowDefinition { Height = new GridLength (1, GridUnitType.Star)},
+                        new RowDefinition { Height = new GridLength (1, GridUnitType.Star)},
+                        new RowDefinition { Height = new GridLength (1, GridUnitType.Star)},
+                        new RowDefinition { Height = new GridLength (1, GridUnitType.Star)}
+                    },
+                ColumnDefinitions = {
+                        new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star)},
+                        new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star)},
+                    }
+            };
+
+            header = new Label
+            {
+                Text = "Text-to-Speech",
+                FontSize = 40,
+                FontAttributes = FontAttributes.Bold,
+                HorizontalOptions = LayoutOptions.Center
+            };
+
+            slider_volume = new Slider
+            {
+                Maximum = 1.0,
+                Value = 0.5,
+                HorizontalOptions = LayoutOptions.Fill,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                MinimumTrackColor = Color.Pink,
+                MaximumTrackColor = Color.LightGray
+            };
+
+            slider_pitch = new Slider
+            {
+                Maximum = 2.0,
+                Value = 1.0,
+                HorizontalOptions = LayoutOptions.Fill,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                MinimumTrackColor = Color.Pink,
+                MaximumTrackColor = Color.LightGray
+            };
+
+            volume = new Label
+            {
+                Text = "Volume",
+                FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            pitch = new Label
+            {
+                Text = "Pitch",
+                FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            entry = new Entry
+            {
+                Placeholder = "Enter text",
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
             entry.Completed += Button_speak_Clicked;
-            button_speak = new Button { Text = "Text to speech" };
+
+            button_speak = new Button
+            {
+                Text = "Speek",
+                Font = Font.SystemFontOfSize(NamedSize.Medium),
+                BorderWidth = 1,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center,
+                CornerRadius = 10
+            };
             button_speak.Clicked += Button_speak_Clicked;
-            slider_volume = new Slider { Maximum = 1.0 };
-            slider_pitch = new Slider { Maximum = 2.0 };
-            slider_pitch.Value = 1.0;
-            slider_volume.Value = 0.75;
-            instructer1 = new Label { Text = "volume" };
-            instructer2 = new Label { Text = "pitch" };
-            result = new Label();
-            picker_locale = new Picker();
-            label_description = new Label();
 
+            picker_locale = new Picker()
+            {
+                Title = "Locale",
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                VerticalOptions = LayoutOptions.Center
+            };
+            
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.EndAndExpand
+            };
 
+            grid.Children.Add(header, 0, 2, 0, 1);
+            grid.Children.Add(slider_volume, 0, 1, 1, 2);
+            grid.Children.Add(volume, 1, 2, 1, 2);
+            grid.Children.Add(slider_pitch, 0, 1, 2, 3);
+            grid.Children.Add(pitch, 1, 2, 2, 3);
+            grid.Children.Add(picker_locale, 1, 2, 3, 4);
+            grid.Children.Add(entry, 0, 2, 4, 5);
+            grid.Children.Add(button_speak, 0, 2, 5, 6);
+            grid.Children.Add(label_description, 0, 2, 6, 7);
+
+            // Android needs a button to handle GetLocaleAsync
             if (Device.RuntimePlatform.Equals(Device.Android))
             {
-                button_getLocale = new Button { Text = "Get locales." };
+                GetLocaleAsync();
+                
+                button_getLocale = new Button
+                {
+                    Text = "Get Locales",
+                    Font = Font.SystemFontOfSize(NamedSize.Medium),
+                    BorderWidth = 1,
+                    HorizontalOptions = LayoutOptions.Center,
+                    VerticalOptions = LayoutOptions.Center,
+                    CornerRadius = 10
+                };
                 button_getLocale.Clicked += Button_getLocale_Clicked;
 
-
-                StackLayout stloPic = new StackLayout
-                {
-                    Orientation = StackOrientation.Horizontal,
-                    Children = { picker_locale }
-                };
-
-                label_description = new Label
-                {
-                    Text = description,
-                    HorizontalOptions = LayoutOptions.Center,
-                    VerticalOptions = LayoutOptions.EndAndExpand
-                };
+                grid.Children.Add(button_getLocale, 0, 1, 3, 4);
 
                 scrollView = new ScrollView
                 {
-                    Content = new StackLayout
-                    {
-                        Children = { title, instructer1, slider_volume, instructer2,
-                            slider_pitch, button_getLocale, stloPic, entry, button_speak, result, label_description  }
-                    }
+                    Content = grid
                 };
 
-                Content = scrollView;
+                this.Content = scrollView;
             }
-            else // other platforms
+            else // Other platforms
             {
-                // equal to: IEnumerable<Locale> locales = await TextToSpeech.GetLocalesAsync(); 
-                GetLocaleAsync();
-
-                string s = "";
-                foreach (Locale value in locales)
-                {
-                    Console.WriteLine("locale: " + value.ToString());
-                    s += value.Language.ToString() + "; ";
-                }
-
-                Console.WriteLine("Triggered.");
+                GetLocaleAsync(); // Equal to: IEnumerable<Locale> locales = await TextToSpeech.GetLocalesAsync();
 
                 // Grab the first locale
                 locale = locales.FirstOrDefault();
                 picker_locale.SelectedIndex = 0;
-                s += "FirstOrDefault: " + locales.FirstOrDefault().Language.ToString();
-                result.Text = s;
 
                 foreach (Locale localeValue in locales)
                 {
@@ -102,45 +171,29 @@ namespace EssentialsDemo
                 }
                 picker_locale.SelectedIndexChanged += Picker_locale_SelectedIndexChanged;
 
-                StackLayout stloPic = new StackLayout
+                scrollView = new ScrollView
                 {
-                    Orientation = StackOrientation.Horizontal,
-                    Children = { picker_locale }
+                    Content = grid
                 };
 
-                Content = new StackLayout
-                {
-                    Children = { title, instructer1, slider_volume, instructer2, slider_pitch, stloPic, entry, button_speak, result, label_description}
-                };
+                this.Content = scrollView;
             }
 
         }
 
         private void Button_getLocale_Clicked(object sender, EventArgs e)
         {
-            // equal to: IEnumerable<Locale> locales = await TextToSpeech.GetLocalesAsync(); 
-            GetLocaleAsync();
-
-            string s = "";
-            foreach (Locale value in locales)
-            {
-                Console.WriteLine("locale: " + value.ToString());
-                s += value.Language.ToString() + "; ";
-            }
-
-            Console.WriteLine("Triggered.");
-
             // Grab the first locale
             locale = locales.FirstOrDefault();
             picker_locale.SelectedIndex = 0;
-            s += "FirstOrDefault: " + locales.FirstOrDefault().Language.ToString();
-            result.Text = s;
 
             foreach (Locale localeValue in locales)
             {
                 picker_locale.Items.Add(localeValue.Language);
             }
             picker_locale.SelectedIndexChanged += Picker_locale_SelectedIndexChanged;
+
+            button_getLocale.IsEnabled = false;
         }
 
         private void Picker_locale_SelectedIndexChanged(object sender, EventArgs e)
@@ -148,16 +201,11 @@ namespace EssentialsDemo
             locale = locales.ElementAt(picker_locale.SelectedIndex);
         }
 
-        private void Button_speak_Clicked(object sender, EventArgs e)
+        private async void Button_speak_Clicked(object sender, EventArgs e)
         {
-            //SpeakNow();
             if (!string.IsNullOrWhiteSpace(entry.Text))
             {
-                SpeakNow((float)slider_volume.Value, (float)slider_pitch.Value, locale, entry.Text);
-            }
-            else
-            {
-                SpeakNow((float)slider_volume.Value, (float)slider_pitch.Value, locale, "Please enter something.");
+                await SpeakNow((float)slider_volume.Value, (float)slider_pitch.Value, locale, entry.Text);
             }
         }
 
@@ -170,16 +218,12 @@ namespace EssentialsDemo
         /// <returns></returns>
         public async Task SpeakNow(float volume, float pitch, Locale locale, string text)
         {
-
-
             var settings = new SpeechOptions()
             {
                 Volume = volume,
                 Pitch = pitch,
-                //   Locale = locale ********************************************* dont know how locale works.
                 Locale = locale
             };
-
             await TextToSpeech.SpeakAsync(text, settings);
         }
 
@@ -187,25 +231,5 @@ namespace EssentialsDemo
         {
             locales = await TextToSpeech.GetLocalesAsync();
         }
-
-        //public async Task SpeakNow()
-        //{
-        //    var settings = new SpeechOptions()
-        //    {
-        //        Volume = (float).75,
-        //        Pitch = (float) 1.0
-        //    };
-
-        //    await TextToSpeech.SpeakAsync("Hello World", settings);
-        //}
-
-        // dont know how this cancelation works
-        //public void CancelSpeech()
-        //{
-        //    if (cts?.IsCancellationRequested ?? false)
-        //        return;
-
-        //    cts.Cancel();
-        //}
     }
 }
