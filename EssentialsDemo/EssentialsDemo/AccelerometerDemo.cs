@@ -158,7 +158,8 @@ namespace EssentialsDemo
                 data_Y = filter(list_Y);
                 data_Z = filter(list_Z);
 
-                label.Text = String.Format("X: {0,0:+#0.00;- #0.00} G\nY: {1,0:+#0.00;- #0.00} G\nZ: {2,0:+#0.00;- #0.00} G", data_X, data_Y, data_Z);
+                label.Text = String.Format("X: {0,0:+#0.00;- #0.00} G\nY: {1,0:+#0.00;- #0.00} G\nZ: {2,0:+#0.00;- #0.00} G", 
+                    data_X, data_Y, data_Z);
 
                 var norm = Math.Sqrt(data_X * data_X + data_Y * data_Y + data_Z * data_Z);
                 // Calculate the normalized vector
@@ -195,8 +196,8 @@ namespace EssentialsDemo
                     Accelerometer.Stop();
                     stopWatch.Stop();
                     TimeSpan timeSpan = stopWatch.Elapsed;
-                    long ms = stopWatch.ElapsedMilliseconds;
-                    label.Text = timeSpan.ToString() + "; " + count.ToString() + "; " + (count / (ms / 1000)).ToString();
+                    label.Text = Math.Round(timeSpan.TotalSeconds, 2) + "; " + count + "; "
+                        + Math.Round((count / Math.Round(timeSpan.TotalSeconds, 2)), 0);
                     stopWatch = new Stopwatch();
                     count = 0;
                 }
