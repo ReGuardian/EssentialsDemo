@@ -43,7 +43,7 @@ namespace EssentialsDemo
         {
             Label header = new Label
             {
-                Text = "Feature List",
+                Text = "Feature List\n" + System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString("yyyy.MM.dd.HH.mm.ss"),
                 FontSize = 22,
                 TextColor = Color.White,
                 FontAttributes = FontAttributes.Bold,
@@ -71,19 +71,35 @@ namespace EssentialsDemo
                 });
             }
 
+            ListView listView;
             // Create ListView for the master page.
-            ListView listView = new ListView
+            if (Device.RuntimePlatform.Equals(Device.iOS))
             {
-                ItemsSource = masterPageItems,
-                ItemTemplate = new DataTemplate(() => {
-                    TextCell textCell = new TextCell();
-                    textCell.TextColor = Color.White;
-                    textCell.SetBinding(TextCell.TextProperty, "Text");
-                    return textCell; }),
-                SeparatorColor = Color.White
-            };
-            listView.ItemTapped += ListView_ItemTapped;
-
+                listView = new ListView
+                {
+                    ItemsSource = masterPageItems,
+                    ItemTemplate = new DataTemplate(() => {
+                        TextCell textCell = new TextCell();
+                        textCell.SetBinding(TextCell.TextProperty, "Text");
+                        return textCell;
+                    }),
+                };
+                listView.ItemTapped += ListView_ItemTapped;
+            }
+            else
+            { 
+                listView = new ListView
+                {
+                    ItemsSource = masterPageItems,
+                    ItemTemplate = new DataTemplate(() => {
+                        TextCell textCell = new TextCell();
+                        textCell.TextColor = Color.White;
+                        textCell.SetBinding(TextCell.TextProperty, "Text");
+                        return textCell; }),
+                    SeparatorColor = Color.White
+                };
+                listView.ItemTapped += ListView_ItemTapped;
+            }
             f1 = new AccelerometerDemo();
 
             // Create the master page with the ListView.

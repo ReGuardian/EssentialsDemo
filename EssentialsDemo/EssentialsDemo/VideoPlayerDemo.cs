@@ -12,6 +12,7 @@ namespace EssentialsDemo
         VideoPlayer videoPlayer;
         Button button;
         Label label_description;
+        ScrollView scrollView;
 
         public VideoPlayerDemo()
         {
@@ -39,11 +40,12 @@ namespace EssentialsDemo
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.EndAndExpand
             };
-
-            this.Content = new StackLayout
+            
+            scrollView = new ScrollView
             {
-                Children = { videoPlayer, button, label_description }
+                Content = new StackLayout { Children = { videoPlayer, button, label_description } }
             };
+            this.Content = scrollView;
         }
 
         async void OnButtonClicked(object sender, EventArgs e)
