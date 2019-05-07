@@ -24,6 +24,7 @@ namespace EssentialsDemo
         ChartView chartView;
         Label label_description;
         ScrollView scrollView;
+        Xamarin.Forms.Entry entry;
 
         List<float> list_X = new List<float>();
         List<float> list_Y = new List<float>();
@@ -69,6 +70,13 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.FillAndExpand
             };
 
+            entry = new Xamarin.Forms.Entry
+            {
+                Keyboard = Keyboard.Text,
+                Placeholder = "Enter filter coefficent",
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
             label_description = new Label
             {
                 Text = description,
@@ -80,7 +88,7 @@ namespace EssentialsDemo
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button, label, chartView, label_description }
+                    Children = { header, entry, button, label, chartView, label_description }
                 }
             };
 
@@ -103,6 +111,11 @@ namespace EssentialsDemo
                 var data_X = data.AngularVelocity.X;
                 var data_Y = data.AngularVelocity.Y;
                 var data_Z = data.AngularVelocity.Z;
+
+                if (entry.Text != "" && entry.Text != null)
+                {
+                    N = int.Parse(entry.Text);
+                }
 
                 // Control the amount of values in the list to prepare for filtering
                 if (list_X.Count > N - 1)
