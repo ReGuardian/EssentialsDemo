@@ -28,6 +28,7 @@ namespace EssentialsDemo
         Entry entry;
         Image image;
         Stopwatch stopWatch;
+        Picker picker;
         long count = 0;
 
         List<float> list_X = new List<float>();
@@ -64,6 +65,7 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.Center,
                 CornerRadius = 10
             };
+            button.Clicked += OnButtonClicked;
 
             image = new Image
             {
@@ -72,7 +74,17 @@ namespace EssentialsDemo
                 HorizontalOptions = LayoutOptions.Center
             };
 
-            button.Clicked += OnButtonClicked;
+            picker = new Picker()
+            {
+                Title = "Sensor speed",
+                HorizontalOptions = LayoutOptions.FillAndExpand
+            };
+            picker.Items.Add("Fastest");
+            picker.Items.Add("Game");
+            picker.Items.Add("UI");
+            picker.Items.Add("Default");
+            picker.SelectedIndex = 0;
+            picker.SelectedIndexChanged += SelectedIndexChanged;
 
             label = new Label
             {
@@ -93,7 +105,7 @@ namespace EssentialsDemo
             {
                 Content = new StackLayout
                 {
-                    Children = { header, entry, button, label, image, label_description }
+                    Children = { header, picker, entry, button, label, image, label_description }
                 }
             };
             // Build the page.
@@ -162,9 +174,9 @@ namespace EssentialsDemo
 
                 var norm = Math.Sqrt(data_X * data_X + data_Y * data_Y + data_Z * data_Z);
                 // Calculate the normalized vector
-                var x = Math.Round(data.Acceleration.X / norm, 3);
-                var y = Math.Round(data.Acceleration.Y / norm, 3);
-                var z = Math.Round(data.Acceleration.Z / norm, 3);
+                var x = Math.Round(data_X / norm, 3);
+                var y = Math.Round(data_Y / norm, 3);
+                var z = Math.Round(data_Z / norm, 3);
 
                 if (y >= 0)
                 {
@@ -232,6 +244,24 @@ namespace EssentialsDemo
                 sum += element;
             }
             return sum / list.Count;
+        }
+        void SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (picker.SelectedItem.ToString())
+            {
+                case "Fastest":
+                    speed = SensorSpeed.Fastest;
+                    break;
+                case "Game":
+                    speed = SensorSpeed.Game;
+                    break;
+                case "UI":
+                    speed = SensorSpeed.UI;
+                    break;
+                case "Default":
+                    speed = SensorSpeed.Default;
+                    break;
+            }
         }
     }
 }
