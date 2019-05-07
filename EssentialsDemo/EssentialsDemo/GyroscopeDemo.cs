@@ -17,10 +17,15 @@ namespace EssentialsDemo
             "Y-axis points vertically to the top of the device." +
             "Z-axis points vertically outside off the device. " +
             "Their absolute values composes the radar chart. ";
+        // To scale the data presentation in chart
+        double scaling = 0.0;
         // Set speed delay for monitoring changes.
         SensorSpeed speed = SensorSpeed.Game;
         Button button;
+        Xamarin.Forms.Entry entry;
         Label label;
+        Label label_scaling;
+        Slider sl1;
         ChartView chartView;
         Label label_description;
         ScrollView scrollView;
@@ -42,6 +47,19 @@ namespace EssentialsDemo
                 HorizontalOptions = LayoutOptions.Center
             };
 
+            label_scaling = new Label
+            {
+                Text = "Scaling",
+                FontAttributes = FontAttributes.Bold,
+                HorizontalOptions = LayoutOptions.Center
+            };
+
+            entry = new Xamarin.Forms.Entry
+            {
+                Keyboard = Keyboard.Text,
+                Placeholder = "Enter filter coefficent"
+            };
+
             button = new Button
             {
                 Text = "Start",
@@ -51,6 +69,17 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.Center,
                 CornerRadius = 10
             };
+
+            sl1 = new Slider
+            {
+                Maximum = 2,
+                Minimum = -2,
+                Value = 0,
+                HorizontalOptions = LayoutOptions.Fill,
+                MinimumTrackColor = Color.Pink,
+                MaximumTrackColor = Color.LightGray
+            };
+            sl1.ValueChanged += Sl1_ValueChanged;
 
             button.Clicked += OnButtonClicked;
             // Register for reading changes, be sure to unsubscribe when finished
@@ -80,7 +109,7 @@ namespace EssentialsDemo
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button, label, chartView, label_description }
+                    Children = { header, entry, label_scaling, sl1, button, label, chartView, label_description }
                 }
             };
 
@@ -94,6 +123,11 @@ namespace EssentialsDemo
             button.Text = String.Format("{0}", Gyroscope.IsMonitoring == true ? "Stop" : "Start");
         }
 
+        void Sl1_ValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            scaling = Math.Pow(10, sl1.Value);
+        }
+
         void Gyroscope_ReadingChanged(object sender, GyroscopeChangedEventArgs e)
         {
             MainThread.BeginInvokeOnMainThread(() =>
@@ -103,6 +137,11 @@ namespace EssentialsDemo
                 var data_X = data.AngularVelocity.X;
                 var data_Y = data.AngularVelocity.Y;
                 var data_Z = data.AngularVelocity.Z;
+
+                if (entry.Text != "" && entry.Text != null)
+                {
+                    N = int.Parse(entry.Text);
+                }
 
                 // Control the amount of values in the list to prepare for filtering
                 if (list_X.Count > N - 1)
@@ -134,19 +173,19 @@ namespace EssentialsDemo
                     data_X, data_Y, data_Z);
                 var entries = new[]
                 {
-                     new Entry((float)Math.Abs(Math.Round(data_X, 2)) * 10)
+                     new Entry((float)Math.Abs(Math.Round(data_X * scaling, 2)))
                      {
                          Label = "X",
                          ValueLabel = Math.Round(data_X, 2).ToString(),
                          Color = SKColor.Parse("#2c3e50")
                      },
-                     new Entry((float)Math.Abs(Math.Round(data_Y, 2)) * 10)
+                     new Entry((float)Math.Abs(Math.Round(data_Y * scaling, 2)))
                      {
                          Label = "Y",
                          ValueLabel = Math.Round(data_Y, 2).ToString(),
                          Color = SKColor.Parse("#77d065")
                      },
-                     new Entry((float)Math.Abs(Math.Round(data_Z, 2)) * 10)
+                     new Entry((float)Math.Abs(Math.Round(data_Z * scaling, 2)))
                      {
                          Label = "Z",
                          ValueLabel = Math.Round(data_Z, 2).ToString(),
