@@ -19,7 +19,7 @@ namespace EssentialsDemo
         private string introduction;
         public VideoPlayerDemo()
         {
-            videoPlayer = new VideoPlayer();
+            videoPlayer = new VideoPlayer { VerticalOptions = LayoutOptions.FillAndExpand };
             // videoPlayer.Source = VideoSource.FromUri("https://archive.org/download/BigBuckBunny_328/BigBuckBunny_512kb.mp4");
 
             button_selectSource = new Button { Text = "Select Source" };
