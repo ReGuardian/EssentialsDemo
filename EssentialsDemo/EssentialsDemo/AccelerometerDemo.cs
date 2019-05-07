@@ -18,9 +18,9 @@ namespace EssentialsDemo
                                     "The coefficient in the entry can be adjusted to eliminate the noise. " +
                                     "The coefficient should be an integer larger than zero. " +
                                     "With a larger coefficient, the trembling of the picture becomes smaller " +
-                                    "with a higher responding delay.";
+                                    "with a higher responding delay. Every time select a new sensor speed, sensor should be restarted.";
         // Set speed delay for monitoring changes.
-        SensorSpeed speed = SensorSpeed.Fastest;
+        SensorSpeed speed = SensorSpeed.Game;
         ScrollView scrollView;
         Button button;
         Label label;
@@ -28,6 +28,7 @@ namespace EssentialsDemo
         Entry entry;
         Image image;
         Stopwatch stopWatch;
+        Picker picker;
         long count = 0;
 
         List<float> list_X = new List<float>();
@@ -43,7 +44,7 @@ namespace EssentialsDemo
             Label header = new Label
             {
                 Text = "Accelerometer",
-                FontSize = 50,
+                FontSize = 30,
                 FontAttributes = FontAttributes.Bold,
                 HorizontalOptions = LayoutOptions.Center
             };
@@ -89,16 +90,27 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.EndAndExpand
             };
 
+            picker = new Picker()
+            {
+                Title = "Sensor speed",
+                HorizontalOptions = LayoutOptions.FillAndExpand
+            };
+            picker.Items.Add("Fastest");
+            picker.Items.Add("Game");
+            picker.Items.Add("UI");
+            picker.Items.Add("Default");
+            picker.SelectedIndex = 0;
+            picker.SelectedIndexChanged += SelectedIndexChanged;
+
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, entry, button, label, image, label_description}
+                    Children = { header, picker, entry, button, label, image, label_description}
                 }
             };
             // Build the page.
             this.Content = scrollView;
-
         }
 
         void OnButtonClicked(object sender, EventArgs e)
@@ -163,9 +175,9 @@ namespace EssentialsDemo
 
                 var norm = Math.Sqrt(data_X * data_X + data_Y * data_Y + data_Z * data_Z);
                 // Calculate the normalized vector
-                var x = Math.Round(data.Acceleration.X / norm, 3);
-                var y = Math.Round(data.Acceleration.Y / norm, 3);
-                var z = Math.Round(data.Acceleration.Z / norm, 3);
+                var x = Math.Round(data_X / norm, 3);
+                var y = Math.Round(data_Y / norm, 3);
+                var z = Math.Round(data_Z / norm, 3);
 
                 if (y >= 0)
                 {
@@ -233,6 +245,25 @@ namespace EssentialsDemo
                 sum += element;
             }
             return sum / list.Count;
+        }
+
+        void SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (picker.SelectedItem.ToString())
+            {
+                case "Fastest":
+                    speed = SensorSpeed.Fastest;
+                    break;
+                case "Game":
+                    speed = SensorSpeed.Game;
+                    break;
+                case "UI":
+                    speed = SensorSpeed.UI;
+                    break;
+                case "Default":
+                    speed = SensorSpeed.Default;
+                    break;
+            }
         }
     }
 }
