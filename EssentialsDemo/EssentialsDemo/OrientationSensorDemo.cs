@@ -24,9 +24,13 @@ namespace EssentialsDemo
                 " If an axis of rotation is the normalized vector (ax, ay, az), and the rotation angle is Θ, then the (X, Y, Z, W) components of the quaternion are:\n" +
                 "(ax·sin(Θ/2), ay·sin(Θ/2), az·sin(Θ/2), cos(Θ/2))\n" +
                 "This demo has made certian configuration to the picture so that this picture would look as if it were staying still. (On Android, it would serve as a 3-D compass)";
+        // Two middele value for zero button
+        double zero = 0.0;
+        double delta = 0.0;
         // Set speed delay for monitoring changes.
         SensorSpeed speed = SensorSpeed.Game;
         Button button;
+        Button button_zero;
         Image image;
         Label label;
         Label label2;
@@ -64,7 +68,18 @@ namespace EssentialsDemo
                 CornerRadius = 10
             };
 
+            button_zero = new Button
+            {
+                Text = "Zero",
+                Font = Font.SystemFontOfSize(NamedSize.Large),
+                BorderWidth = 1,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                CornerRadius = 10
+            };
+
             button.Clicked += OnButtonClicked;
+            button_zero.Clicked += OnButton_zeroClicked;
             // Register for reading changes, be sure to unsubscribe when finished
             OrientationSensor.ReadingChanged += OrientationSensor_ReadingChanged;
 
@@ -94,7 +109,7 @@ namespace EssentialsDemo
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button, label2, image, label, label_description }
+                    Children = { header, button, button_zero, label2, image, label, label_description }
                 }
             };
 
@@ -106,6 +121,12 @@ namespace EssentialsDemo
         {
             ToggleOrientationSensor();
             button.Text = String.Format("{0}", OrientationSensor.IsMonitoring == true ? "Stop" : "Start");
+        }
+
+        void OnButton_zeroClicked(object sender, EventArgs e)
+        {
+            delta = zero;
+            image.Rotation -= delta;
         }
 
         void OrientationSensor_ReadingChanged(object sender, OrientationSensorChangedEventArgs e)
@@ -132,7 +153,9 @@ namespace EssentialsDemo
                 var β = Math.Asin(2 * (x * z - y * w)) * 180 / Math.PI;
                 var γ = Math.Atan2(2 * (x * w + y * z), 1 - 2 * (z * z + w * w)) * 180 / Math.PI;
 
-                image.Rotation = α;
+                zero = α;
+
+                image.Rotation = α - delta;
                 image.RotationY = β;
                 image.RotationX = -γ - 180;
             });
