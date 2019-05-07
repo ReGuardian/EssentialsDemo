@@ -32,5 +32,6 @@
     <uap:Capability Name="videosLibrary" />
     <uap:Capability Name="picturesLibrary" />
     <uap:Capability Name="musicLibrary" />
+    <DeviceCapability Name="webcam" />
   </Capabilities>
 </Package>
