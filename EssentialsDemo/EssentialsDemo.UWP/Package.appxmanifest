@@ -33,5 +33,6 @@
     <uap:Capability Name="picturesLibrary" />
     <uap:Capability Name="musicLibrary" />
     <DeviceCapability Name="webcam" />
+    <DeviceCapability Name="location" />
   </Capabilities>
 </Package>
