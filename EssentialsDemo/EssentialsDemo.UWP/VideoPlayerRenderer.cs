@@ -27,11 +27,11 @@ namespace EssentialsDemo.UWP
                     MediaElement mediaElement = new MediaElement();
                     SetNativeControl(mediaElement);
                 }
-            }
 
-            SetAreTransportControlsEnabled();
-            SetSource();
-            SetAutoPlay();
+                SetAreTransportControlsEnabled();
+                SetSource();
+                SetAutoPlay();
+            }
         }
 
         protected override void Dispose(bool disposing)
