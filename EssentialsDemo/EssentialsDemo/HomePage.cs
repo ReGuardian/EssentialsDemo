@@ -56,7 +56,7 @@ namespace EssentialsDemo
                 "Clipboard", "Compass", "Connectivity","Detect Shake", "Device Display Information",
                 "Device Information", "Email", "File System Helpers", "Flashlight",
                 "Geocoding", "Geolocation", "Gyroscope", "Launcher", "Magnetometer",
-                "Main Thread", "Maps", "Open Browser", "Orientation Sensor", "Phone Dialer", "Platform Extensions",
+                "Maps", "Open Browser", "Orientation Sensor", "Phone Dialer", "Platform Extensions",
                 "Preferences", "Secure Storage", "Share", "SMS", "Text-to-Speech", "Unit converters",
                 "Version Tracking", "Vibrate", "Image Picker", "Video Player"
             };
