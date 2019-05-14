@@ -43,7 +43,7 @@ namespace EssentialsDemo
         {
             Label header = new Label
             {
-                Text = "Feature List\n" + System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString("yyyy.MM.dd.HH.mm.ss"),
+                Text = "Feature List\nV" + System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString("yy.MM.dd.HH.mm.ss"),
                 FontSize = 22,
                 TextColor = Color.White,
                 FontAttributes = FontAttributes.Bold,
