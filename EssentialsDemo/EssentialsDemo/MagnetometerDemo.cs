@@ -1,6 +1,10 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Essentials;
+using Microcharts.Forms;
+using SkiaSharp;
+using Entry = Microcharts.Entry;
+using Microcharts;
 
 namespace EssentialsDemo
 {
@@ -12,6 +16,7 @@ namespace EssentialsDemo
         Button button;
         Label label;
         Label label_description;
+        ChartView chartView;
         ScrollView scrollView;
 
         public MagnetometerDemo()
@@ -32,7 +37,7 @@ namespace EssentialsDemo
                 Font = Font.SystemFontOfSize(NamedSize.Large),
                 BorderWidth = 1,
                 HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.Center,
                 CornerRadius = 10
             };
 
@@ -45,21 +50,26 @@ namespace EssentialsDemo
                 Text = "",
                 FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
                 HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.CenterAndExpand
+                VerticalOptions = LayoutOptions.Center
+            };
+
+            chartView = new ChartView()
+            {
+                VerticalOptions = LayoutOptions.FillAndExpand
             };
 
             label_description = new Label
             {
                 Text = description,
                 HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.EndAndExpand
+                VerticalOptions = LayoutOptions.End
             };
 
             scrollView = new ScrollView
             {
                 Content = new StackLayout
                 {
-                    Children = { header, button, label, label_description }
+                    Children = { header, button, label, chartView, label_description }
                 }
             };
 
@@ -79,6 +89,38 @@ namespace EssentialsDemo
             // Process MagneticField X, Y, and Z
             Console.WriteLine($"Reading: X: {data.MagneticField.X}, Y: {data.MagneticField.Y}, Z: {data.MagneticField.Z}");
             label.Text = String.Format("X: {0,0:F4} µ\nY: {1,0:F4} µ\nZ: {2,0:F4} µ", data.MagneticField.X, data.MagneticField.Y, data.MagneticField.Z);
+
+            var entries = new[]
+            {
+                new Entry((float)Math.Abs(Math.Round(data.MagneticField.X, 2)) * 10)
+                {
+                    Label = "X",
+                    ValueLabel = Math.Round(data.MagneticField.X, 2).ToString(),
+                    Color = SKColor.Parse("#2c3e50")
+                },
+                new Entry((float)Math.Abs(Math.Round(data.MagneticField.Y, 2)) * 10)
+                {
+                    Label = "Y",
+                    ValueLabel = Math.Round(data.MagneticField.Y, 2).ToString(),
+                    Color = SKColor.Parse("#77d065")
+                },
+                new Entry((float)Math.Abs(Math.Round(data.MagneticField.Z, 2)) * 10)
+                {
+                    Label = "Z",
+                    ValueLabel = Math.Round(data.MagneticField.Z, 2).ToString(),
+                    Color = SKColor.Parse("#b455b6")
+                }
+            };
+            chartView.Chart = new RadarChart()
+            {
+                Entries = entries,
+                LabelTextSize = 35,
+                LineSize = 3,
+                BorderLineSize = 3,
+                PointSize = 10,
+                MaxValue = 1000,
+                MinValue = 0
+            };
         }
 
         public void ToggleMagnetometer()
