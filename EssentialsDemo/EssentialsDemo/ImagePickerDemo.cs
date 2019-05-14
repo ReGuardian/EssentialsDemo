@@ -11,7 +11,10 @@ namespace EssentialsDemo
 {
     class ImagePickerDemo : ContentPage
     {
+        public string description = "Pick button can pick image from photo library. " +
+            "Take button can take a photo from camera, and show it on the screen. ";
         Label header;
+        Label label_description;
         Button button;
         Button button2;
         Image image;
@@ -28,6 +31,13 @@ namespace EssentialsDemo
                 FontSize = 40,
                 FontAttributes = FontAttributes.Bold,
                 HorizontalOptions = LayoutOptions.Center
+            };
+
+            label_description = new Label
+            {
+                Text = description,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.End
             };
 
             button = new Button
@@ -52,7 +62,7 @@ namespace EssentialsDemo
             };
             button2.Clicked += OnButton2Clicked;
 
-            stack = new StackLayout { Children = { header, button, button2 } };
+            stack = new StackLayout { Children = { header, button, button2, label_description } };
             scrollView = new ScrollView
             {
                 Content = stack
@@ -84,7 +94,7 @@ namespace EssentialsDemo
                 };
                 image.GestureRecognizers.Add(recognizer);
 
-                stack = new StackLayout { Children = { header, button, button2, image } };
+                stack = new StackLayout { Children = { header, button, button2, image, label_description } };
                 scrollView = new ScrollView
                 {
                     Content = stack
@@ -150,7 +160,7 @@ namespace EssentialsDemo
                 };
 
                 // Recreate the content page
-                stack = new StackLayout { Children = { header, button, button2, image } };
+                stack = new StackLayout { Children = { header, button, button2, image, label_description } };
                 scrollView = new ScrollView
                 {
                     Content = stack
