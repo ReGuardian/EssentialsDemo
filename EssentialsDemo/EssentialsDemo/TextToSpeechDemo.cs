@@ -42,7 +42,7 @@ namespace EssentialsDemo
             instructer1 = new Label { Text = "volume" };
             instructer2 = new Label { Text = "pitch" };
             result = new Label();
-            picker_locale = new Picker();
+            picker_locale = new Picker { Title = "Pick your locale here"};
 
             introduction = "This function gives access to tect to speech, using specified settings.";
             info = new Label { Text = introduction };

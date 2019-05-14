@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace EssentialsDemo
 {
@@ -68,7 +69,8 @@ namespace EssentialsDemo
         {
             try
             {
-                uriAddress = new Uri(text.Text, UriKind.RelativeOrAbsolute);
+                string uri = format(text.Text);
+                uriAddress = new Uri(uri, UriKind.RelativeOrAbsolute);
                 OpenBrowser(uriAddress);
             }
             catch (InvalidOperationException)
@@ -88,6 +90,32 @@ namespace EssentialsDemo
         public async void OpenBrowser(Uri uri)
         {
             await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+        }
+
+        private string format(string text)
+        {
+            string result = "";
+            string pattern = "^http://";
+            Regex regex = new Regex(pattern);
+            if (regex.IsMatch(text))
+            {
+                result = text;
+            }
+            else
+            {
+                string pattern2 = "^Http://";
+                Regex regex2 = new Regex(pattern2);
+                if (regex2.IsMatch(text))
+                {
+                    result = regex2.Replace(text, "http://");
+                }
+                else
+                {
+                    result = "http://" + text;
+                }
+            }
+            Console.WriteLine(result);
+            return result;
         }
     }
 }

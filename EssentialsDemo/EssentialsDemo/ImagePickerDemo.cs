@@ -16,6 +16,9 @@ namespace EssentialsDemo
         Button button2;
         Image image;
         StackLayout stack;
+        ScrollView scrollView;
+        private Label info;
+        private string introduction;
 
         public ImagePickerDemo()
         {
@@ -51,9 +54,13 @@ namespace EssentialsDemo
             };
             button2.Clicked += OnButton2Clicked;
 
-            stack = new StackLayout { Children = { header, button, button2 } };
+            introduction = "This demo allows users to pick image from image library. The selected image will be displayed." +
+                "Also, it is possible to take a photo and then display it.";
+            info = new Label { Text = introduction };
 
-            this.Content = stack;
+            stack = new StackLayout { Children = { header, button, button2, info } };
+            scrollView = new ScrollView { Content = stack };
+            this.Content = scrollView;
         }
 
         async void OnButtonClicked(object sender, EventArgs e)
@@ -74,13 +81,15 @@ namespace EssentialsDemo
                 TapGestureRecognizer recognizer = new TapGestureRecognizer();
                 recognizer.Tapped += (sender2, args) =>
                 {
-                    this.Content = stack;
+                    scrollView = new ScrollView { Content = stack };
+                    this.Content = scrollView;
                     button.IsEnabled = true;
                 };
                 image.GestureRecognizers.Add(recognizer);
 
-                stack = new StackLayout { Children = { header, button, button2, image } };
-                this.Content = stack;
+                stack = new StackLayout { Children = { header, button, button2, image, info } };
+                scrollView = new ScrollView { Content = stack };
+                this.Content = scrollView;
                 button.IsEnabled = true;
             }
             else
@@ -141,8 +150,9 @@ namespace EssentialsDemo
                 };
 
                 // Recreate the content page
-                stack = new StackLayout { Children = { header, button, button2, image } };
-                this.Content = stack;
+                stack = new StackLayout { Children = { header, button, button2, image, info } };
+                scrollView = new ScrollView { Content = stack };
+                this.Content = scrollView;
             }
             else
             {
