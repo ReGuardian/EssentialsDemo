@@ -189,4 +189,7 @@
       <Name>EssentialsDemo</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\test txt file.txt" />
+  </ItemGroup>
 </Project>

@@ -99,7 +99,7 @@ namespace EssentialsDemo
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 CornerRadius = 10
             };
-            button4.Clicked += OnButtonClicked4;
+            button4.Clicked += OnButtonClicked4Async;
 
             label_description = new Label
             {
@@ -149,13 +149,21 @@ namespace EssentialsDemo
             }
         }
 
-        void OnButtonClicked4(object sender, EventArgs e)
+        async void OnButtonClicked4Async(object sender, EventArgs e)
         {
             try
             {
                 var mainDir = FileSystem.AppDataDirectory;
                 var fileName = Path.Combine(mainDir, entry.Text);
-                label.Text = File.ReadAllText(fileName);
+                //   label.Text = File.ReadAllText(fileName);
+                using (var stream = await FileSystem.OpenAppPackageFileAsync(entry.Text))
+                {
+                    using (var reader = new StreamReader(stream))
+                    {
+                        var fileContents = await reader.ReadToEndAsync();
+                        label.Text = fileContents;
+                    }
+                }
             }
             catch (Exception)
             {
