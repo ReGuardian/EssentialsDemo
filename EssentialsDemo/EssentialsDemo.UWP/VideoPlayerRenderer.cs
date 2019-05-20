@@ -16,6 +16,10 @@ namespace EssentialsDemo.UWP
 {
     public class VideoPlayerRenderer : ViewRenderer<VideoPlayer, MediaElement>
     {
+        /*
+         * https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/custom-renderer/video-player/player-creation
+         * UWP video player controller, Accessed: 20 May 2019
+         */
         protected override void OnElementChanged(ElementChangedEventArgs<VideoPlayer> args)
         {
             base.OnElementChanged(args);

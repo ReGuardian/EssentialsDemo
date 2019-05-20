@@ -113,6 +113,10 @@ namespace EssentialsDemo
             try
             {
                 var address = entry.Text.ToString();
+                /*
+                 * https://docs.microsoft.com/en-us/xamarin/essentials/geocoding?context=xamarin%2Fandroid&tabs=android
+                 * Xamarin.Essentials: Geocoding, Accessed: 20 May 2019
+                 */
                 var locations = await Geocoding.GetLocationsAsync(address);
                 Console.WriteLine(locations.ToString());
 
@@ -144,6 +148,10 @@ namespace EssentialsDemo
         /// <param name="e"></param>
         async void OnButtonClicked2(object sender, EventArgs e)
         {
+            /*
+            * https://docs.microsoft.com/en-us/xamarin/essentials/geocoding?context=xamarin%2Fandroid&tabs=android
+            * Xamarin.Essentials: Geocoding, Accessed: 20 May 2019
+            */
             try
             {
                 var lat = Convert.ToDouble(entry2.Text);

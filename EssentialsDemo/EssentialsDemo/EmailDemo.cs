@@ -98,6 +98,10 @@ namespace EssentialsDemo
 
         public async Task SendEmail(string subject, string body, List<string> recipients)
         {
+            /*
+             * https://docs.microsoft.com/en-us/xamarin/essentials/email?context=xamarin%2Fandroid&tabs=android
+             * Xamarin.Essentials: Email, Accessed: 20 May 2019
+             */
             try
             {
                 var message = new EmailMessage

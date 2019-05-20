@@ -3,6 +3,10 @@ using Xamarin.Forms;
 
 namespace EssentialsDemo
 {
+    /// <summary>
+    /// https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/custom-renderer/video-player/web-videos
+    /// Video sources, Accessed: 20 May 2019
+    /// </summary>
     [TypeConverter(typeof(VideoSourceConverter))]
     public abstract class VideoSource : Element
     {

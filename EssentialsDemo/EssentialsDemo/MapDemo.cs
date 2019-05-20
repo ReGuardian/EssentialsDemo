@@ -70,6 +70,10 @@ namespace EssentialsDemo
 
         async void OnButtonClicked1Async(object sender, EventArgs e)
         {
+            /*
+             * https://docs.microsoft.com/en-us/xamarin/essentials/maps?context=xamarin%2Fandroid&tabs=android
+             * Xamarin.Essentials: Map, Accessed: 20 May 2019
+             */
             var location = new Location(47.645160, -122.1306032);
             var options = new MapLaunchOptions
             {
@@ -82,6 +86,10 @@ namespace EssentialsDemo
 
         async void OnButtonClicked2Async(object sender, EventArgs e)
         {
+            /*
+             * https://docs.microsoft.com/en-us/xamarin/essentials/maps?context=xamarin%2Fandroid&tabs=android
+             * Xamarin.Essentials: Map, Accessed: 20 May 2019
+             */
             var placemark = new Placemark
             {
                 CountryName = "United States",

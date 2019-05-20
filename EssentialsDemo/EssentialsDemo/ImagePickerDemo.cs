@@ -73,6 +73,10 @@ namespace EssentialsDemo
 
         async void OnButtonClicked(object sender, EventArgs e)
         {
+            /*
+             * https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/dependency-service/photo-picker
+             * Implementing in Shared Code, Accessed: 20 May 2019
+             */
             button.IsEnabled = false;
             Stream stream = await DependencyService.Get<IPicturePicker>().GetImageStreamAsync();
 
@@ -119,7 +123,7 @@ namespace EssentialsDemo
             // https://github.com/jamesmontemagno/MediaPlugin
             // https://github.com/jamesmontemagno/CurrentActivityPlugin/blob/master/README.md
             // How to fully manage the permissions on Android 
-            // to avoid Exceptions of no permissions of camera or storage
+            // to avoid Exceptions of no permissions of camera or storage, Accessed: 20 May 2019
             var cameraStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Camera);
             var storageStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
 
@@ -145,7 +149,7 @@ namespace EssentialsDemo
 
                 await DisplayAlert("File Location", file.Path, "OK");
 
-                // create image with the photo just took and stored
+                // Create image with the photo just took and stored stream
                 image = new Image
                 {
                     Source = ImageSource.FromStream(() =>

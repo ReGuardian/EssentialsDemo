@@ -70,6 +70,10 @@ namespace EssentialsDemo
 
         async void OnButtonClicked1Async(object sender, EventArgs e)
         {
+            /*
+             * https://docs.microsoft.com/en-us/xamarin/essentials/flashlight?context=xamarin%2Fandroid&tabs=android
+             * Xamarin.Essentials: Flashlight, Accessed: 20 May 2019
+             */
             try
             {
                 // Turn On
@@ -97,6 +101,10 @@ namespace EssentialsDemo
 
         async void OnButtonClicked2Async(object sender, EventArgs e)
         {
+            /*
+             * https://docs.microsoft.com/en-us/xamarin/essentials/flashlight?context=xamarin%2Fandroid&tabs=android
+             * Xamarin.Essentials: Flashlight, Accessed: 20 May 2019
+             */
             try
             {
                 // Turn Off

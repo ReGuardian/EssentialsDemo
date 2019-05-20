@@ -50,6 +50,10 @@ namespace EssentialsDemo
 
         async void OnButtonClicked(object sender, EventArgs e)
         {
+            /*
+             * https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/custom-renderer/video-player/accessing-library
+             * Invoking the dependency service, Accessed: 20 May 2019
+             */
             Button btn = (Button)sender;
             btn.IsEnabled = false;
 

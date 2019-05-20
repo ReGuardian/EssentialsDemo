@@ -10,6 +10,10 @@ using Xamarin.Forms;
 
 namespace EssentialsDemo.iOS
 {
+    /// <summary>
+    /// https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/dependency-service/photo-picker
+    /// iOS Implementation, Accessed: 20 May 2019
+    /// </summary>
     class PicturePickerImplementation : IPicturePicker
     {
         TaskCompletionSource<Stream> taskCompletionSource;

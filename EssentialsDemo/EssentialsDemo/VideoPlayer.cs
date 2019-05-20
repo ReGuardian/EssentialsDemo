@@ -3,6 +3,10 @@ using Xamarin.Forms;
 
 namespace EssentialsDemo
 {
+    /// <summary>
+    /// https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/custom-renderer/video-player/player-creation
+    /// Showing the transport controls, Accessed: 20 May 2019
+    /// </summary>
     public class VideoPlayer : View
     {
         // AreTransportControlsEnabled property

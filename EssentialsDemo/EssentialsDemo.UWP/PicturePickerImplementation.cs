@@ -11,6 +11,10 @@ using Xamarin.Forms;
 
 namespace EssentialsDemo.UWP
 {
+    /// <summary>
+    /// https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/dependency-service/photo-picker
+    /// UWP implementation, Accessed: 20 May 2019
+    /// </summary>
     class PicturePickerImplementation : IPicturePicker
     {
         public async Task<Stream> GetImageStreamAsync()

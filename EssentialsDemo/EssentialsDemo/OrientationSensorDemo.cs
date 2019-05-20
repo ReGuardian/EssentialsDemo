@@ -149,6 +149,7 @@ namespace EssentialsDemo
                 var w = data.Orientation.W;
 
                 // https://www.cnblogs.com/21207-iHome/p/6894128.html
+                // Euler angle calculation, Accessed: 20 May 2019
                 var α = Math.Atan2(2 * (x * y + z * w), 1 - 2 * (y * y + z * z)) * 180 / Math.PI;
                 var β = Math.Asin(2 * (x * z - y * w)) * 180 / Math.PI;
                 var γ = Math.Atan2(2 * (x * w + y * z), 1 - 2 * (z * z + w * w)) * 180 / Math.PI;

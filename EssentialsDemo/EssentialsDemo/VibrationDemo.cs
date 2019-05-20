@@ -89,6 +89,10 @@ namespace EssentialsDemo
 
         void OnButtonClicked1(object sender, EventArgs e)
         {
+            /*
+             * https://docs.microsoft.com/en-us/xamarin/essentials/vibrate?context=xamarin%2Fandroid&tabs=android
+             * Xamarin.Essentials: Vibration, Accessed: 20 May 2019
+             */
             try
             {
                 // Use default vibration length

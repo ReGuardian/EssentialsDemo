@@ -86,6 +86,12 @@ namespace EssentialsDemo
             await ShareUri(text.Text);
         }
 
+        /// <summary>
+        /// https://docs.microsoft.com/en-us/xamarin/essentials/share?context=xamarin%2Fandroid&tabs=android
+        /// Xamarin.Essentials: Share, Accessed: 20 May 2019
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public async Task ShareText(string text)
         {
             await Share.RequestAsync(new ShareTextRequest
@@ -95,6 +101,12 @@ namespace EssentialsDemo
             });
         }
 
+        /// <summary>
+        /// https://docs.microsoft.com/en-us/xamarin/essentials/share?context=xamarin%2Fandroid&tabs=android
+        /// Xamarin.Essentials: Share, Accessed: 20 May 2019
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <returns></returns>
         public async Task ShareUri(string uri)
         {
             await Share.RequestAsync(new ShareTextRequest

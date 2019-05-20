@@ -70,6 +70,10 @@ namespace EssentialsDemo
 
         public String ShowDeviceInfo()
         {
+            /*
+             * https://docs.microsoft.com/en-us/xamarin/essentials/device-information?context=xamarin%2Fandroid&tabs=ios
+             * Xamarin.Essentials: Device Information, Accessed: 20 May 2019
+             */
             // Device Model (SMG-950U, iPhone10,6)
             var device = DeviceInfo.Model;
 

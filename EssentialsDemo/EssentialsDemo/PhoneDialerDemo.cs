@@ -79,6 +79,10 @@ namespace EssentialsDemo
 
         public void PlacePhoneCall(string number)
         {
+            /*
+             * https://docs.microsoft.com/en-us/xamarin/essentials/phone-dialer?context=xamarin/android
+             * Xamarin.Essentials: Phone Dialer, Accessed: 20 May 2019
+             */
             try
             {
                 PhoneDialer.Open(number);

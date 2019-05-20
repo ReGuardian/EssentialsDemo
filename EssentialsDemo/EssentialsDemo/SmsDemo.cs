@@ -83,6 +83,13 @@ namespace EssentialsDemo
             await SendSms(text1.Text, text2.Text);
         }
 
+        /// <summary>
+        /// https://docs.microsoft.com/en-us/xamarin/essentials/sms?context=xamarin/android
+        /// Xamarin.Essentials: SMS, Accessed: 20 May 2019
+        /// </summary>
+        /// <param name="messageText"></param>
+        /// <param name="recipient"></param>
+        /// <returns></returns>
         public async Task SendSms(string messageText, string recipient)
         {
             try

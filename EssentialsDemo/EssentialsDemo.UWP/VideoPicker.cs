@@ -10,6 +10,11 @@ namespace EssentialsDemo.UWP
 {
     public class VideoPicker : IVideoPicker
     {
+        /// <summary>
+        /// https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/custom-renderer/video-player/accessing-library
+        /// UWP video picker, Accessed: 20 May 2019
+        /// </summary>
+        /// <returns></returns>
         public async Task<string> GetVideoFileAsync()
         {
             // Create and initialize the FileOpenPicker

@@ -9,6 +9,10 @@ namespace EssentialsDemo.iOS
 {
     public class VideoPicker : IVideoPicker
     {
+        /// <summary>
+        /// https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/custom-renderer/video-player/accessing-library
+        /// iOS Video picker, Accessed: 20 May 2019
+        /// </summary>
         TaskCompletionSource<string> taskCompletionSource;
         UIImagePickerController imagePicker;
 

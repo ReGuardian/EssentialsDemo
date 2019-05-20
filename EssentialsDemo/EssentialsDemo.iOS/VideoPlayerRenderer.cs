@@ -18,6 +18,10 @@ namespace EssentialsDemo.iOS
 {
     public class VideoPlayerRenderer : ViewRenderer<VideoPlayer, UIView>
     {
+        /*
+         * https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/custom-renderer/video-player/player-creation
+         * iOS video player controller, Accessed: 20 May 2019
+         */
         AVPlayer player;
         AVPlayerItem playerItem;
         AVPlayerViewController _playerViewController;       // solely for ViewController property

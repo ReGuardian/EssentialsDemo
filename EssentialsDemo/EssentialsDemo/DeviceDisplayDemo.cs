@@ -97,6 +97,10 @@ namespace EssentialsDemo
 
         public String ShowDeviceDisplayInfo()
         {
+            /*
+             * https://docs.microsoft.com/en-us/xamarin/essentials/device-display?context=xamarin%2Fandroid&tabs=android
+             * Xamarin.Essentials: Device Display Information, Accessed: 20 May 2019
+             */
             // Get Metrics
             var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
 

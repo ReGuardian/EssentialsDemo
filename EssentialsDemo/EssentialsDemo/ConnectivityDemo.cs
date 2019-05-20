@@ -85,6 +85,10 @@ namespace EssentialsDemo
 
         void Connectivity_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
+            /*
+             * https://docs.microsoft.com/en-us/xamarin/essentials/connectivity?context=xamarin%2Fandroid&tabs=android
+             * Xamarin.Essentials: Connectivity, Accessed: 20 May 2019
+             */
             var access = e.NetworkAccess;
             var profiles = e.ConnectionProfiles;
             if (access == NetworkAccess.Internet)

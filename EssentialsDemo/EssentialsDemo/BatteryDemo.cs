@@ -94,6 +94,11 @@ namespace EssentialsDemo
 
         public String ShowBatteryInfo()
         {
+            /*
+             * https://docs.microsoft.com/en-us/xamarin/essentials/battery?context=xamarin%2Fandroid&tabs=android
+             * Xamarin.Essentials: Battery, Accessed: 20 May 2019
+             */
+
             var level = Battery.ChargeLevel; // returns 0.0 to 1.0 or 1.0 when on AC or no battery.
 
             var state = Battery.State;

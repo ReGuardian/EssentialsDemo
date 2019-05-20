@@ -81,6 +81,10 @@ namespace EssentialsDemo
 
         async void OnButtonClicked1(object sender, EventArgs e)
         {
+            /*
+             * https://docs.microsoft.com/en-us/xamarin/essentials/geolocation?context=xamarin%2Fandroid&tabs=android
+             * Xamarin.Essentials: Geolocation, Accessed: 20 May 2019
+             */
             try
             {
                 var location = await Geolocation.GetLastKnownLocationAsync();
@@ -121,6 +125,10 @@ namespace EssentialsDemo
 
         async void OnButtonClicked2(object sender, EventArgs e)
         {
+            /*
+             * https://docs.microsoft.com/en-us/xamarin/essentials/geolocation?context=xamarin%2Fandroid&tabs=android
+             * Xamarin.Essentials: Geolocation, Accessed: 20 May 2019
+             */
             try
             {
                 var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));

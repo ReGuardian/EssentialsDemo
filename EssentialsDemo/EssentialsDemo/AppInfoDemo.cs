@@ -87,6 +87,10 @@ namespace EssentialsDemo
 
         public String ShowAppInfo()
         {
+            /*
+             * https://docs.microsoft.com/en-us/xamarin/essentials/app-information?context=xamarin%2Fandroid&tabs=android
+             * Xamarin Essentials: App Information, Accessed: 20 May 2019
+             */
             // Application Name
             var appName = AppInfo.Name;
 

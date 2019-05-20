@@ -71,6 +71,10 @@ namespace EssentialsDemo
 
         public String ShowVersionTrackingInfo()
         {
+            /*
+             * https://docs.microsoft.com/en-us/xamarin/essentials/version-tracking?context=xamarin/android
+             * Xamarin.Essentials: Version Tracking, Accessed: 20 May 2019
+             */
             // First time ever launched application
             var firstLaunch = VersionTracking.IsFirstLaunchEver;
 
