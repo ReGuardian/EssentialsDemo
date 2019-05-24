@@ -28,6 +28,7 @@ namespace EssentialsDemo
         BrowserDemo f20;
         OrientationSensorDemo f21;
         PhoneDialerDemo f22;
+        PlatformExtensionsDemo f35;
         PreferencesDemo f23;
         SecureStorageDemo f24;
         ShareDemo f25;
@@ -56,7 +57,7 @@ namespace EssentialsDemo
                 "Clipboard", "Compass", "Connectivity","Detect Shake", "Device Display Information",
                 "Device Information", "Email", "File System Helpers", "Flashlight",
                 "Geocoding", "Geolocation", "Gyroscope", "Launcher", "Magnetometer",
-                "Main Thread", "Maps", "Open Browser", "Orientation Sensor", "Phone Dialer",
+                "Main Thread", "Maps", "Open Browser", "Orientation Sensor", "Phone Dialer","Platform Extensions",
                 "Preferences", "Secure Storage", "Share", "SMS", "Text-to-Speech",
                 "Version Tracking", "Vibrate", "Image Picker", "Unit converters", "Video Player"
             };
@@ -71,7 +72,7 @@ namespace EssentialsDemo
             //    });
             //}
 
-            foreach(string page in pages)
+            foreach (string page in pages)
             {
                 masterPageItems.Add(new TextCell { Text = page });
             }
@@ -250,6 +251,10 @@ namespace EssentialsDemo
                 case "Video Player":
                     if (f34 == null) { f34 = new VideoPlayerDemo(); }
                     this.Detail = f34;
+                    break;
+                case "Platform Extensions":
+                    if (f35 == null) { f35 = new PlatformExtensionsDemo(); }
+                    this.Detail = f35;
                     break;
             }
             this.IsPresented = false;

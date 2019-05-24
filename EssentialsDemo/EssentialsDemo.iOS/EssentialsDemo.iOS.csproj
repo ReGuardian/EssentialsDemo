@@ -48,7 +48,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>ARMv7, ARM64</MtouchArch>
+    <MtouchArch>ARMv7, ARMv7s, ARM64</MtouchArch>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
@@ -99,6 +99,7 @@
       <SubType>Designer</SubType>
     </None>
     <Compile Include="PicturePickerImplementation.cs" />
+    <Compile Include="PlatformExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -191,5 +192,8 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\test txt file.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\UWPApiVideo.mp4" />
   </ItemGroup>
 </Project>

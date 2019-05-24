@@ -74,6 +74,7 @@
     <Compile Include="MainApplication.cs" />
     <Compile Include="PicturePickerImplementation.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="PlatformExtensions.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -21,6 +21,8 @@ namespace EssentialsDemo
         {
             videoPlayer = new VideoPlayer { VerticalOptions = LayoutOptions.FillAndExpand };
             // videoPlayer.Source = VideoSource.FromUri("https://archive.org/download/BigBuckBunny_328/BigBuckBunny_512kb.mp4");
+            // videoPlayer.Source = VideoSource.FromResource("Video/UWPApiVideo.mp4");
+            // videoPlayer.Source = VideoSource.FromResource("UWPApiVideo.mp4");
 
             button_selectSource = new Button { Text = "Select Source" };
             button_selectSource.Clicked += Button_selectSource_ClickedAsync;
@@ -45,12 +47,12 @@ namespace EssentialsDemo
 
             if (!String.IsNullOrWhiteSpace(filename))
             {
-                videoPlayer.Source = new FileVideoSource
-                {
-                    File = filename
-                };
+                //videoPlayer.Source = new FileVideoSource
+                //{
+                //    File = filename
+                //};
+                videoPlayer.Source = VideoSource.FromFile(filename);
             }
-            //videoPlayer.Source = VideoSource.FromUri("https://archive.org/download/BigBuckBunny_328/BigBuckBunny_512kb.mp4");
         }
     }
 }

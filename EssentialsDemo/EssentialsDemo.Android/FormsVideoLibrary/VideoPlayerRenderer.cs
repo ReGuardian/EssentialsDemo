@@ -1,13 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
-
 using Android.Content;
+using Android.Media;
 using Android.Widget;
 using ARelativeLayout = Android.Widget.RelativeLayout;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using FormsVideoLibrary;
 
 [assembly: ExportRenderer(typeof(FormsVideoLibrary.VideoPlayer),
                           typeof(FormsVideoLibrary.Droid.VideoPlayerRenderer))]
@@ -16,6 +16,10 @@ namespace FormsVideoLibrary.Droid
 {
     public class VideoPlayerRenderer : ViewRenderer<VideoPlayer, ARelativeLayout>
     {
+        /*
+         * https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/custom-renderer/video-player/player-creation
+         * Android video player controller, Accessed: 20 May 2019
+         */
         VideoView videoView;
         MediaController mediaController;    // Used to display transport controls
         bool isPrepared;
@@ -48,45 +52,14 @@ namespace FormsVideoLibrary.Droid
                     // Handle a VideoView event
                     videoView.Prepared += OnVideoViewPrepared;
 
+                    // Use the RelativeLayout as the native control
                     SetNativeControl(relativeLayout);
                 }
 
                 SetAreTransportControlsEnabled();
+
                 SetSource();
-
-                args.NewElement.UpdateStatus += OnUpdateStatus;
-                args.NewElement.PlayRequested += OnPlayRequested;
-                args.NewElement.PauseRequested += OnPauseRequested;
-                args.NewElement.StopRequested += OnStopRequested;
             }
-
-            if (args.OldElement != null)
-            {
-                args.OldElement.UpdateStatus -= OnUpdateStatus;
-                args.OldElement.PlayRequested -= OnPlayRequested;
-                args.OldElement.PauseRequested -= OnPauseRequested;
-                args.OldElement.StopRequested -= OnStopRequested;
-            }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (Control != null && videoView != null)
-            {
-                videoView.Prepared -= OnVideoViewPrepared;
-            }
-            if (Element != null)
-            {
-                Element.UpdateStatus -= OnUpdateStatus;
-            }
-
-            base.Dispose(disposing);
-        }
-
-        void OnVideoViewPrepared(object sender, EventArgs args)
-        {
-            isPrepared = true;
-            ((IVideoPlayerController)Element).Duration = TimeSpan.FromMilliseconds(videoView.Duration);
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs args)
@@ -101,13 +74,20 @@ namespace FormsVideoLibrary.Droid
             {
                 SetSource();
             }
-            else if (args.PropertyName == VideoPlayer.PositionProperty.PropertyName)
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (Control != null && videoView != null)
             {
-                if (Math.Abs(videoView.CurrentPosition - Element.Position.TotalMilliseconds) > 1000)
-                {
-                    videoView.SeekTo((int)Element.Position.TotalMilliseconds);
-                }
+                videoView.Prepared -= OnVideoViewPrepared;
             }
+            base.Dispose(disposing);
+        }
+
+        void OnVideoViewPrepared(object sender, EventArgs args)
+        {
+            isPrepared = true;
         }
 
         void SetAreTransportControlsEnabled()
@@ -168,44 +148,11 @@ namespace FormsVideoLibrary.Droid
                     hasSetSource = true;
                 }
             }
-              
+
             if (hasSetSource && Element.AutoPlay)
             {
                 videoView.Start();
             }
-        }
-
-        // Event handler to update status
-        void OnUpdateStatus(object sender, EventArgs args)
-        {
-            VideoStatus status = VideoStatus.NotReady;
-
-            if (isPrepared)
-            {
-                status = videoView.IsPlaying ? VideoStatus.Playing : VideoStatus.Paused;
-            }
-
-            ((IVideoPlayerController)Element).Status = status;
-
-            // Set Position property
-            TimeSpan timeSpan = TimeSpan.FromMilliseconds(videoView.CurrentPosition);
-            ((IElementController)Element).SetValueFromRenderer(VideoPlayer.PositionProperty, timeSpan);
-        }
-
-        // Event handlers to implement methods
-        void OnPlayRequested(object sender, EventArgs args)
-        {
-            videoView.Start();
-        }
-
-        void OnPauseRequested(object sender, EventArgs args)
-        {
-            videoView.Pause();
-        }
-
-        void OnStopRequested(object sender, EventArgs args)
-        {
-            videoView.StopPlayback();
         }
     }
 }

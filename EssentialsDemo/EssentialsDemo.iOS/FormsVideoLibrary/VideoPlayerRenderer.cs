@@ -48,18 +48,6 @@ namespace FormsVideoLibrary.iOS
                 SetAreTransportControlsEnabled();
                 SetSource();
 
-                args.NewElement.UpdateStatus += OnUpdateStatus;
-                args.NewElement.PlayRequested += OnPlayRequested;
-                args.NewElement.PauseRequested += OnPauseRequested;
-                args.NewElement.StopRequested += OnStopRequested;
-            }
-
-            if (args.OldElement != null)
-            {
-                args.OldElement.UpdateStatus -= OnUpdateStatus;
-                args.OldElement.PlayRequested -= OnPlayRequested;
-                args.OldElement.PauseRequested -= OnPauseRequested;
-                args.OldElement.StopRequested -= OnStopRequested;
             }
         }
 
@@ -84,15 +72,6 @@ namespace FormsVideoLibrary.iOS
             else if (args.PropertyName == VideoPlayer.SourceProperty.PropertyName)
             {
                 SetSource();
-            }
-            else if (args.PropertyName == VideoPlayer.PositionProperty.PropertyName)
-            {
-                TimeSpan controlPosition = ConvertTime(player.CurrentTime);
-
-                if (Math.Abs((controlPosition - Element.Position).TotalSeconds) > 1)
-                {
-                    player.Seek(CMTime.FromSeconds(Element.Position.TotalSeconds, 1));
-                }
             }
         }
 
@@ -152,58 +131,6 @@ namespace FormsVideoLibrary.iOS
             {
                 player.Play();
             }
-        }
-
-        // Event handler to update status
-        void OnUpdateStatus(object sender, EventArgs args)
-        {
-            VideoStatus videoStatus = VideoStatus.NotReady;
-
-            switch (player.Status)
-            {
-                case AVPlayerStatus.ReadyToPlay:
-                    switch (player.TimeControlStatus)
-                    {
-                        case AVPlayerTimeControlStatus.Playing:
-                            videoStatus = VideoStatus.Playing;
-                            break;
-
-                        case AVPlayerTimeControlStatus.Paused:
-                            videoStatus = VideoStatus.Paused;
-                            break;
-                    }
-                    break;
-            }
-            ((IVideoPlayerController)Element).Status = videoStatus;
-
-            if (playerItem != null)
-            {
-                ((IVideoPlayerController)Element).Duration = ConvertTime(playerItem.Duration);
-                ((IElementController)Element).SetValueFromRenderer(VideoPlayer.PositionProperty, ConvertTime(playerItem.CurrentTime));
-            }
-        }
-
-        TimeSpan ConvertTime(CMTime cmTime)
-        {
-            return TimeSpan.FromSeconds(Double.IsNaN(cmTime.Seconds) ? 0 : cmTime.Seconds);
-
-        }
-
-        // Event handlers to implement methods
-        void OnPlayRequested(object sender, EventArgs args)
-        {
-            player.Play();
-        }
-
-        void OnPauseRequested(object sender, EventArgs args)
-        {
-            player.Pause();
-        }
-
-        void OnStopRequested(object sender, EventArgs args)
-        {
-            player.Pause();
-            player.Seek(new CMTime(0, 1));
         }
     }
 }

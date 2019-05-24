@@ -19,6 +19,11 @@ namespace EssentialsDemo.Droid
     {
         internal static MainActivity Instance { get; private set; }
 
+        /// <summary>
+        /// https://docs.microsoft.com/en-us/xamarin/essentials/get-started?context=xamarin%2Fandroid&tabs=windows%2Candroid
+        /// Getting started, Accessed: 20 May 2019
+        /// </summary>
+        /// <param name="savedInstanceState"></param>
         protected override async void OnCreate(Bundle savedInstanceState)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
@@ -32,10 +37,17 @@ namespace EssentialsDemo.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Instance = this;
             LoadApplication(new App());
-            
+
             Xamarin.Essentials.Platform.Init(this, savedInstanceState); // add this line to your code, it may also be called: bundle
         }
 
+        /// <summary>
+        /// https://docs.microsoft.com/en-us/xamarin/essentials/get-started?context=xamarin%2Fandroid&tabs=windows%2Candroid
+        /// Getting started, Accessed: 20 May 2019
+        /// </summary>
+        /// <param name="requestCode"></param>
+        /// <param name="permissions"></param>
+        /// <param name="grantResults"></param>
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             // Permisssions Request for Plugin.Media

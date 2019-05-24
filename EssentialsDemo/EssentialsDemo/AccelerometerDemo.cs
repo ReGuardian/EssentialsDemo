@@ -34,7 +34,7 @@ namespace EssentialsDemo
         List<float> list_X = new List<float>();
         List<float> list_Y = new List<float>();
         List<float> list_Z = new List<float>();
-        int N = 1;
+        int N = 10;
 
         public AccelerometerDemo()
         {

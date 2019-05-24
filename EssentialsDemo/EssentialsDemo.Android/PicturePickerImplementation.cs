@@ -8,6 +8,10 @@ using Xamarin.Forms;
 
 namespace EssentialsDemo.Droid
 {
+    /// <summary>
+    /// https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/dependency-service/photo-picker
+    /// Android implmentation, Accessed: 20 May 2019
+    /// </summary>
     public class PicturePickerImplementation : IPicturePicker
     {
         public Task<Stream> GetImageStreamAsync()
