@@ -42,9 +42,9 @@ namespace EssentialsDemo
             instructer1 = new Label { Text = "volume" };
             instructer2 = new Label { Text = "pitch" };
             result = new Label();
-            picker_locale = new Picker { Title = "Pick your locale here"};
+            picker_locale = new Picker { Title = "Pick your locale here" };
 
-            introduction = "This function gives access to tect to speech, using specified settings.";
+            introduction = "This function gives access to text to speech, using specified settings.";
             info = new Label { Text = introduction };
 
             if (Device.RuntimePlatform.Equals(Device.Android))
@@ -72,7 +72,7 @@ namespace EssentialsDemo
             else // other platforms
             {
                 // equal to: IEnumerable<Locale> locales = await TextToSpeech.GetLocalesAsync(); 
-                GetLocaleAsync();
+                GetLocalesAsync();
 
                 string s = "";
                 foreach (Locale value in locales)
@@ -117,7 +117,7 @@ namespace EssentialsDemo
         private void Button_getLocale_Clicked(object sender, EventArgs e)
         {
             // equal to: IEnumerable<Locale> locales = await TextToSpeech.GetLocalesAsync(); 
-            GetLocaleAsync();
+            GetLocalesAsync();
 
             string s = "";
             foreach (Locale value in locales)
@@ -148,7 +148,6 @@ namespace EssentialsDemo
 
         private void Button_speak_Clicked(object sender, EventArgs e)
         {
-            //SpeakNow();
             if (!string.IsNullOrWhiteSpace(entry.Text))
             {
                 SpeakNow((float)slider_volume.Value, (float)slider_pitch.Value, locale, entry.Text);
@@ -164,24 +163,22 @@ namespace EssentialsDemo
         /// </summary>
         /// <param name="volume"></param>
         /// <param name="pitch"></param>
+        /// <param name="locale"></param>
         /// <param name="text"></param>
         /// <returns></returns>
         public async Task SpeakNow(float volume, float pitch, Locale locale, string text)
         {
-
-
             var settings = new SpeechOptions()
             {
                 Volume = volume,
                 Pitch = pitch,
-                //   Locale = locale ********************************************* dont know how locale works.
                 Locale = locale
             };
 
             await TextToSpeech.SpeakAsync(text, settings);
         }
 
-        public async void GetLocaleAsync()
+        public async void GetLocalesAsync()
         {
             locales = await TextToSpeech.GetLocalesAsync();
         }

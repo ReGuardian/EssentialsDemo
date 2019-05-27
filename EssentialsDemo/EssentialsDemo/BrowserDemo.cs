@@ -71,7 +71,7 @@ namespace EssentialsDemo
             {
                 string uri = format(text.Text);
                 uriAddress = new Uri(uri, UriKind.RelativeOrAbsolute);
-                OpenBrowser(uriAddress);
+                OpenBrowser(uri);
             }
             catch (InvalidOperationException)
             {
@@ -88,6 +88,11 @@ namespace EssentialsDemo
         }
 
         public async void OpenBrowser(Uri uri)
+        {
+            await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+        }
+
+        public async void OpenBrowser(string uri)
         {
             await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
         }

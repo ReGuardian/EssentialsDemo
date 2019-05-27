@@ -9,11 +9,14 @@ namespace EssentialsDemo
     {
         // Set speed delay for monitoring changes.
         SensorSpeed speed = SensorSpeed.Game;
+        double zero = 0.0;
+        double delta = 0.0;
         Button button;
         Image image;
         Label label;
         Label label2;
         ScrollView scrollView;
+        Button button_zero;
         private Label info;
         private string introduction;
 
@@ -48,7 +51,18 @@ namespace EssentialsDemo
                 CornerRadius = 10
             };
 
+            button_zero = new Button
+            {
+                Text = "Zero",
+                Font = Font.SystemFontOfSize(NamedSize.Large),
+                BorderWidth = 1,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                CornerRadius = 10
+            };
+
             button.Clicked += OnButtonClicked;
+            button_zero.Clicked += OnButton_zeroClicked;
             // Register for reading changes, be sure to unsubscribe when finished
             OrientationSensor.ReadingChanged += OrientationSensor_ReadingChanged;
 
@@ -86,13 +100,26 @@ namespace EssentialsDemo
                 "This demo has made certian configuration to the picture so that this picture would look as if it were staying still. (On Android, it would serve as a 3-D compass)";
             info = new Label { Text = introduction };
 
-            scrollView = new ScrollView
+            if (Device.RuntimePlatform.Equals(Device.iOS))
             {
-                Content = new StackLayout
+                scrollView = new ScrollView
                 {
-                    Children = { header, button, label2, image, label, info }
-                }
-            };
+                    Content = new StackLayout
+                    {
+                        Children = { header, button, label2, image, label, info }
+                    }
+                };
+            }
+            else
+            {
+                scrollView = new ScrollView
+                {
+                    Content = new StackLayout
+                    {
+                        Children = { header, button, button_zero, label2, image, label, info }
+                    }
+                };
+            }
 
             // Build the page.
             this.Content = scrollView;
@@ -102,6 +129,12 @@ namespace EssentialsDemo
         {
             ToggleOrientationSensor();
             button.Text = String.Format("{0}", OrientationSensor.IsMonitoring == true ? "Stop" : "Start");
+        }
+
+        void OnButton_zeroClicked(object sender, EventArgs e)
+        {
+            delta = zero;
+            image.Rotation -= delta;
         }
 
         void OrientationSensor_ReadingChanged(object sender, OrientationSensorChangedEventArgs e)
@@ -128,7 +161,9 @@ namespace EssentialsDemo
                 var β = Math.Asin(2 * (x * z - y * w)) * 180 / Math.PI;
                 var γ = Math.Atan2(2 * (x * w + y * z), 1 - 2 * (z * z + w * w)) * 180 / Math.PI;
 
-                image.Rotation = α;
+                zero = α;
+
+                image.Rotation = α - delta;
                 image.RotationY = β;
                 image.RotationX = -γ - 180;
             });
