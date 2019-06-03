@@ -9,14 +9,16 @@ using FormsVideoLibrary;
 
 [assembly: Dependency(typeof(FormsVideoLibrary.Droid.VideoPicker))]
 
+/*************************************************
+* Code mainly from: 
+* https://github.com/xamarin/xamarin-forms-samples/tree/master/CustomRenderers/VideoPlayerDemos
+* last access: 03.06.2019
+*************************************************/
+
 namespace FormsVideoLibrary.Droid
 {
     public class VideoPicker : IVideoPicker
     {
-        /// <summary>
-        /// https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/custom-renderer/video-player/accessing-library
-        ///  Android Video picker, Accessed: 20 May 2019
-        /// </summary>
         /// <returns></returns>
         public Task<string> GetVideoFileAsync()
         {

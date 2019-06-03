@@ -6,7 +6,11 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using FormsVideoLibrary;
 
-//https://github.com/xamarin/xamarin-forms-samples/tree/master/CustomRenderers/VideoPlayerDemos
+/*************************************************
+* Code mainly from: 
+* https://github.com/xamarin/xamarin-forms-samples/tree/master/CustomRenderers/VideoPlayerDemos
+* last access: 03.06.2019
+*************************************************/
 
 namespace EssentialsDemo
 {
@@ -47,10 +51,6 @@ namespace EssentialsDemo
 
             if (!String.IsNullOrWhiteSpace(filename))
             {
-                //videoPlayer.Source = new FileVideoSource
-                //{
-                //    File = filename
-                //};
                 videoPlayer.Source = VideoSource.FromFile(filename);
             }
         }

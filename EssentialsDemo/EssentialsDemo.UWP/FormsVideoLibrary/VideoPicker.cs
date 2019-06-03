@@ -6,6 +6,12 @@ using Xamarin.Forms;
 
 [assembly: Dependency(typeof(FormsVideoLibrary.UWP.VideoPicker))]
 
+/*************************************************
+* Code mainly from: 
+* https://github.com/xamarin/xamarin-forms-samples/tree/master/CustomRenderers/VideoPlayerDemos
+* last access: 03.06.2019
+*************************************************/
+
 namespace FormsVideoLibrary.UWP
 {
     public class VideoPicker : IVideoPicker

@@ -51,7 +51,7 @@ namespace EssentialsDemo
             {
                 button_getLocale = new Button { Text = "Get locales." };
                 button_getLocale.Clicked += Button_getLocale_Clicked;
-
+                GetLocalesAsync();
 
                 StackLayout stloPic = new StackLayout
                 {
@@ -117,7 +117,7 @@ namespace EssentialsDemo
         private void Button_getLocale_Clicked(object sender, EventArgs e)
         {
             // equal to: IEnumerable<Locale> locales = await TextToSpeech.GetLocalesAsync(); 
-            GetLocalesAsync();
+            
 
             string s = "";
             foreach (Locale value in locales)

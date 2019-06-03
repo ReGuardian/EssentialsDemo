@@ -13,6 +13,12 @@ using Xamarin.Forms.Platform.UWP;
 [assembly: ExportRenderer(typeof(FormsVideoLibrary.VideoPlayer),
                           typeof(FormsVideoLibrary.UWP.VideoPlayerRenderer))]
 
+/*************************************************
+* Code mainly from: 
+* https://github.com/xamarin/xamarin-forms-samples/tree/master/CustomRenderers/VideoPlayerDemos
+* last access: 03.06.2019
+*************************************************/
+
 namespace FormsVideoLibrary.UWP
 {
     public class VideoPlayerRenderer : ViewRenderer<VideoPlayer, MediaElement>

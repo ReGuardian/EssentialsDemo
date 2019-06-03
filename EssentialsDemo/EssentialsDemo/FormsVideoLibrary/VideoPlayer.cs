@@ -1,13 +1,14 @@
 ﻿using System;
 using Xamarin.Forms;
 
+/*************************************************
+* Code mainly from: 
+* https://github.com/xamarin/xamarin-forms-samples/tree/master/CustomRenderers/VideoPlayerDemos
+* last access: 03.06.2019
+*************************************************/
+
 namespace FormsVideoLibrary
 {
-    /// <summary>
-    /// Code mainly from: 
-    /// https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/custom-renderer/video-player/  
-    /// last access: 23.05.2019
-    /// </summary>
     public class VideoPlayer : View
     {
         public VideoPlayer()

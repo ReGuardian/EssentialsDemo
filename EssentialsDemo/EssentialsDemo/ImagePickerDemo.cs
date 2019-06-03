@@ -65,6 +65,10 @@ namespace EssentialsDemo
 
         async void OnButtonClicked(object sender, EventArgs e)
         {
+            /*
+             * https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/dependency-service/photo-picker
+             * Implementing in Shared Code, Accessed: 20 May 2019
+             */
             button.IsEnabled = false;
             Stream stream = await DependencyService.Get<IPicturePicker>().GetImageStreamAsync();
 

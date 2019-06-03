@@ -12,14 +12,16 @@ using FormsVideoLibrary;
 [assembly: ExportRenderer(typeof(FormsVideoLibrary.VideoPlayer),
                           typeof(FormsVideoLibrary.Droid.VideoPlayerRenderer))]
 
+/*************************************************
+* Code mainly from: 
+* https://github.com/xamarin/xamarin-forms-samples/tree/master/CustomRenderers/VideoPlayerDemos
+* last access: 03.06.2019
+*************************************************/
+
 namespace FormsVideoLibrary.Droid
 {
     public class VideoPlayerRenderer : ViewRenderer<VideoPlayer, ARelativeLayout>
     {
-        /*
-         * https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/custom-renderer/video-player/player-creation
-         * Android video player controller, Accessed: 20 May 2019
-         */
         VideoView videoView;
         MediaController mediaController;    // Used to display transport controls
         bool isPrepared;

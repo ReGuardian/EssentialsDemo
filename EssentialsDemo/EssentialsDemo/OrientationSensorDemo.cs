@@ -156,7 +156,7 @@ namespace EssentialsDemo
                 var z = data.Orientation.Z;
                 var w = data.Orientation.W;
 
-                // https://www.cnblogs.com/21207-iHome/p/6894128.html
+                // Formula from https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
                 var α = Math.Atan2(2 * (x * y + z * w), 1 - 2 * (y * y + z * z)) * 180 / Math.PI;
                 var β = Math.Asin(2 * (x * z - y * w)) * 180 / Math.PI;
                 var γ = Math.Atan2(2 * (x * w + y * z), 1 - 2 * (z * z + w * w)) * 180 / Math.PI;

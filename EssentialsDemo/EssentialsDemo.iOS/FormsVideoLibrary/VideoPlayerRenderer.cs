@@ -14,6 +14,12 @@ using Xamarin.Forms.Platform.iOS;
 [assembly: ExportRenderer(typeof(FormsVideoLibrary.VideoPlayer), 
                           typeof(FormsVideoLibrary.iOS.VideoPlayerRenderer))]
 
+/*************************************************
+* Code mainly from: 
+* https://github.com/xamarin/xamarin-forms-samples/tree/master/CustomRenderers/VideoPlayerDemos
+* last access: 03.06.2019
+*************************************************/
+
 namespace FormsVideoLibrary.iOS
 {
     public class VideoPlayerRenderer : ViewRenderer<VideoPlayer, UIView>

@@ -5,6 +5,12 @@ using Xamarin.Forms;
 
 [assembly: Dependency(typeof(FormsVideoLibrary.iOS.VideoPicker))]
 
+/*************************************************
+* Code mainly from: 
+* https://github.com/xamarin/xamarin-forms-samples/tree/master/CustomRenderers/VideoPlayerDemos
+* last access: 03.06.2019
+*************************************************/
+
 namespace FormsVideoLibrary.iOS
 {
     public class VideoPicker : IVideoPicker

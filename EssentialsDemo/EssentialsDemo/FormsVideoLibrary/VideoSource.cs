@@ -1,6 +1,12 @@
 ﻿using System;
 using Xamarin.Forms;
 
+/*************************************************
+* Code mainly from: 
+* https://github.com/xamarin/xamarin-forms-samples/tree/master/CustomRenderers/VideoPlayerDemos
+* last access: 03.06.2019
+*************************************************/
+
 namespace FormsVideoLibrary
 {
     [TypeConverter(typeof(VideoSourceConverter))]
